@@ -1,0 +1,3 @@
+module PivotalTracker
+  VERSION = "0.0.1"
+end
