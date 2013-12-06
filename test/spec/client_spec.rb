@@ -8,14 +8,14 @@ end
 
 describe PivotalTracker::Client do
   it 'can get projects' do
-    client = PivotalTracker::Client.new(token: '12345')
+    client = PivotalTracker::Client.new
 
     projects = client.projects.all
     projects.wont_be_empty
   end
 
   it 'can get epics for a project' do
-    client = PivotalTracker::Client.new(token: '12345')
+    client = PivotalTracker::Client.new
 
     projects = client.projects.all
     projects.wont_be_empty

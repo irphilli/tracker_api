@@ -8,9 +8,9 @@ class PivotalTracker::Client
     end
   end
 
-  #class Mock
-  #  def get_projects(params={})
-  #    page(params, :projects, "/projects.json", "projects")
-  #  end
-  #end
+  class Mock
+    def get_projects(params={})
+      collection(params, :projects, "/projects", "projects")
+    end
+  end
 end

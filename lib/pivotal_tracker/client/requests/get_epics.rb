@@ -10,9 +10,11 @@ class PivotalTracker::Client
     end
   end
 
-  #class Mock
-  #  def get_epics(params={})
-  #    page(params, :epics, "/epics.json", "epics")
-  #  end
-  #end
+  class Mock
+    def get_epics(params={})
+      project_id = params.fetch("project_id")
+
+      collection(params, :epics, "/projects/#{project_id}/epics", "epics")
+    end
+  end
 end

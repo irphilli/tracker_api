@@ -108,6 +108,19 @@ module PivotalTracker
         File.join(@url, "/services/v5", path.to_s)
       end
 
+      def collection(params, collection, path, collection_root, options={})
+        filter      = options[:filter]
+        resources   = self.data[collection].values
+        resources   = filter.call(resources) if filter
+
+        body = resources
+
+        response(
+            :body => body,
+            :path => path
+        )
+      end
+
       #def page(params, collection, path, collection_root, options={})
       #  page_params = PivotalTracker.paging_parameters(params)
       #  page_size   = (page_params["per_page"] || 50).to_i
