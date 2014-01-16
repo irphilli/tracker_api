@@ -7,10 +7,4 @@ class PivotalTracker::Client
       )
     end
   end
-
-  class Mock
-    def get_projects(params={})
-      collection(params, :projects, "/projects", "projects")
-    end
-  end
 end

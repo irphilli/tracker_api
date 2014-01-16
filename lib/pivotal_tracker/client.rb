@@ -7,14 +7,17 @@ module PivotalTracker
 
     collection :projects
     collection :epics
+    collection :iterations
     #collection :stories
 
     model :project
     model :epic
+    model :iteration
     #model :story
 
     request :get_projects
     request :get_epics
+    request :get_iterations
     #request :get_stories
 
     request :get_project
@@ -72,115 +75,9 @@ module PivotalTracker
       end
     end
 
+    # Included to satisfy Cistern::Service requirements,
+    # but using VCR instead of mocking for tests.
     class Mock
-      attr_reader :url, :token
-
-      def self.data
-        @data ||= {
-            :projects => {},
-            :epics    => {},
-            :stories  => {},
-        }
-      end
-
-      def self.new_id
-        @current_id ||= 0
-        @current_id += 1
-      end
-
-      def data
-        self.class.data
-      end
-
-      def self.reset!
-        @data = nil
-      end
-
-      def initialize(options={})
-        url = options[:url] || 'http://mock.pivotaltracker.com'
-
-        @url                 = url
-        @path                = URI.parse(url).path
-        @token               = options[:token]
-      end
-
-      def url_for(path)
-        File.join(@url, "/services/v5", path.to_s)
-      end
-
-      def collection(params, collection, path, collection_root, options={})
-        filter      = options[:filter]
-        resources   = self.data[collection].values
-        resources   = filter.call(resources) if filter
-
-        body = resources
-
-        response(
-            :body => body,
-            :path => path
-        )
-      end
-
-      #def page(params, collection, path, collection_root, options={})
-      #  page_params = PivotalTracker.paging_parameters(params)
-      #  page_size   = (page_params["per_page"] || 50).to_i
-      #  page_index  = (page_params["page"] || 1).to_i
-      #  offset      = (page_index - 1) * page_size
-      #  filter      = options[:filter]
-      #  resources   = self.data[collection].values
-      #  resources   = filter.call(resources) if filter
-      #  count       = resources.size
-      #  total_pages = (count / page_size) + 1
-      #
-      #  next_page     = if page_index < total_pages
-      #                    url_for("#{path}?page=#{page_index + 1}&per_page=#{page_size}")
-      #                  end
-      #  previous_page = if page_index > 1
-      #                    url_for("#{path}?page=#{page_index - 1}&per_page=#{page_size}")
-      #                  end
-      #
-      #  resource_page = resources.slice(offset, page_size)
-      #
-      #  body = {
-      #      collection_root => resource_page,
-      #      "count"         => count,
-      #      "next_page"     => next_page,
-      #      "previous_page" => previous_page,
-      #  }
-      #
-      #  response(
-      #      :body => body,
-      #      :path => path
-      #  )
-      #end
-
-      def pluralize(word)
-        pluralized = word.dup
-        [[/y$/, 'ies'], [/$/, 's']].find { |regex, replace| pluralized.gsub!(regex, replace) if pluralized.match(regex) }
-        pluralized
-      end
-
-      def response(options={})
-        method = options[:method] || :get
-        status = options[:status] || 200
-        path   = options[:path]
-        body   = options[:body]
-
-        url = options[:url] || url_for(path)
-
-        env = {
-            :method           => method,
-            :status           => status,
-            :url              => url,
-            :body             => body,
-            :response_headers => {
-                "Content-Type" => "application/json; charset=utf-8"
-            },
-        }
-        Faraday::Response::RaiseError.new.on_complete(env) || Faraday::Response.new(env)
-      rescue Faraday::Error::ClientError => e
-        raise PivotalTracker::Error.new(e)
-      end
     end
   end
 end

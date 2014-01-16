@@ -32,14 +32,33 @@ class PivotalTracker::Client::Project < PivotalTracker::Model
   attribute :week_start_day, type: :string
   attribute :time_zone, type: :hash
 
-  #assoc_accessor :time_zone
-
   # @return [PivotalTracker::Client::Epics] epics associated with this project
   def epics
     requires :identity
-    data = connection.get_epics("project_id" => self.identity).body
+    data = connection.get_epics(self.identity).body
 
     connection.epics.load(data)
+  end
+
+  # @param [Hash] options
+  # @option options [String] :scope ('') Restricts the state of iterations to return.
+  #   If not specified, it defaults to all iterations including done.
+  #   Valid enumeration values: done, current, backlog, current_backlog.
+  # @option options [Integer] :offset The offset of first iteration to return, relative to the
+  #   set of iterations specified by 'scope', with zero being the first iteration in the scope.
+  # @option options [Integer] :limit The number of iterations to return relative to the offset.
+  # @return [Iterations] iterations associated with this project
+  def iterations(options = {})
+    requires :identity
+
+    data = connection.get_iterations(self.identity, options).body
+
+    connection.iterations.load(data)
+  end
+
+  # @return [Iteration] current iteration associated with this project
+  def current_iteration
+    iterations(scope: 'current').first
   end
 
   private

@@ -7,22 +7,25 @@ describe PivotalTracker do
 end
 
 describe PivotalTracker::Client do
-  it 'can get projects' do
-    client = PivotalTracker::Client.new
+  it 'can be configured' do
+    client = PivotalTracker::Client.new(url:         'http://test.com',
+                                        api_version: '/foo-bar/1',
+                                        token:       '12345')
 
-    projects = client.projects.all
-    projects.wont_be_empty
+    client.url.must_equal 'http://test.com'
+    client.api_version.must_equal '/foo-bar/1'
+    client.token.must_equal '12345'
   end
 
-  it 'can get epics for a project' do
-    client = PivotalTracker::Client.new
-
-    projects = client.projects.all
-    projects.wont_be_empty
-
-    epics = projects.first.epics
-    epics.wont_be_empty
-  end
+  #it 'can get epics for a project' do
+  #  client = PivotalTracker::Client.new
+  #
+  #  projects = client.projects.all
+  #  projects.wont_be_empty
+  #
+  #  epics = projects.first.epics
+  #  epics.wont_be_empty
+  #end
 
 
 end
