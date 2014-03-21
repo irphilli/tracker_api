@@ -1,12 +1,14 @@
-# Trackher
+# TrackerApi
 
-[![Gem Version](https://badge.fury.io/rb/trackher.png)](http://badge.fury.io/rb/trackher)
-[![Build Status](https://travis-ci.org/dashofcode/trackher.png?branch=master)](https://travis-ci.org/dashofcode/trackher)
-[![Code Climate](https://codeclimate.com/github/dashofcode/trackher.png)](https://codeclimate.com/github/dashofcode/trackher)
-[![Coverage Status](https://coveralls.io/repos/dashofcode/trackher/badge.png?branch=master)](https://coveralls.io/r/dashofcode/trackher?branch=master)
-[![Dependency Status](https://gemnasium.com/dashofcode/trackher.png)](https://gemnasium.com/dashofcode/trackher)
+[![Gem Version](https://badge.fury.io/rb/tracker-api.png)](http://badge.fury.io/rb/tracker-api)
+[![Build Status](https://travis-ci.org/dashofcode/tracker-api.png?branch=master)](https://travis-ci.org/dashofcode/tracker-api)
+[![Code Climate](https://codeclimate.com/github/dashofcode/tracker-api.png)](https://codeclimate.com/github/dashofcode/tracker-api)
+[![Coverage Status](https://coveralls.io/repos/dashofcode/tracker-api/badge.png?branch=master)](https://coveralls.io/r/dashofcode/tracker-api?branch=master)
+[![Dependency Status](https://gemnasium.com/dashofcode/tracker-api.png)](https://gemnasium.com/dashofcode/tracker-api)
 
 This gem allows you to easily use the [Pivotal Tracker v5 API](https://www.pivotaltracker.com/help/api/rest/v5).
+
+It’s powered by [Faraday](https://github.com/lostisland/faraday) and [Virtus](https://github.com/solnic/virtus).
 
 
 ## Basic Usage
@@ -46,7 +48,7 @@ Trackher::Project.where(fields: ':default,epics').find(project_id)        # Eage
 
 ## Contributing
 
-This client supports read-only access to Pivotal Tracker right now.
+Currently this client only supports read-only access to Pivotal Tracker.
 I will be extending it as my use cases require, but am happy to accept contributions.
 
 1. Fork it
