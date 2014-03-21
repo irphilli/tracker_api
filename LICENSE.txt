@@ -1,4 +1,4 @@
-Copyright (c) 2013 Forest Carlisle
+Copyright (c) 2014 Dash of Code
 
 MIT License
 
