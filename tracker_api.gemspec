@@ -24,9 +24,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'awesome_print'
   spec.add_development_dependency 'vcr'
   spec.add_development_dependency 'multi_json'
-  spec.add_development_dependency 'byebug'
-  spec.add_development_dependency 'pry-byebug'
-  spec.add_development_dependency 'minitest-byebug'
+  # spec.add_development_dependency 'byebug'
+  # spec.add_development_dependency 'pry-byebug'
+  # spec.add_development_dependency 'minitest-byebug'
 
   spec.add_dependency 'addressable'
   spec.add_dependency 'virtus'
