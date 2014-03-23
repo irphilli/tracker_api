@@ -1,16 +1,13 @@
 require 'tracker_api/version'
 
 # dependencies
-# require 'addressable/uri'
 require 'virtus'
 require 'faraday'
 require 'faraday_middleware'
 
 # stdlib
-# require 'forwardable'
+require 'forwardable'
 require 'logger'
-# require 'time'
-# require 'yaml'
 
 module TrackerApi
   autoload :Error, 'tracker_api/error'
@@ -23,8 +20,11 @@ module TrackerApi
 
   module Endpoints
     autoload :Epic, 'tracker_api/endpoints/epic'
+    autoload :Epics, 'tracker_api/endpoints/epics'
+    autoload :Iterations, 'tracker_api/endpoints/iterations'
     autoload :Project, 'tracker_api/endpoints/project'
     autoload :Projects, 'tracker_api/endpoints/projects'
+    autoload :Stories, 'tracker_api/endpoints/stories'
   end
 
   module Resources
@@ -36,16 +36,4 @@ module TrackerApi
     autoload :Story, 'tracker_api/resources/story'
     autoload :TimeZone, 'tracker_api/resources/time_zone'
   end
-
-  # def self.stringify_keys(hash)
-  #   hash.inject({}) { |r, (k, v)| r.merge(k.to_s => v) }
-  # end
-
-  # def self.symbolize_keys(hash)
-  #   hash.inject({}) { |r, (k, v)| r.merge(k.to_sym => v) }
-  # end
-
-  #def self.blank?(string)
-  #  string.nil? || string == ''
-  #end
 end

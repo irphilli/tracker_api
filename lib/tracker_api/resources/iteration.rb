@@ -3,6 +3,8 @@ module TrackerApi
     class Iteration
       include Virtus.model
 
+      attribute :client
+
       attribute :created_at, DateTime
       attribute :finish, DateTime
       attribute :id, Integer

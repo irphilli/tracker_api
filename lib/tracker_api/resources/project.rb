@@ -39,34 +39,47 @@ module TrackerApi
       attribute :version, Integer
       attribute :week_start_day, String
 
-      # @return [TrackerApi::Client::Epics] epics associated with this project
-      #def epics
-      #  requires :identity
-      #  data = connection.get_epics(self.identity).body
-      #
-      #  connection.epics.load(data)
-      #end
+      # @return [Array[Epic]] epics associated with this project
+      def epics(params={})
+        raise ArgumentError, 'Expected @epics to be an Array' unless @epics.is_a? Array
+        return @epics unless @epics.empty?
 
-      # @param [Hash] options
-      # @option options [String] :scope ('') Restricts the state of iterations to return.
+        @epics = Endpoints::Epics.new(client).get(id, params)
+      end
+
+      # @param [Hash] params
+      # @option params [String] :scope ('') Restricts the state of iterations to return.
       #   If not specified, it defaults to all iterations including done.
       #   Valid enumeration values: done, current, backlog, current_backlog.
-      # @option options [Integer] :offset The offset of first iteration to return, relative to the
+      # @option params [Integer] :offset The offset of first iteration to return, relative to the
       #   set of iterations specified by 'scope', with zero being the first iteration in the scope.
-      # @option options [Integer] :limit The number of iterations to return relative to the offset.
-      # @return [Iterations] iterations associated with this project
-      #def iterations(options = {})
-      #  requires :identity
-      #
-      #  data = connection.get_iterations(self.identity, options).body
-      #
-      #  connection.iterations.load(data)
-      #end
+      # @option params [Integer] :limit The number of iterations to return relative to the offset.
+      # @return [Array[Iteration]] iterations associated with this project
+      def iterations(params = {})
+        Endpoints::Iterations.new(client).get(id, params)
+      end
 
-      # @return [Iteration] current iteration associated with this project
-      #def current_iteration
-      #  iterations(scope: 'current').first
-      #end
+      # @param [Hash] params
+      # @option params [String] :with_label A label name which all returned stories must match.
+      # @option params [String] :with_state A story's current_state which all returned stories must match.
+      #   Valid enumeration values: accepted, delivered, finished, started, rejected, unstarted, unscheduled
+      # @option params [String] :filter This parameter supplies a search string;
+      #   only stories that match the search criteria are returned.
+      #   Cannot be used together with any other parameters except limit and offset.
+      #   ex) state:started requester:OWK label:"jedi stuff" keyword
+      # @option params [Integer] :offset With the first story in your priority list as 0,
+      #   the index of the first story you want returned.
+      # @option params [Integer] :limit The number of stories you want returned.
+      # @return [Array[Story]] iterations associated with this project
+      def stories(params = {})
+        Endpoints::Stories.new(client).get(id, params)
+      end
+
+      # @param [Fixnum] story_id id of story
+      # @return [Story]
+      def story(story_id)
+        Endpoints::Story.new(client).get(id, story_id)
+      end
     end
   end
 end

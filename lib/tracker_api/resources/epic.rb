@@ -3,6 +3,8 @@ module TrackerApi
     class Epic
       include Virtus.model
 
+      attribute :client
+
       attribute :id, Integer
       attribute :created_at, DateTime
       attribute :description, String

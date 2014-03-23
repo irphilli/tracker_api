@@ -1,10 +1,10 @@
 # TrackerApi
 
-[![Gem Version](https://badge.fury.io/rb/tracker-api.png)](http://badge.fury.io/rb/tracker-api)
-[![Build Status](https://travis-ci.org/dashofcode/tracker-api.png?branch=master)](https://travis-ci.org/dashofcode/tracker-api)
-[![Code Climate](https://codeclimate.com/github/dashofcode/tracker-api.png)](https://codeclimate.com/github/dashofcode/tracker-api)
-[![Coverage Status](https://coveralls.io/repos/dashofcode/tracker-api/badge.png?branch=master)](https://coveralls.io/r/dashofcode/tracker-api?branch=master)
-[![Dependency Status](https://gemnasium.com/dashofcode/tracker-api.png)](https://gemnasium.com/dashofcode/tracker-api)
+[![Gem Version](https://badge.fury.io/rb/tracker_api.png)](http://badge.fury.io/rb/tracker_api)
+[![Build Status](https://travis-ci.org/dashofcode/tracker_api.png?branch=master)](https://travis-ci.org/dashofcode/tracker_api)
+[![Code Climate](https://codeclimate.com/github/dashofcode/tracker_api.png)](https://codeclimate.com/github/dashofcode/tracker_api)
+[![Coverage Status](https://coveralls.io/repos/dashofcode/tracker_api/badge.png?branch=master)](https://coveralls.io/r/dashofcode/tracker_api?branch=master)
+[![Dependency Status](https://gemnasium.com/dashofcode/tracker_api.png)](https://gemnasium.com/dashofcode/tracker_api)
 
 This gem allows you to easily use the [Pivotal Tracker v5 API](https://www.pivotaltracker.com/help/api/rest/v5).
 
@@ -14,42 +14,41 @@ It’s powered by [Faraday](https://github.com/lostisland/faraday) and [Virtus](
 ## Basic Usage
 
 ```ruby
-Trackher.configure(api_token: 'my-awesome-api-token')                     # Configure with API Token
+client = TrackerApi::Client.new(token: 'my-api-token')                    # Create API client
 
-projects = Trackher::Project.all                                          # Get all projects
-project  = Trackher::Project.find(123456)                                 # Find project with given ID
+projects = client.projects                                                # Get all projects
+project  = client.project(123456)                                         # Find project with given ID
 
-project.all                                                               # Get all stories for a project
-project.stories.where(with_state: :unscheduled).limit(10)                 # Get 10 unscheduled stories for a project
-project.stories.where(filter: 'requester:OWK label:"jedi stuff"')         # Get all stories that match the given filters
-project.stories.find(847762630)                                           # Find a story with the given ID
+project.stories                                                           # Get all stories for a project
+project.stories(with_state: :unscheduled, limit: 10)                      # Get 10 unscheduled stories for a project
+project.stories(filter: 'requester:OWK label:"jedi stuff"')               # Get all stories that match the given filters
+project.story(847762630)                                                  # Find a story with the given ID
 
 epics = project.epics                                                     # Get all epics for a project
 epic  = epics.first
 label = epic.label                                                        # Get an epic's label
 ```
 
-## Scopes & Eager Loading
+## Eager Loading
+
+See Pivotal Tracker API [documentation](https://www.pivotaltracker.com/help/api#Response_Controlling_Parameters) for how to use the `fields` parameter.
 
 ```ruby
-Trackher.with_token('my-special-api-token') do                            # Use a token for a specific block only
-  epics = Trackher::Epic.for_project(@project.id)                         # Get all epics for a project
-end
+client = TrackerApi::Client.new(token: 'my-api-token')                    # Create API client
 
-Trackher.configure(api_token: 'my-awesome-api-token')                     # Configure with API Token
-
-Trackher::Iteration.current.for_project(@project.id).first                # Get current iteration for a project
-Trackher::Iteration.done.for_project(@project.id)                         # Get all done iterations for a project
-Trackher::Iteration.done.offset(-2).for_project(@project.id)              # Get last 2 done iterations for a project
-
-Trackher::Project.where(fields: ':default,labels(name)').find(project_id) # Eagerly get labels with a project
-Trackher::Project.where(fields: ':default,epics').find(project_id)        # Eagerly get epics with a project
+client.project(project_id, fields: ':default,labels(name)')               # Eagerly get labels with a project
+client.project(project_id, fields: ':default,epics')                      # Eagerly get epics with a project
 ```
+
+## TODO
+
+- Pagination
+- Create, Update, Delete of Resources
 
 ## Contributing
 
-Currently this client only supports read-only access to Pivotal Tracker.
-I will be extending it as my use cases require, but am happy to accept contributions.
+Currently this client supports read-only access to Pivotal Tracker.
+We will be extending it as our use cases require, but are always happy to accept contributions.
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)

@@ -20,7 +20,7 @@ VCR.configure do |c|
   c.cassette_library_dir     = File.expand_path('../vcr/cassettes', __FILE__).to_s
   c.default_cassette_options = { serialize_with: :json }
   c.hook_into :faraday
-  c.allow_http_connections_when_no_cassette = true
+  c.allow_http_connections_when_no_cassette = false
 end
 
 # These API Tokens are for a user with just one Public Sample Project

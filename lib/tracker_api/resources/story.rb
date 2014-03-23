@@ -3,6 +3,8 @@ module TrackerApi
     class Story
       include Virtus.model
 
+      attribute :client
+
       attribute :accepted_at, DateTime
       attribute :comment_ids, Array[Integer]
       attribute :created_at, DateTime

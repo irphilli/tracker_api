@@ -1,6 +1,6 @@
 module TrackerApi
   module Endpoints
-    class Epic
+    class Story
       attr_accessor :client
 
       def initialize(client)
@@ -10,10 +10,10 @@ module TrackerApi
       def get(project_id, id)
         data = client.request(
             method: :get,
-            :path => "/projects/#{project_id}/epics/#{id}"
+            :path => "/projects/#{project_id}/stories/#{id}"
         ).body
 
-        Resources::Epic.new({ client: client }.merge(data))
+        Resources::Story.new({ client: client }.merge(data))
       end
     end
   end
