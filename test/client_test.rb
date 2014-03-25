@@ -58,4 +58,27 @@ describe TrackerApi::Client do
       end
     end
   end
+
+  describe '.paginate' do
+    let(:pt_user) { PT_USER_1 }
+    let(:client) { TrackerApi::Client.new token: pt_user[:token] }
+    let(:project_id) { pt_user[:project_id] }
+
+    it 'auto paginates when needed' do
+      VCR.use_cassette('client: get all stories with pagination', record: :new_episodes) do
+        project = client.project(project_id)
+
+        # skip pagination with a hugh limit
+        unpaged_stories = project.stories(limit: 300)
+        unpaged_stories.wont_be_empty
+        unpaged_stories.length.must_be :>, 7
+
+        # force pagination with a small limit
+        paged_stories = project.stories(limit: 7)
+        paged_stories.wont_be_empty
+        paged_stories.length.must_equal unpaged_stories.length
+        paged_stories.map(&:id).sort.uniq.must_equal unpaged_stories.map(&:id).sort.uniq
+      end
+    end
+  end
 end

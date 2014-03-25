@@ -11,6 +11,7 @@ module TrackerApi
       attribute :bugs_and_chores_are_estimatable, Boolean
       attribute :created_at, DateTime
       attribute :current_iteration_number, Integer
+      attribute :current_velocity, Integer
       attribute :description, String
       attribute :enable_following, Boolean
       attribute :enable_incoming_emails, Boolean
@@ -39,6 +40,11 @@ module TrackerApi
       attribute :version, Integer
       attribute :week_start_day, String
 
+      # @return [String] Comma separated list of labels.
+      def label_list
+        @label_list ||= labels.collect(&:name).join(',')
+      end
+
       # @return [Array[Epic]] epics associated with this project
       def epics(params={})
         raise ArgumentError, 'Expected @epics to be an Array' unless @epics.is_a? Array
@@ -48,7 +54,7 @@ module TrackerApi
       end
 
       # @param [Hash] params
-      # @option params [String] :scope ('') Restricts the state of iterations to return.
+      # @option params [String] :scope Restricts the state of iterations to return.
       #   If not specified, it defaults to all iterations including done.
       #   Valid enumeration values: done, current, backlog, current_backlog.
       # @option params [Integer] :offset The offset of first iteration to return, relative to the

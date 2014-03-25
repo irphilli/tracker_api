@@ -5,9 +5,7 @@ module TrackerApi
 
       attribute :client
 
-      attribute :created_at, DateTime
       attribute :finish, DateTime
-      attribute :id, Integer
       attribute :kind, String
       attribute :length, Integer
       attribute :number, Integer
@@ -17,7 +15,6 @@ module TrackerApi
       attribute :stories, [TrackerApi::Resources::Story]
       attribute :story_ids, [Integer]
       attribute :team_strength, Float
-      attribute :updated_at, DateTime
     end
   end
 end

@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'addressable'
   spec.add_dependency 'virtus'
-  spec.add_dependency 'faraday'
+  spec.add_dependency 'faraday', '~> 0.8.0'
   spec.add_dependency 'faraday_middleware'
   # spec.add_dependency 'excon'
 end

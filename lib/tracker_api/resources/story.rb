@@ -28,6 +28,11 @@ module TrackerApi
       attribute :task_ids, Array[Integer]
       attribute :updated_at, DateTime
       attribute :url, String
+
+      # @return [String] Comma separated list of labels.
+      def label_list
+        @label_list ||= labels.collect(&:name).join(',')
+      end
     end
   end
 end
