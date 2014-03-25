@@ -6,6 +6,7 @@ require 'faraday'
 require 'faraday_middleware'
 
 # stdlib
+require 'addressable/uri'
 require 'forwardable'
 require 'logger'
 

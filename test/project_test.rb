@@ -66,7 +66,7 @@ describe TrackerApi::Resources::Project do
   end
 
   describe '.stories' do
-    it 'can get unscheduled stories (icebox)' do
+    it 'can get unscheduled stories' do
       VCR.use_cassette('get unscheduled stories', record: :new_episodes) do
         stories = project.stories(with_state: :unscheduled)
 
