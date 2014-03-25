@@ -27,9 +27,8 @@ module TrackerApi
       @logger            = options.fetch(:logger, Logger.new(nil))
       adapter            = options.fetch(:adapter, :net_http)
       connection_options = options.fetch(:connection_options, { ssl: { verify: true } })
-      @token             = options[:token]
       @auto_paginate     = options.fetch(:auto_paginate, true)
-
+      @token             = options[:token]
       raise 'Missing required options: :token' unless @token
 
       @connection = Faraday.new({ url: @url }.merge(connection_options)) do |builder|

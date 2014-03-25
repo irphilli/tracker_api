@@ -42,8 +42,8 @@ client.project(project_id, fields: ':default,epics')                      # Eage
 
 ## TODO
 
-- Pagination
-- Create, Update, Delete of Resources
+- Add missing resources and endpoints
+- Add create, update, delete for resources
 
 ## Contributing
 
