@@ -40,7 +40,7 @@ module TrackerApi
       attribute :version, Integer
       attribute :week_start_day, String
 
-      # @return [String] Comma separated list of labels.
+      # @return [String] comma separated list of labels
       def label_list
         @label_list ||= labels.collect(&:name).join(',')
       end
@@ -76,13 +76,13 @@ module TrackerApi
       # @option params [Integer] :offset With the first story in your priority list as 0,
       #   the index of the first story you want returned.
       # @option params [Integer] :limit The number of stories you want returned.
-      # @return [Array[Story]] iterations associated with this project
+      # @return [Array[Story]] stories associated with this project
       def stories(params = {})
         Endpoints::Stories.new(client).get(id, params)
       end
 
-      # @param [Fixnum] story_id id of story
-      # @return [Story]
+      # @param [Fixnum] story_id id of story to get
+      # @return [Story] Story with given id
       def story(story_id)
         Endpoints::Story.new(client).get(id, story_id)
       end
