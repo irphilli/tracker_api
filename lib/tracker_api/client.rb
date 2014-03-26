@@ -156,6 +156,16 @@ module TrackerApi
         @limit    = headers['x-tracker-pagination-limit'].to_i
         @offset   = headers['x-tracker-pagination-offset'].to_i
         @returned = headers['x-tracker-pagination-returned'].to_i
+
+        # if offset is negative (e.g. Iterations Endpoint).
+        #   For the 'Done' scope, negative numbers can be passed, which
+        #   specifies the number of iterations preceding the 'Current' iteration.
+        # then need to adjust the negative offset to account for a smaller total,
+        #   and set total to zero since we are paginating from -X to 0.
+        if @offset < 0
+          @offset = -@total if @offset.abs > @total
+          @total  = 0
+        end
       end
 
       def more?

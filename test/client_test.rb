@@ -80,5 +80,16 @@ describe TrackerApi::Client do
         paged_stories.map(&:id).sort.uniq.must_equal unpaged_stories.map(&:id).sort.uniq
       end
     end
+
+    it 'can handle negative offsets' do
+      VCR.use_cassette('client: done iterations with pagination', record: :new_episodes) do
+        project = client.project(project_id)
+
+        done_iterations = project.iterations(scope: :done, offset: -12, limit: 5)
+
+        done_iterations.wont_be_empty
+        done_iterations.length.must_be :<=, 12
+      end
+    end
   end
 end
