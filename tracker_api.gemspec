@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email       = ['forestcarlisle@gmail.com']
   spec.summary     = %q{API client for the Pivotal Tracker v5 API}
   spec.description = %q{This gem allows you to easily use the Pivotal Tracker v5 API.}
-  spec.homepage    = ''
+  spec.homepage    = 'https://github.com/dashofcode/tracker_api'
   spec.license     = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
