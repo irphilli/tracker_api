@@ -1,9 +1,4 @@
-0.1.0
+Changelog has moved to Releases
 ---
-- Initial release.
 
-0.2.0
----
-- Feature: Added auto pagination.
-- Bug: Added `current_velocity` attribute to `Project`.
-- Bug: Removed attributes from `Iteration` that don't exist.
+Please see [Releases](https://github.com/dashofcode/tracker_api/releases) for changes.
