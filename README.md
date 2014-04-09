@@ -15,17 +15,17 @@ See it in action at [Dash of Agile](https://www.dashofagile.com).
 
 ## Installation
 
-1. Add this line to your application's Gemfile:
+Add this line to your application's Gemfile:
 ```ruby
 gem 'tracker_api', '~> 0.2.0'
 ```
 
-2. And then execute:
+And then execute:
 ```bash
 $ bundle install
 ```
 
-3. Or install it yourself as:
+Or install it yourself as:
 ```bash
 $ gem install tracker_api
 ```
