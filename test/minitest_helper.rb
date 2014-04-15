@@ -28,3 +28,5 @@ PT_USER_1 = { project_id: 1027488, token: '0de3ac29f13082f0c16ed76f3f3f6895' } #
 PT_USER_2 = { project_id: 1027492, token: '90a51cef4e7c358b36b4e4cdf0f2dd2a' } # trackher2 user
 PT_USER_3 = { project_id: 1027494, token: 'f8aad6b471d1b1eb303d368ef533f622' } # trackher3 user
 PT_USERS  = [PT_USER_1, PT_USER_2, PT_USER_3]
+
+LOGGER = ::Logger.new(STDOUT)

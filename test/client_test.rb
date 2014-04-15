@@ -10,11 +10,13 @@ describe TrackerApi::Client do
   it 'can be configured' do
     client = TrackerApi::Client.new(url:         'http://test.com',
                                     api_version: '/foo-bar/1',
-                                    token:       '12345')
+                                    token:       '12345',
+                                    logger:      LOGGER)
 
     client.url.must_equal 'http://test.com'
     client.api_version.must_equal '/foo-bar/1'
     client.token.must_equal '12345'
+    client.logger.must_equal LOGGER
   end
 
   describe '.projects' do
