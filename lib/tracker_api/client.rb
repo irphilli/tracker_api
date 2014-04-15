@@ -24,7 +24,7 @@ module TrackerApi
       url                = options.fetch(:url, 'https://www.pivotaltracker.com')
       @url               = Addressable::URI.parse(url).to_s
       @api_version       = options.fetch(:api_version, '/services/v5')
-      @logger            = options.fetch(:logger, Logger.new(nil))
+      @logger            = options.fetch(:logger, ::Logger.new(nil))
       adapter            = options.fetch(:adapter, :net_http)
       connection_options = options.fetch(:connection_options, { ssl: { verify: true } })
       @auto_paginate     = options.fetch(:auto_paginate, true)
