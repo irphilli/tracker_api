@@ -34,6 +34,7 @@ module TrackerApi
     autoload :Epic, 'tracker_api/resources/epic'
     autoload :Iteration, 'tracker_api/resources/iteration'
     autoload :Me, 'tracker_api/resources/me'
+    autoload :MembershipSummary, 'tracker_api/resources/membership_summary'
     autoload :Label, 'tracker_api/resources/label'
     autoload :Project, 'tracker_api/resources/project'
     autoload :Story, 'tracker_api/resources/story'

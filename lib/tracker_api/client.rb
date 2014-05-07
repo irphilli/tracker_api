@@ -106,6 +106,9 @@ module TrackerApi
       Endpoints::Project.new(self).get(id, params)
     end
 
+    # Get information about the authenticated user
+    #
+    # @return [TrackerApi::Resources::Me]
     def me
       Endpoints::Me.new(self).get
     end

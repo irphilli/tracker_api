@@ -35,6 +35,8 @@ $ gem install tracker_api
 ```ruby
 client = TrackerApi::Client.new(token: 'my-api-token')                    # Create API client
 
+user_email = client.me.email                                              # Get authenticated user's email
+
 projects = client.projects                                                # Get all projects
 project  = client.project(123456)                                         # Find project with given ID
 

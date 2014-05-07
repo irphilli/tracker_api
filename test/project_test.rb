@@ -42,7 +42,7 @@ describe TrackerApi::Resources::Project do
         done_iterations = project.iterations(scope: :done, offset: offset)
 
         done_iterations.wont_be_empty
-        done_iterations.length.must_be :<, project.number_of_done_iterations_to_show
+        done_iterations.length.must_be :<=, project.number_of_done_iterations_to_show
 
         iteration = done_iterations.first
         iteration.must_be_instance_of TrackerApi::Resources::Iteration

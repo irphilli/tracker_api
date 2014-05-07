@@ -61,6 +61,24 @@ describe TrackerApi::Client do
     end
   end
 
+  describe '.me' do
+    let(:pt_user) { PT_USER_1 }
+    let(:client) { TrackerApi::Client.new token: pt_user[:token] }
+    let(:username) { pt_user[:username] }
+    let(:project_id) { pt_user[:project_id] }
+
+    it 'gets info about the authenticated user' do
+      VCR.use_cassette('get me', record: :new_episodes) do
+        me = client.me
+
+        me.must_be_instance_of TrackerApi::Resources::Me
+        me.username.must_equal username
+
+        me.projects.map(&:project_id).must_include project_id
+      end
+    end
+  end
+
   describe '.paginate' do
     let(:pt_user) { PT_USER_1 }
     let(:client) { TrackerApi::Client.new token: pt_user[:token] }

@@ -24,9 +24,9 @@ VCR.configure do |c|
 end
 
 # These API Tokens are for a user with just one Public Sample Project
-PT_USER_1 = { project_id: 1027488, token: '0de3ac29f13082f0c16ed76f3f3f6895' } # trackher1 user
-PT_USER_2 = { project_id: 1027492, token: '90a51cef4e7c358b36b4e4cdf0f2dd2a' } # trackher2 user
-PT_USER_3 = { project_id: 1027494, token: 'f8aad6b471d1b1eb303d368ef533f622' } # trackher3 user
+PT_USER_1 = { username: 'trackerapi1', password: 'trackerapi1', token: 'd55c3bc1f74346b843ca84ba340b29bf', project_id: 1027488 }
+PT_USER_2 = { username: 'trackerapi2', password: 'trackerapi2', token: 'ab4c5895f57995bb7547986eacf91160', project_id: 1027492 }
+PT_USER_3 = { username: 'trackerapi3', password: 'trackerapi3', token: '77f9b9a466c436e6456939208c84c973', project_id: 1027494 }
 PT_USERS  = [PT_USER_1, PT_USER_2, PT_USER_3]
 
 LOGGER = ::Logger.new(STDOUT)
