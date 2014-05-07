@@ -106,6 +106,10 @@ module TrackerApi
       Endpoints::Project.new(self).get(id, params)
     end
 
+    def me
+      Endpoints::Me.new(self).get
+    end
+
     private
 
     def parse_query_and_convenience_headers(path, options)
