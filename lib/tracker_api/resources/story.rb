@@ -26,6 +26,7 @@ module TrackerApi
       attribute :requested_by_id, Integer
       attribute :story_type, String # (feature, bug, chore, release)
       attribute :task_ids, Array[Integer]
+      attribute :tasks, Array[TrackerApi::Resources::Task]
       attribute :updated_at, DateTime
       attribute :url, String
 

@@ -38,6 +38,7 @@ module TrackerApi
     autoload :Label, 'tracker_api/resources/label'
     autoload :Project, 'tracker_api/resources/project'
     autoload :Story, 'tracker_api/resources/story'
+    autoload :Task, 'tracker_api/resources/task'
     autoload :TimeZone, 'tracker_api/resources/time_zone'
   end
 end

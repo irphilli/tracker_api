@@ -59,6 +59,7 @@ client = TrackerApi::Client.new(token: 'my-api-token')                    # Crea
 
 client.project(project_id, fields: ':default,labels(name)')               # Eagerly get labels with a project
 client.project(project_id, fields: ':default,epics')                      # Eagerly get epics with a project
+client.project(project_id).stories(fields: ':default,tasks')              # Eagerly get stories with tasks
 ```
 
 ## TODO
