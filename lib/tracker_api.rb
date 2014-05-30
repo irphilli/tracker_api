@@ -28,6 +28,7 @@ module TrackerApi
     autoload :Project, 'tracker_api/endpoints/project'
     autoload :Projects, 'tracker_api/endpoints/projects'
     autoload :Stories, 'tracker_api/endpoints/stories'
+    autoload :Story, 'tracker_api/endpoints/story'
   end
 
   module Resources
