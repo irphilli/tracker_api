@@ -81,6 +81,10 @@ module TrackerApi
         Endpoints::Stories.new(client).get(id, params)
       end
 
+      def memberships(params = {})
+        Endpoints::Memberships.new(client).get(id, params)
+      end
+
       # @param [Fixnum] story_id id of story to get
       # @return [Story] Story with given id
       def story(story_id)
