@@ -34,6 +34,14 @@ module TrackerApi
       def label_list
         @label_list ||= labels.collect(&:name).join(',')
       end
+
+      def tasks(params = {})
+        if @tasks.any?
+          @tasks
+        else
+          @tasks = Endpoints::Tasks.new(client).get(project_id, id, params)
+        end
+      end
     end
   end
 end
