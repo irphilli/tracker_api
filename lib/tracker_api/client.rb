@@ -113,6 +113,14 @@ module TrackerApi
       Endpoints::Me.new(self).get
     end
 
+    # Get information about a client story without knowing what project the story belongs to
+    #
+    # @param [String] story_id
+    # @return [TrackerApi::Resources::Story]
+    def story(story_id)
+      Endpoints::Story.new(self).get_story(story_id)
+    end
+
     private
 
     def parse_query_and_convenience_headers(path, options)
