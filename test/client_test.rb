@@ -112,4 +112,17 @@ describe TrackerApi::Client do
       end
     end
   end
+
+  describe '.story' do
+    let(:pt_user) { PT_USER_1 }
+    let(:client) { TrackerApi::Client.new token: pt_user[:token] }
+
+    it 'retrieves a story solely by story id' do
+      VCR.use_cassette('client: get single story by story id', record: :new_episodes) do
+        story = client.story('66728004')
+
+        story.must_be_instance_of TrackerApi::Resources::Story
+      end
+    end
+  end
 end
