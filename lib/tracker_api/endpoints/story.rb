@@ -12,6 +12,12 @@ module TrackerApi
 
         Resources::Story.new({ client: client }.merge(data))
       end
+
+      def get_story(story_id)
+        data = client.get("/stories/#{story_id}").body
+
+        Resources::Story.new({ client: client }.merge(data))
+      end
     end
   end
 end
