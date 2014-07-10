@@ -8,7 +8,7 @@ module TrackerApi
       attribute :accepted_at, DateTime
       attribute :comment_ids, Array[Integer]
       attribute :created_at, DateTime
-      attribute :current_state, String # (accepted, delivered, finished, started, rejected, unstarted, unscheduled)
+      attribute :current_state, String # (accepted, delivered, finished, started, rejected, planned, unstarted, unscheduled)
       attribute :deadline, DateTime
       attribute :description, String
       attribute :estimate, Float
