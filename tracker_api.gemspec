@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'minitest'
   spec.add_development_dependency 'awesome_print'
   spec.add_development_dependency 'vcr'
+  spec.add_development_dependency 'excon'
   spec.add_development_dependency 'multi_json'
   # spec.add_development_dependency 'byebug'
   # spec.add_development_dependency 'pry-byebug'
@@ -30,7 +31,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'addressable'
   spec.add_dependency 'virtus'
-  spec.add_dependency 'faraday', '~> 0.8.0'
+  spec.add_dependency 'faraday', '~> 0.9.0'
   spec.add_dependency 'faraday_middleware'
   # spec.add_dependency 'excon'
 end
