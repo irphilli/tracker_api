@@ -8,7 +8,7 @@ module TrackerApi
       attribute :accepted_at, DateTime
       attribute :comment_ids, Array[Integer]
       attribute :created_at, DateTime
-      attribute :current_state, String # (accepted, delivered, finished, started, rejected, unstarted, unscheduled)
+      attribute :current_state, String # (accepted, delivered, finished, started, rejected, planned, unstarted, unscheduled)
       attribute :deadline, DateTime
       attribute :description, String
       attribute :estimate, Float
@@ -20,7 +20,8 @@ module TrackerApi
       attribute :label_ids, Array[Integer]
       attribute :labels, Array[TrackerApi::Resources::Label]
       attribute :name, String
-      attribute :owned_by_id, Integer
+      attribute :owned_by_id, Integer # deprecated!
+      attribute :owners, Array[TrackerApi::Resources::Person]
       attribute :planned_iteration_number, Integer
       attribute :project_id, Integer
       attribute :requested_by_id, Integer
