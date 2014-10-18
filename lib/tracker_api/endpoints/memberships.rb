@@ -11,7 +11,9 @@ module TrackerApi
         data = client.paginate("/projects/#{project_id}/memberships", params: params)
         raise TrackerApi::Errors::UnexpectedData, 'Array of memberships expected' unless data.is_a? Array
 
-        data.map { |membership| Resources::ProjectMembership.new({ client: client }.merge(membership)) }
+        data.map do |membership|
+          Resources::ProjectMembership.new({ client: client, project_id: project_id }.merge(membership))
+        end
       end
     end
   end

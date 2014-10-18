@@ -10,7 +10,7 @@ module TrackerApi
       def get(project_id, id)
         data = client.get("/projects/#{project_id}/epics/#{id}").body
 
-        Resources::Epic.new({ client: client }.merge(data))
+        Resources::Epic.new({ client: client, project_id: project_id }.merge(data))
       end
     end
   end

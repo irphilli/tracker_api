@@ -11,7 +11,9 @@ module TrackerApi
         data = client.paginate("/projects/#{project_id}/epics", params: params)
         raise TrackerApi::Errors::UnexpectedData, 'Array of epics expected' unless data.is_a? Array
 
-        data.map { |epic| Resources::Epic.new({ client: client }.merge(epic)) }
+        data.map do |epic|
+          Resources::Epic.new({ client: client, project_id: project_id }.merge(epic))
+        end
       end
     end
   end
