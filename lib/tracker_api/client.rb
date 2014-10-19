@@ -67,11 +67,12 @@ module TrackerApi
     # @return [Array]
     def paginate(path, options = {}, &block)
       opts           = parse_query_and_convenience_headers path, options.dup
+      auto_paginate  = opts[:params].delete(:auto_paginate) { |k| @auto_paginate }
       @last_response = request :get, opts
       data           = @last_response.body
       raise TrackerApi::Errors::UnexpectedData, 'Array expected' unless data.is_a? Array
 
-      if @auto_paginate
+      if auto_paginate
         pager = Pagination.new @last_response.headers
 
         while pager.more?

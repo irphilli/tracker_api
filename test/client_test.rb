@@ -101,6 +101,17 @@ describe TrackerApi::Client do
       end
     end
 
+    it 'allows auto pagination to be turned off when just a subset of a list is desired' do
+      VCR.use_cassette('client: get limited stories with no pagination', record: :new_episodes) do
+        project = client.project(project_id)
+
+        # force no pagination
+        stories = project.stories(limit: 7, auto_paginate: false)
+        stories.wont_be_empty
+        stories.length.must_equal 7
+      end
+    end
+
     it 'can handle negative offsets' do
       VCR.use_cassette('client: done iterations with pagination', record: :new_episodes) do
         project = client.project(project_id)
