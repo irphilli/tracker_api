@@ -25,7 +25,6 @@ module TrackerApi
       attribute :iteration_length, Integer
       attribute :kind, String
       attribute :label_ids, Array[Integer]
-      attribute :labels, Array[TrackerApi::Resources::Label]
       attribute :name, String
       attribute :number_of_done_iterations_to_show, Integer
       attribute :point_scale, String
@@ -89,6 +88,10 @@ module TrackerApi
       # @return [Story] Story with given id
       def story(story_id)
         Endpoints::Story.new(client).get(id, story_id)
+      end
+
+      def labels
+        Endpoints::Labels.new(client).get(id)
       end
     end
   end

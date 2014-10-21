@@ -78,4 +78,18 @@ describe TrackerApi::Resources::Project do
       end
     end
   end
+
+  describe '.labels' do
+    it 'can get project labels' do
+      VCR.use_cassette('get project labels', record: :new_episodes) do
+        labels = project.labels
+
+        labels.wont_be_empty
+
+        label = labels.first
+        label.must_be_instance_of TrackerApi::Resources::Label
+        label.name.must_equal 'admin'
+      end
+    end
+  end
 end
