@@ -90,6 +90,12 @@ module TrackerApi
       def story(story_id)
         Endpoints::Story.new(client).get(id, story_id)
       end
+
+      # @param [Hash] hash of attributes to create the story
+      # @return [Story] Story with given id
+      def create_story(params)
+        Endpoints::Story.new(client).create(id, params)
+      end
     end
   end
 end
