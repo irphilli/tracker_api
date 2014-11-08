@@ -18,6 +18,12 @@ module TrackerApi
 
         Resources::Story.new({ client: client }.merge(data))
       end
+
+      def create(project_id, params={})
+        data = client.post("/projects/#{project_id}/stories", params: params).body
+
+        Resources::Story.new({ client: client }.merge(data))
+      end
     end
   end
 end

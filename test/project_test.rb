@@ -77,5 +77,16 @@ describe TrackerApi::Resources::Project do
         story.current_state.must_equal 'unscheduled'
       end
     end
+
+    it 'can create story' do
+      VCR.use_cassette('create story') do
+        story = project.create_story(name: 'Test story')
+
+        story.must_be_instance_of TrackerApi::Resources::Story
+        story.id.wont_be_nil
+        story.id.must_be :>, 0
+        story.name.must_equal 'Test story'
+      end
+    end
   end
 end

@@ -44,6 +44,7 @@ project.stories                                                           # Get 
 project.stories(with_state: :unscheduled, limit: 10)                      # Get 10 unscheduled stories for a project
 project.stories(filter: 'requester:OWK label:"jedi stuff"')               # Get all stories that match the given filters
 project.story(847762630)                                                  # Find a story with the given ID
+project.create_story(name: 'Destroy death star')                          # Create a story with the name 'Destroy death star'
 
 epics = project.epics                                                     # Get all epics for a project
 epic  = epics.first
