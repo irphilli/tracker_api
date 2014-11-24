@@ -21,6 +21,7 @@ module TrackerApi
       attribute :labels, Array[TrackerApi::Resources::Label]
       attribute :name, String
       attribute :owned_by_id, Integer # deprecated!
+      attribute :owner_ids, Array[Integer]
       attribute :owners, Array[TrackerApi::Resources::Person]
       attribute :planned_iteration_number, Integer
       attribute :project_id, Integer
