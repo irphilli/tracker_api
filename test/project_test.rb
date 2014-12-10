@@ -88,5 +88,19 @@ describe TrackerApi::Resources::Project do
         story.name.must_equal 'Test story'
       end
     end
+
+    it 'can update story' do
+      VCR.use_cassette('update story') do
+        story = project.create_story(name: 'Test story')
+
+        story.name.must_equal 'Test story'
+
+        project.update_story(story.id, { name: 'Changed name' })
+
+        retrieved_story = project.story(story.id)
+
+        retrieved_story.name.must_equal 'Changed name'
+      end
+    end
   end
 end
