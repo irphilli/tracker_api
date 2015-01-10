@@ -131,6 +131,10 @@ module TrackerApi
       Endpoints::Story.new(self).get_story(story_id)
     end
 
+    def notifications
+      Endpoints::Notifications.new(self).get
+    end
+
     private
 
     def parse_query_and_convenience_headers(path, options)
