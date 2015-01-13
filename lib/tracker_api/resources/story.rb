@@ -44,6 +44,10 @@ module TrackerApi
           @tasks = Endpoints::Tasks.new(client).get(project_id, id, params)
         end
       end
+
+      def update(story, params)
+        Endpoints::Story.new(client).update(story.project_id, story.id, params)
+      end
     end
   end
 end
