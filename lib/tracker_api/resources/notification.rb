@@ -6,8 +6,9 @@ module TrackerApi
       attribute :id, Integer
       attribute :message, String
       attribute :kind, String
-      attribute :project_id, Integer
-      attribute :story_id, Integer
+      attribute :project, TrackerApi::Resources::Project
+      attribute :story, TrackerApi::Resources::Story
+      attribute :performer, TrackerApi::Resources::Person
       attribute :created_at, DateTime
       attribute :updated_at, DateTime
     end
