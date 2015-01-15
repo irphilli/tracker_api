@@ -10,9 +10,7 @@ module TrackerApi
       def get(params={})
         data = client.paginate("/my/notifications")
         data.map do |notification|
-          Resources::Notification.new({ client: client,
-                                        story_id: notification['story']['id'],
-                                        project_id: notification['project']['id'] }.merge(notification))
+          Resources::Notification.new({ client: client }.merge(notification))
         end
       end
     end
