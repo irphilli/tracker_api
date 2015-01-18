@@ -15,6 +15,10 @@ module TrackerApi
       attribute :stories, [TrackerApi::Resources::Story]
       attribute :story_ids, [Integer]
       attribute :team_strength, Float
+
+      def stories=(stories)
+        super.each { |s| s.client = client }
+      end
     end
   end
 end
