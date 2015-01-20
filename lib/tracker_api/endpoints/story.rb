@@ -24,6 +24,14 @@ module TrackerApi
 
         Resources::Story.new({ client: client }.merge(data))
       end
+
+      def update(story, params={})
+        raise ArgumentError, 'Valid story required to update.' unless story.instance_of?(Resources::Story)
+
+        data = client.put("/projects/#{story.project_id}/stories/#{story.id}", params: params).body
+
+        story.attributes = data
+      end
     end
   end
 end

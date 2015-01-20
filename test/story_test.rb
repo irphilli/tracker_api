@@ -43,4 +43,25 @@ describe TrackerApi::Resources::Story do
       end
     end
   end
+
+  it 'can update an existing story' do
+    story = nil
+
+    VCR.use_cassette('get unscheduled stories', record: :new_episodes) do
+      stories = project.stories(with_state: :unscheduled)
+      story = stories.first
+      story.must_be_instance_of TrackerApi::Resources::Story
+    end
+
+    original_name = story.name
+    new_name = "#{original_name}+"
+
+    story.name = new_name
+
+    VCR.use_cassette('save story', record: :new_episodes) do
+      story.save
+    end
+
+    story.name.must_equal new_name
+  end
 end

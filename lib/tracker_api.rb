@@ -35,6 +35,7 @@ module TrackerApi
   end
 
   module Resources
+    autoload :Base, 'tracker_api/resources/base'
     autoload :Activity, 'tracker_api/resources/activity'
     autoload :Account, 'tracker_api/resources/account'
     autoload :Change, 'tracker_api/resources/change'

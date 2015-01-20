@@ -1,7 +1,7 @@
 module TrackerApi
   module Resources
     class Story
-      include Virtus.model
+      include TrackerApi::Resources::Base
 
       attribute :client
 
@@ -14,7 +14,6 @@ module TrackerApi
       attribute :estimate, Float
       attribute :external_id, String
       attribute :follower_ids, Array[Integer]
-      attribute :id, Integer
       attribute :integration_id, Integer
       attribute :kind, String
       attribute :label_ids, Array[Integer]
@@ -47,6 +46,15 @@ module TrackerApi
         else
           @tasks = Endpoints::Tasks.new(client).get(project_id, id, params)
         end
+      end
+
+      # Save changes to an existing Story.
+      def save
+        raise ArgumentError, 'Can not update a story with an unknown project_id.' if project_id.nil?
+
+        Endpoints::Story.new(client).update(self, just_changes)
+
+        changes_applied
       end
     end
   end
