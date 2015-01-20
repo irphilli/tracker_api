@@ -81,6 +81,10 @@ module TrackerApi
         Endpoints::Stories.new(client).get(id, params)
       end
 
+      def activity(params = {})
+        Endpoints::Activity.new(client).get(id, nil, params)
+      end
+
       def memberships(params = {})
         Endpoints::Memberships.new(client).get(id, params)
       end
