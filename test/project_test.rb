@@ -92,7 +92,7 @@ describe TrackerApi::Resources::Project do
 
   describe '.activity' do
     it 'can get activity records' do
-      VCR.use_cassette('get activity records', record: :new_episodes) do
+      VCR.use_cassette('get project activity', record: :new_episodes) do
         activities = project.activity
 
         activities.wont_be_empty
