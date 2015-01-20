@@ -5,11 +5,12 @@ describe TrackerApi::Resources::Story do
   let(:client) { TrackerApi::Client.new token: pt_user[:token] }
   let(:project_id) { pt_user[:project_id] }
   let(:project) { VCR.use_cassette('get project') { client.project(project_id) } }
+  let(:story_id) { '66728004' }
 
   describe '.tasks' do
     it 'gets all tasks for this story' do
       VCR.use_cassette('get tasks', record: :new_episodes) do
-        tasks = project.story('66728004').tasks
+        tasks = project.story(story_id).tasks
 
         tasks.wont_be_empty
         task = tasks.first
@@ -27,6 +28,18 @@ describe TrackerApi::Resources::Story do
             task.must_be_instance_of TrackerApi::Resources::Task
           end
         end
+      end
+    end
+  end
+
+  describe '.activity' do
+    it 'gets all the activity for this story' do
+      VCR.use_cassette('get activity', record: :new_episodes) do
+        activity = project.story(story_id).activity
+
+        activity.wont_be_empty
+        event = activity.first
+        event.must_be_instance_of TrackerApi::Resources::Activity
       end
     end
   end
