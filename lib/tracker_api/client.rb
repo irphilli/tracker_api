@@ -63,6 +63,10 @@ module TrackerApi
       request(:post, parse_query_and_convenience_headers(path, options))
     end
 
+    def put(path, options = {})
+      request(:put, parse_query_and_convenience_headers(path, options))
+    end
+
     # Make one or more HTTP GET requests, optionally fetching
     # the next page of results from information passed back in headers
     # based on value in {#auto_paginate}.
