@@ -7,8 +7,9 @@ module TrackerApi
         @client = client
       end
 
-      def get(project_id, story_id, params={})
-        data = client.paginate("/projects/#{project_id}/stories/#{story_id}/activity", params: params)
+      def get(project_id, story_id=nil, params={})
+        target_url = story_id ? "/projects/#{project_id}/stories/#{story_id}/activity" : "/projects/#{project_id}/activity"
+        data = client.paginate(target_url, params: params)
         raise TrackerApi::Errors::UnexpectedData, 'Array of activities expected' unless data.is_a? Array
 
         data.map do |activity|
