@@ -68,8 +68,11 @@ module TrackerApi
           number = params[:number].to_i
           raise ArgumentError, ':number must be > 0' unless number > 0
 
-          params = params.merge(scope: 'done', auto_paginate: false, offset: number - 1, limit: 1)
+          params = params.merge(auto_paginate: false, limit: 1)
           params.delete(:number)
+
+          offset = number - 1
+          params[:offset] = offset if offset > 0
         end
 
         Endpoints::Iterations.new(client).get(id, params)
