@@ -57,11 +57,24 @@ module TrackerApi
       # @option params [String] :scope Restricts the state of iterations to return.
       #   If not specified, it defaults to all iterations including done.
       #   Valid enumeration values: done, current, backlog, current_backlog.
+      # @option params [Integer] :number The iteration to retrieve, starting at 1
       # @option params [Integer] :offset The offset of first iteration to return, relative to the
       #   set of iterations specified by 'scope', with zero being the first iteration in the scope.
       # @option params [Integer] :limit The number of iterations to return relative to the offset.
       # @return [Array[Iteration]] iterations associated with this project
       def iterations(params = {})
+
+        if params.include?(:number)
+          number = params[:number].to_i
+          raise ArgumentError, ':number must be > 0' unless number > 0
+
+          params = params.merge(auto_paginate: false, limit: 1)
+          params.delete(:number)
+
+          offset = number - 1
+          params[:offset] = offset if offset > 0
+        end
+
         Endpoints::Iterations.new(client).get(id, params)
       end
 

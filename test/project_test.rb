@@ -63,6 +63,33 @@ describe TrackerApi::Resources::Project do
         story.must_be_instance_of TrackerApi::Resources::Story
       end
     end
+
+    it 'can get an iteration by number' do
+      VCR.use_cassette('get iteration by number', record: :new_episodes) do
+        iterations = project.iterations(number: 2)
+
+        iterations.size.must_equal 1
+        iterations.first.must_be_instance_of TrackerApi::Resources::Iteration
+        iterations.first.number.must_equal 2
+
+        iterations = project.iterations(number: 1)
+
+        iterations.size.must_equal 1
+        iterations.first.must_be_instance_of TrackerApi::Resources::Iteration
+        iterations.first.number.must_equal 1
+
+        iterations = project.iterations(number: 10_000)
+
+        iterations.must_be_empty
+      end
+    end
+
+    it 'requires an iteration number > 0' do
+      VCR.use_cassette('get iteration by number', record: :new_episodes) do
+        -> { project.iterations(number: 0)  }.must_raise(ArgumentError, /> 0/)
+        -> { project.iterations(number: -1) }.must_raise(ArgumentError, /> 0/)
+      end
+    end
   end
 
   describe '.stories' do
