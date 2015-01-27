@@ -12,7 +12,7 @@ module TrackerApi
         raise TrackerApi::Errors::UnexpectedData, 'Array of tasks expected' unless data.is_a? Array
 
         data.map do |task|
-          Resources::Task.new({ client: client, project_id: project_id }.merge(task))
+          Resources::Task.new({ story_id: story_id }.merge(task))
         end
       end
     end

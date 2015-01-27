@@ -10,7 +10,7 @@ module TrackerApi
       def get
         data = client.get("/me").body
 
-        Resources::Me.new({ client: client }.merge(data))
+        Resources::Me.new(data)
       end
     end
   end

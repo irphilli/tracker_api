@@ -3,8 +3,6 @@ module TrackerApi
     class Me
       include Virtus.model
 
-      attribute :client
-
       attribute :id, Integer
       attribute :name, String
       attribute :initials, String

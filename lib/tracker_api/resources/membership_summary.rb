@@ -3,8 +3,6 @@ module TrackerApi
     class MembershipSummary
       include Virtus.model
 
-      attribute :client
-
       attribute :id, Integer
       attribute :kind, String
       attribute :last_viewed_at, DateTime

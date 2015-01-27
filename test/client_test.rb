@@ -86,7 +86,7 @@ describe TrackerApi::Client do
 
     it 'auto paginates when needed' do
       VCR.use_cassette('client: get all stories with pagination', record: :new_episodes) do
-        project = client.project(project_id)
+        project         = client.project(project_id)
 
         # skip pagination with a hugh limit
         unpaged_stories = project.stories(limit: 300)
@@ -133,6 +133,25 @@ describe TrackerApi::Client do
         story = client.story('66728004')
 
         story.must_be_instance_of TrackerApi::Resources::Story
+      end
+    end
+  end
+
+  describe '.notifictions' do
+    let(:pt_user) { PT_USER_1 }
+    let(:client) { TrackerApi::Client.new token: pt_user[:token] }
+
+    it 'gets authenticated persons notifications' do
+      VCR.use_cassette('get all notifications', record: :new_episodes) do
+        notifications = client.notifications
+
+        notifications.wont_be_empty
+        notification = notifications.first
+        notification.must_be_instance_of TrackerApi::Resources::Notification
+
+        notification.project.id.must_equal pt_user[:project_id]
+        notification.story.must_be_instance_of TrackerApi::Resources::Story
+        notification.performer.must_be_instance_of TrackerApi::Resources::Person
       end
     end
   end

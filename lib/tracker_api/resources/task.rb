@@ -3,8 +3,6 @@ module TrackerApi
     class Task
       include Virtus.model
 
-      attribute :client
-
       attribute :id, Integer
       attribute :story_id, Integer
       attribute :description, String

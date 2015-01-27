@@ -3,8 +3,6 @@ module TrackerApi
     class Person
       include Virtus.model
 
-      attribute :client
-
       attribute :kind, String
       attribute :id, Integer
       attribute :name, String

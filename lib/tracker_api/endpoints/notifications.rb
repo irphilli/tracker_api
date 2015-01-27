@@ -8,7 +8,9 @@ module TrackerApi
       end
 
       def get(params={})
-        data = client.paginate("/my/notifications")
+        data = client.paginate('/my/notifications', params: params)
+        raise TrackerApi::Errors::UnexpectedData, 'Array of notifications expected' unless data.is_a? Array
+
         data.map do |notification|
           Resources::Notification.new({ client: client }.merge(notification))
         end

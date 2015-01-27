@@ -45,6 +45,7 @@ module TrackerApi
         @label_list ||= labels.collect(&:name).join(',')
       end
 
+      # @param [Hash] params
       # @return [Array[Epic]] epics associated with this project
       def epics(params={})
         raise ArgumentError, 'Expected @epics to be an Array' unless @epics.is_a? Array
@@ -94,18 +95,20 @@ module TrackerApi
         Endpoints::Stories.new(client).get(id, params)
       end
 
+      # @param [Hash] params
+      # @return [Array[ProjectMembership]] memberships of this project
       def memberships(params = {})
         Endpoints::Memberships.new(client).get(id, params)
       end
 
       # @param [Fixnum] story_id id of story to get
-      # @return [Story] Story with given id
+      # @return [Story] story with given id
       def story(story_id)
         Endpoints::Story.new(client).get(id, story_id)
       end
 
-      # @param [Hash] hash of attributes to create the story
-      # @return [Story] Story with given id
+      # @param [Hash] params attributes to create the story with
+      # @return [Story] newly created Story
       def create_story(params)
         Endpoints::Story.new(client).create(id, params)
       end

@@ -140,8 +140,12 @@ module TrackerApi
       Endpoints::Story.new(self).get_story(story_id)
     end
 
-    def notifications
-      Endpoints::Notifications.new(self).get
+    # Get notifications for the authenticated person
+    #
+    # @param [Hash] params
+    # @return [Array[TrackerApi::Resources::Notification]]
+    def notifications(params={})
+      Endpoints::Notifications.new(self).get(params)
     end
 
     private

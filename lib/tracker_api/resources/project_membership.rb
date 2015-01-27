@@ -3,8 +3,6 @@ module TrackerApi
     class ProjectMembership
       include Virtus.model
 
-      attribute :client
-
       attribute :id, Integer
       attribute :person_id, Integer
       attribute :project_id, Integer
