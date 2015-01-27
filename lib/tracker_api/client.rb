@@ -109,6 +109,14 @@ module TrackerApi
       data
     end
 
+    # Get my_activity
+    #
+    # @param [Hash] params
+    # @return [Array[TrackerApi::Resources::Activity]]
+    def my_activity(params={})
+      Endpoints::Activity.new(self).get(params)
+    end
+
     # Get projects
     #
     # @param [Hash] params
