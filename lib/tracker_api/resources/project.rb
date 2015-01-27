@@ -64,7 +64,6 @@ module TrackerApi
       # @option params [Integer] :limit The number of iterations to return relative to the offset.
       # @return [Array[Iteration]] iterations associated with this project
       def iterations(params = {})
-
         if params.include?(:number)
           number = params[:number].to_i
           raise ArgumentError, ':number must be > 0' unless number > 0
@@ -72,7 +71,7 @@ module TrackerApi
           params = params.merge(auto_paginate: false, limit: 1)
           params.delete(:number)
 
-          offset = number - 1
+          offset          = number - 1
           params[:offset] = offset if offset > 0
         end
 
