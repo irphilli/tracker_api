@@ -36,6 +36,8 @@ module TrackerApi
         @label_list ||= labels.collect(&:name).join(',')
       end
 
+      # Provides a list of all the activity performed on the story.
+      #
       # @param [Hash] params
       # @return [Array[Activity]]
       def activity(params = {})

@@ -116,4 +116,27 @@ describe TrackerApi::Resources::Project do
       end
     end
   end
+
+  describe '.activity' do
+    let(:story) { VCR.use_cassette('get unscheduled story') { project.stories(with_state: :unscheduled).first } }
+
+    before do
+      # create some activity
+      story.name = "#{story.name}+"
+
+      VCR.use_cassette('update story to create activity', record: :new_episodes) do
+        story.save
+      end
+    end
+
+    it 'gets all the activity for this project' do
+      VCR.use_cassette('get project activity', record: :new_episodes) do
+        activity = project.activity
+
+        activity.wont_be_empty
+        event = activity.first
+        event.must_be_instance_of TrackerApi::Resources::Activity
+      end
+    end
+  end
 end

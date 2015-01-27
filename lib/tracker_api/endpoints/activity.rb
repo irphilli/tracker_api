@@ -8,7 +8,16 @@ module TrackerApi
       end
 
       def get(params={})
-       data = client.paginate("/my/activity", params: params)
+        data = client.paginate("/my/activity", params: params)
+        raise TrackerApi::Errors::UnexpectedData, 'Array of activities expected' unless data.is_a? Array
+
+        data.map do |activity|
+          Resources::Activity.new({ client: client }.merge(activity))
+        end
+      end
+
+      def get_project(project_id, params={})
+        data = client.paginate("/projects/#{project_id}/activity", params: params)
         raise TrackerApi::Errors::UnexpectedData, 'Array of activities expected' unless data.is_a? Array
 
         data.map do |activity|
@@ -21,7 +30,7 @@ module TrackerApi
         raise TrackerApi::Errors::UnexpectedData, 'Array of activities expected' unless data.is_a? Array
 
         data.map do |activity|
-          Resources::Activity.new({ client: client, project_id: project_id }.merge(activity))
+          Resources::Activity.new({ client: client }.merge(activity))
         end
       end
     end

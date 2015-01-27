@@ -100,6 +100,14 @@ module TrackerApi
         Endpoints::Memberships.new(client).get(id, params)
       end
 
+      # Provides a list of all the activity performed on a project.
+      #
+      # @param [Hash] params
+      # @return [Array[Activity]]
+      def activity(params = {})
+        Endpoints::Activity.new(client).get_project(id, params)
+      end
+
       # @param [Fixnum] story_id id of story to get
       # @return [Story] story with given id
       def story(story_id)

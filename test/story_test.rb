@@ -70,7 +70,7 @@ describe TrackerApi::Resources::Story do
     end
 
     it 'gets all the activity for this story' do
-      VCR.use_cassette('get activity', record: :new_episodes) do
+      VCR.use_cassette('get story activity', record: :new_episodes) do
         activity = story.activity
 
         activity.wont_be_empty

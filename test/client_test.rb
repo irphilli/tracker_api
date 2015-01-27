@@ -19,31 +19,6 @@ describe TrackerApi::Client do
     client.logger.must_equal LOGGER
   end
 
-  describe '.my_activity' do
-    let(:pt_user) { PT_USER_1 }
-    let(:client) { TrackerApi::Client.new token: pt_user[:token] }
-
-    it 'gets all my activities' do
-      VCR.use_cassette('get my activities', record: :new_episodes) do
-        activities = client.my_activity(fields: ':default')
-
-        activities.wont_be_empty
-        activity = activities.first
-        activity.must_be_instance_of TrackerApi::Resources::Activity
-
-        activity.changes.wont_be_empty
-        activity.changes.first.must_be_instance_of TrackerApi::Resources::Change
-
-        activity.primary_resources.wont_be_empty
-        activity.primary_resources.first.must_be_instance_of TrackerApi::Resources::PrimaryResource
-
-        activity.project.must_be_instance_of TrackerApi::Resources::Project
-
-        activity.performed_by.must_be_instance_of TrackerApi::Resources::Person
-      end
-    end
-  end
-
   describe '.projects' do
     let(:pt_user) { PT_USER_1 }
     let(:client) { TrackerApi::Client.new token: pt_user[:token] }
@@ -177,6 +152,31 @@ describe TrackerApi::Client do
         notification.project.id.must_equal pt_user[:project_id]
         notification.story.must_be_instance_of TrackerApi::Resources::Story
         notification.performer.must_be_instance_of TrackerApi::Resources::Person
+      end
+    end
+  end
+
+  describe '.activity' do
+    let(:pt_user) { PT_USER_1 }
+    let(:client) { TrackerApi::Client.new token: pt_user[:token] }
+
+    it 'gets all my activities' do
+      VCR.use_cassette('get my activities', record: :new_episodes) do
+        activities = client.activity(fields: ':default')
+
+        activities.wont_be_empty
+        activity = activities.first
+        activity.must_be_instance_of TrackerApi::Resources::Activity
+
+        activity.changes.wont_be_empty
+        activity.changes.first.must_be_instance_of TrackerApi::Resources::Change
+
+        activity.primary_resources.wont_be_empty
+        activity.primary_resources.first.must_be_instance_of TrackerApi::Resources::PrimaryResource
+
+        activity.project.must_be_instance_of TrackerApi::Resources::Project
+
+        activity.performed_by.must_be_instance_of TrackerApi::Resources::Person
       end
     end
   end

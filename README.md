@@ -36,11 +36,12 @@ $ gem install tracker_api
 client = TrackerApi::Client.new(token: 'my-api-token')                    # Create API client
 
 client.me.email                                                           # Get email for the authenticated person
-client.my_activity                                                        # Get all activities for the authenticated person
+client.activity                                                           # Get a list of all the activity performed the authenticated person
 client.notifications                                                      # Get notifications for the authenticated person
 
 projects = client.projects                                                # Get all projects
 project  = client.project(123456)                                         # Find project with given ID
+project.activity                                                          # Get a list of all the activity performed on this project
 
 project.stories                                                           # Get all stories for a project
 project.stories(with_state: :unscheduled, limit: 10)                      # Get 10 unscheduled stories for a project
@@ -48,7 +49,7 @@ project.stories(filter: 'requester:OWK label:"jedi stuff"')               # Get 
 project.create_story(name: 'Destroy death star')                          # Create a story with the name 'Destroy death star'
 
 story = project.story(847762630)                                          # Find a story with the given ID
-story.activity                                                            # Get activity on a story
+story.activity                                                            # Get a list of all the activity performed on this story
 
 story.name = 'Save the Ewoks'                                             # Update a single story attribute
 story.attributes = { name: 'Save the Ewoks', description: '...' }         # Update multiple story attributes

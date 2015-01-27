@@ -109,14 +109,6 @@ module TrackerApi
       data
     end
 
-    # Get my_activity
-    #
-    # @param [Hash] params
-    # @return [Array[TrackerApi::Resources::Activity]]
-    def my_activity(params={})
-      Endpoints::Activity.new(self).get(params)
-    end
-
     # Get projects
     #
     # @param [Hash] params
@@ -154,6 +146,14 @@ module TrackerApi
     # @return [Array[TrackerApi::Resources::Notification]]
     def notifications(params={})
       Endpoints::Notifications.new(self).get(params)
+    end
+
+    # Provides a list of all the activity performed the authenticated person.
+    #
+    # @param [Hash] params
+    # @return [Array[TrackerApi::Resources::Activity]]
+    def activity(params={})
+      Endpoints::Activity.new(self).get(params)
     end
 
     private
