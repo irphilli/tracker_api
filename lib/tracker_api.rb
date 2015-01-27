@@ -46,6 +46,7 @@ module TrackerApi
     autoload :Notification, 'tracker_api/resources/notification'
     autoload :Label, 'tracker_api/resources/label'
     autoload :Person, 'tracker_api/resources/person'
+    autoload :PrimaryResource, 'tracker_api/resources/primary_resource'
     autoload :Project, 'tracker_api/resources/project'
     autoload :ProjectMembership, 'tracker_api/resources/project_membership'
     autoload :Story, 'tracker_api/resources/story'

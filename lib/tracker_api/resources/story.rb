@@ -39,7 +39,7 @@ module TrackerApi
       # @param [Hash] params
       # @return [Array[Activity]]
       def activity(params = {})
-        Endpoints::Activity.new(client).get(project_id, id, params)
+        Endpoints::Activity.new(client).get_story(project_id, id, params)
       end
 
       # @param [Hash] params

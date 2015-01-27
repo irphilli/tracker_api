@@ -36,6 +36,7 @@ $ gem install tracker_api
 client = TrackerApi::Client.new(token: 'my-api-token')                    # Create API client
 
 client.me.email                                                           # Get email for the authenticated person
+client.my_activity                                                        # Get all activities for the authenticated person
 client.notifications                                                      # Get notifications for the authenticated person
 
 projects = client.projects                                                # Get all projects
