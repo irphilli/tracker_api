@@ -7,6 +7,7 @@ module TrackerApi
 
       attribute :accepted_at, DateTime
       attribute :comment_ids, Array[Integer]
+      attribute :comments, Array[TrackerApi::Resources::Comment]
       attribute :created_at, DateTime
       attribute :current_state, String # (accepted, delivered, finished, started, rejected, planned, unstarted, unscheduled)
       attribute :deadline, DateTime
@@ -42,6 +43,18 @@ module TrackerApi
       # @return [Array[Activity]]
       def activity(params = {})
         Endpoints::Activity.new(client).get_story(project_id, id, params)
+      end
+
+      # Provides a list of all the comments on the story.
+      #
+      # @param [Hash] params
+      # @return [Array[Comment]]
+      def comments(params = {})
+        if @comments.any?
+          @comments
+        else
+          @comments = Endpoints::Comments.new(client).get(project_id, id, params)
+        end
       end
 
       # @param [Hash] params
