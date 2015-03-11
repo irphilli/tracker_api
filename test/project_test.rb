@@ -115,6 +115,17 @@ describe TrackerApi::Resources::Project do
         story.name.must_equal 'Test story'
       end
     end
+
+    it 'can create story with lengthy params' do
+      VCR.use_cassette('create story with lengthy params') do
+        story = project.create_story(name: 'Test story', description: ('Test description ' * 500))
+
+        story.must_be_instance_of TrackerApi::Resources::Story
+        story.id.wont_be_nil
+        story.id.must_be :>, 0
+        story.description.must_equal ('Test description ' * 500)
+      end
+    end
   end
 
   describe '.activity' do

@@ -186,6 +186,13 @@ module TrackerApi
       body    = options[:body]
       headers = options[:headers]
 
+      if (method == :post || method == :put) && options[:body].blank?
+        body                    = params.to_json
+        headers['Content-Type'] = 'application/json'
+
+        params = {}
+      end
+
       @last_response = response = connection.send(method) do |req|
         req.url(url)
         req.headers.merge!(headers)
