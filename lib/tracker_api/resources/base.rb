@@ -20,7 +20,7 @@ module TrackerApi
           super
 
           # always reset dirty tracking on initialize
-          reset_changes
+          clear_changes_information
         end
 
         private
