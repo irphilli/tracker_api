@@ -4,6 +4,8 @@ require 'tracker_api/version'
 require 'virtus'
 require 'faraday'
 require 'faraday_middleware'
+require 'active_support'
+require 'active_support/core_ext'
 
 # stdlib
 require 'addressable/uri'
