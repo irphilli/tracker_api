@@ -119,6 +119,12 @@ module TrackerApi
       def create_story(params)
         Endpoints::Story.new(client).create(id, params)
       end
+
+      # @param [Hash] params attributes to add a member; must have at least email or user_id
+      # @return [ProjectMembership] member that was added to project
+      def add_membership(params)
+        Endpoints::Memberships.new(client).add(id, params)
+      end
     end
   end
 end
