@@ -33,6 +33,7 @@ module TrackerApi
     autoload :Projects, 'tracker_api/endpoints/projects'
     autoload :Stories, 'tracker_api/endpoints/stories'
     autoload :Story, 'tracker_api/endpoints/story'
+    autoload :Task, 'tracker_api/endpoints/task'
     autoload :Tasks, 'tracker_api/endpoints/tasks'
     autoload :Comments, 'tracker_api/endpoints/comments'
   end
