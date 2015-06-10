@@ -67,6 +67,12 @@ module TrackerApi
         end
       end
 
+      # @param [Hash] params attributes to create the task with
+      # @return [Task] newly created Task
+      def create_task(params)
+        Endpoints::Task.new(client).create(project_id, id, params)
+      end
+
       # Save changes to an existing Story.
       def save
         raise ArgumentError, 'Can not update a story with an unknown project_id.' if project_id.nil?

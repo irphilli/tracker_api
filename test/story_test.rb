@@ -57,6 +57,17 @@ describe TrackerApi::Resources::Story do
         end
       end
     end
+
+    it 'can create task' do
+      VCR.use_cassette('create task') do
+        task = project.story(story_id).create_task(description: 'Test task')
+
+        task.must_be_instance_of TrackerApi::Resources::Task
+        task.id.wont_be_nil
+        task.id.must_be :>, 0
+        task.description.must_equal 'Test task'
+      end
+    end
   end
 
   describe '.activity' do
