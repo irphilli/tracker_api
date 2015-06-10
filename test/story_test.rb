@@ -34,6 +34,19 @@ describe TrackerApi::Resources::Story do
     story.description.must_equal new_desc
   end
 
+  it 'can update labels of an existing story' do
+    new_labels = ['label1', 'label2']
+
+    VCR.use_cassette('update story with new labels', record: :new_episodes) do |variable|
+      story.update_labels(*new_labels)
+    end
+
+    story.labels.size.must_equal 2
+    labels = story.labels.map(&:name)
+    (new_labels - labels).must_equal []
+    (labels - new_labels).must_equal []
+  end
+
   describe '.tasks' do
     it 'gets all tasks for this story' do
       VCR.use_cassette('get tasks', record: :new_episodes) do
