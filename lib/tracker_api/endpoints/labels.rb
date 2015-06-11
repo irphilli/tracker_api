@@ -12,14 +12,14 @@ module TrackerApi
         raise TrackerApi::Errors::UnexpectedData, 'Array of labels expected' unless data.is_a? Array
 
         data.map do |label|
-          Resources::ProjectLabel.new({ project_id: project_id }.merge(label))
+          Resources::Label.new({ project_id: project_id }.merge(label))
         end
       end
 
       def add(project_id, params={})
         data = client.post("/projects/#{project_id}/labels", params: params).body
 
-        Resources::ProjectLabel.new({ project_id: project_id }.merge(data))
+        Resources::Label.new({ project_id: project_id }.merge(data))
       end
     end
   end

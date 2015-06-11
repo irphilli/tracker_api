@@ -45,23 +45,6 @@ describe TrackerApi::Resources::Project do
         label.must_be_instance_of TrackerApi::Resources::Label
       end
     end
-
-    describe 'with eager loading of labels' do
-      let(:project_with_labels) do
-        VCR.use_cassette('get project with labels') do
-          client.project(project_id, fields: ':default,labels(:default,label(name))')
-        end
-      end
-
-      # does not raise VCR::Errors::UnhandledHTTPRequestError
-      it 'does not make an extra request' do
-        labels = project_with_labels.labels
-
-        labels.wont_be_empty
-        label = labels.first
-        label.must_be_instance_of TrackerApi::Resources::Label
-      end
-    end
   end
 
   describe '.iterations' do
