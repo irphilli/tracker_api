@@ -1,6 +1,7 @@
 require 'virtus'
 require 'active_support/concern'
 require 'active_model'
+require 'equalizer'
 
 module TrackerApi
   module Resources
@@ -9,6 +10,8 @@ module TrackerApi
 
       include ActiveModel::Model
       include ActiveModel::Dirty
+
+      include Equalizer.new(:id)
 
       included do
         include Virtus.model

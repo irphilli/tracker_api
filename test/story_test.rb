@@ -6,6 +6,7 @@ describe TrackerApi::Resources::Story do
   let(:project_id) { pt_user[:project_id] }
   let(:project) { VCR.use_cassette('get project') { client.project(project_id) } }
   let(:story_id) { '66728004' }
+  let(:another_story_id) { '66728000' }
   let(:story) { VCR.use_cassette('get story') { project.story(story_id) } }
 
 
@@ -32,6 +33,24 @@ describe TrackerApi::Resources::Story do
 
     story.name.must_equal new_name
     story.description.must_equal new_desc
+  end
+
+  it 'objects are equal based on id' do
+    VCR.use_cassette('object equality', record: :new_episodes) do
+      story_a = story
+      story_b = VCR.use_cassette('get story') { project.story(story_id) }
+      story_c = VCR.use_cassette('get another story') { project.story(another_story_id) }
+
+      story_a.must_equal story_b
+      story_a.hash.must_equal story_b.hash
+      story_a.eql?(story_b).must_equal true
+      story_a.equal?(story_b).must_equal false
+
+      story_a.wont_equal story_c
+      story_a.hash.wont_equal story_c.hash
+      story_a.eql?(story_c).must_equal false
+      story_a.equal?(story_c).must_equal false
+    end
   end
 
   describe '.tasks' do
