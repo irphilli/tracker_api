@@ -24,8 +24,6 @@ module TrackerApi
       attribute :initial_velocity, Integer
       attribute :iteration_length, Integer
       attribute :kind, String
-      attribute :label_ids, Array[Integer]
-      attribute :labels, Array[TrackerApi::Resources::Label]
       attribute :name, String
       attribute :number_of_done_iterations_to_show, Integer
       attribute :point_scale, String
@@ -43,6 +41,11 @@ module TrackerApi
       # @return [String] comma separated list of labels
       def label_list
         @label_list ||= labels.collect(&:name).join(',')
+      end
+
+      # @return [Integer] comma separated list of label_ids
+      def label_ids
+        @label_ids ||= labels.collect(&:id).join(',')
       end
 
       # @param [Hash] params
@@ -98,6 +101,12 @@ module TrackerApi
       # @return [Array[ProjectMembership]] memberships of this project
       def memberships(params = {})
         Endpoints::Memberships.new(client).get(id, params)
+      end
+
+      # @param [Hash] params
+      # @return [Array[ProjectLabel]] labels of this project
+      def labels(params = {})
+        Endpoints::Labels.new(client).get(id, params)
       end
 
       # Provides a list of all the activity performed on a project.

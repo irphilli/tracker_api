@@ -35,6 +35,18 @@ describe TrackerApi::Resources::Project do
     end
   end
 
+  describe '.labels' do
+    it 'gets all labels for this project' do
+      VCR.use_cassette('get labels', record: :new_episodes) do
+        labels = project.labels
+
+        labels.wont_be_empty
+        label = labels.first
+        label.must_be_instance_of TrackerApi::Resources::Label
+      end
+    end
+  end
+
   describe '.iterations' do
     it 'can get only done iterations' do
       VCR.use_cassette('get done iterations', record: :new_episodes) do
