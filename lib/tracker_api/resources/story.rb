@@ -25,6 +25,7 @@ module TrackerApi
       attribute :owners, Array[TrackerApi::Resources::Person]
       attribute :planned_iteration_number, Integer
       attribute :project_id, Integer
+      attribute :requested_by, Person
       attribute :requested_by_id, Integer
       attribute :story_type, String # (feature, bug, chore, release)
       attribute :task_ids, Array[Integer]
