@@ -35,6 +35,34 @@ describe TrackerApi::Resources::Project do
     end
   end
 
+  describe '.labels' do
+    describe 'with eager loading' do
+      let(:project_with_labels) do
+        VCR.use_cassette('get project with labels') do
+          client.project(project_id, fields: ':default,labels')
+        end
+      end
+
+      it 'gets all labels for this project' do
+        labels = project_with_labels.labels
+
+        labels.wont_be_empty
+        label = labels.first
+        label.must_be_instance_of TrackerApi::Resources::Label
+      end
+    end
+
+    it 'gets all labels for this project' do
+      VCR.use_cassette('get labels', record: :new_episodes) do
+        labels = project.labels
+
+        labels.wont_be_empty
+        label = labels.first
+        label.must_be_instance_of TrackerApi::Resources::Label
+      end
+    end
+  end
+
   describe '.iterations' do
     it 'can get only done iterations' do
       VCR.use_cassette('get done iterations', record: :new_episodes) do
@@ -86,7 +114,7 @@ describe TrackerApi::Resources::Project do
 
     it 'requires an iteration number > 0' do
       VCR.use_cassette('get iteration by number', record: :new_episodes) do
-        -> { project.iterations(number: 0)  }.must_raise(ArgumentError, /> 0/)
+        -> { project.iterations(number: 0) }.must_raise(ArgumentError, /> 0/)
         -> { project.iterations(number: -1) }.must_raise(ArgumentError, /> 0/)
       end
     end

@@ -44,6 +44,25 @@ module TrackerApi
         @label_list ||= labels.collect(&:name).join(',')
       end
 
+      # @return [Integer] comma separated list of label_ids
+      def label_ids
+        @label_ids ||= labels.collect(&:id).join(',')
+      end
+
+      # Provides a list of all the labels on the project.
+      #
+      # @param [Hash] params
+      # @return [Array[Label]] labels of this project
+      def labels(params = {})
+        if @labels && @labels.any?
+          @labels
+        else
+          @labels = Endpoints::Labels.new(client).get(id, params)
+        end
+      end
+
+      # Provides a list of all the epics in the project.
+      #
       # @param [Hash] params
       # @return [Array[Epic]] epics associated with this project
       def epics(params={})
@@ -53,6 +72,8 @@ module TrackerApi
         @epics = Endpoints::Epics.new(client).get(id, params)
       end
 
+      # Provides a list of all the iterations in the project.
+      #
       # @param [Hash] params
       # @option params [String] :scope Restricts the state of iterations to return.
       #   If not specified, it defaults to all iterations including done.
@@ -62,7 +83,7 @@ module TrackerApi
       #   set of iterations specified by 'scope', with zero being the first iteration in the scope.
       # @option params [Integer] :limit The number of iterations to return relative to the offset.
       # @return [Array[Iteration]] iterations associated with this project
-      def iterations(params = {})
+      def iterations(params={})
         if params.include?(:number)
           number = params[:number].to_i
           raise ArgumentError, ':number must be > 0' unless number > 0
@@ -77,6 +98,9 @@ module TrackerApi
         Endpoints::Iterations.new(client).get(id, params)
       end
 
+
+      # Provides a list of all the stories in the project.
+      #
       # @param [Hash] params
       # @option params [String] :with_label A label name which all returned stories must match.
       # @option params [String] :with_state A story's current_state which all returned stories must match.
@@ -89,13 +113,15 @@ module TrackerApi
       #   the index of the first story you want returned.
       # @option params [Integer] :limit The number of stories you want returned.
       # @return [Array[Story]] stories associated with this project
-      def stories(params = {})
+      def stories(params={})
         Endpoints::Stories.new(client).get(id, params)
       end
 
+      # Provides a list of all the memberships in the project.
+      #
       # @param [Hash] params
       # @return [Array[ProjectMembership]] memberships of this project
-      def memberships(params = {})
+      def memberships(params={})
         Endpoints::Memberships.new(client).get(id, params)
       end
 
@@ -103,22 +129,28 @@ module TrackerApi
       #
       # @param [Hash] params
       # @return [Array[Activity]]
-      def activity(params = {})
+      def activity(params={})
         Endpoints::Activity.new(client).get_project(id, params)
       end
 
+      # Find a story by id for the project.
+      #
       # @param [Fixnum] story_id id of story to get
       # @return [Story] story with given id
-      def story(story_id)
-        Endpoints::Story.new(client).get(id, story_id)
+      def story(story_id, params={})
+        Endpoints::Story.new(client).get(id, story_id, params)
       end
 
+      # Create a new story in the project.
+      #
       # @param [Hash] params attributes to create the story with
       # @return [Story] newly created Story
       def create_story(params)
         Endpoints::Story.new(client).create(id, params)
       end
 
+      # Add a new membership for the project.
+      #
       # @param [Hash] params attributes to add a member; must have at least email or user_id
       # @return [ProjectMembership] member that was added to project
       def add_membership(params)

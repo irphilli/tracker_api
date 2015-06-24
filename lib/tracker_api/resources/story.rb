@@ -51,17 +51,19 @@ module TrackerApi
       # @param [Hash] params
       # @return [Array[Comment]]
       def comments(params = {})
-        if @comments.any?
+        if @comments && @comments.any?
           @comments
         else
           @comments = Endpoints::Comments.new(client).get(project_id, id, params)
         end
       end
 
+      # Provides a list of all the tasks on the story.
+      #
       # @param [Hash] params
       # @return [Array[Task]]
       def tasks(params = {})
-        if @tasks.any?
+        if @tasks && @tasks.any?
           @tasks
         else
           @tasks = Endpoints::Tasks.new(client).get(project_id, id, params)

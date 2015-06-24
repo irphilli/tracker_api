@@ -36,27 +36,36 @@ describe TrackerApi::Resources::Story do
   end
 
   it 'objects are equal based on id' do
-    VCR.use_cassette('object equality', record: :new_episodes) do
-      story_a = story
-      story_b = VCR.use_cassette('get story') { project.story(story_id) }
-      story_c = VCR.use_cassette('get another story') { project.story(another_story_id) }
+    story_a = story
+    story_b = VCR.use_cassette('get story') { project.story(story_id) }
+    story_c = VCR.use_cassette('get another story') { project.story(another_story_id) }
 
-      story_a.must_equal story_b
-      story_a.hash.must_equal story_b.hash
-      story_a.eql?(story_b).must_equal true
-      story_a.equal?(story_b).must_equal false
+    story_a.must_equal story_b
+    story_a.hash.must_equal story_b.hash
+    story_a.eql?(story_b).must_equal true
+    story_a.equal?(story_b).must_equal false
 
-      story_a.wont_equal story_c
-      story_a.hash.wont_equal story_c.hash
-      story_a.eql?(story_c).must_equal false
-      story_a.equal?(story_c).must_equal false
-    end
+    story_a.wont_equal story_c
+    story_a.hash.wont_equal story_c.hash
+    story_a.eql?(story_c).must_equal false
+    story_a.equal?(story_c).must_equal false
   end
 
   describe '.tasks' do
+    it 'gets all tasks for this story with eager loading' do
+      VCR.use_cassette('get story with tasks', record: :new_episodes) do
+        tasks = project.story(story_id, fields: ':default,tasks').tasks
+
+        tasks.wont_be_empty
+        task = tasks.first
+        task.must_be_instance_of TrackerApi::Resources::Task
+      end
+    end
+
     it 'gets all tasks for this story' do
       VCR.use_cassette('get tasks', record: :new_episodes) do
-        tasks = project.story(story_id).tasks
+        story = project.story(story_id)
+        tasks = VCR.use_cassette('get tasks for story') { story.tasks }
 
         tasks.wont_be_empty
         task = tasks.first
