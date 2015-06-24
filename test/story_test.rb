@@ -36,7 +36,11 @@ describe TrackerApi::Resources::Story do
   end
 
   it 'can add new labels to an existing story' do
-    new_label = TrackerApi::Resources::Label.new(name: SecureRandom.hex(6))
+    new_label_name = 'super-special-label'
+
+    story.labels.map(&:name).wont_include new_label_name
+
+    new_label = TrackerApi::Resources::Label.new(name: new_label_name)
     story.labels << new_label
 
     VCR.use_cassette('save story with new label', record: :new_episodes) do
@@ -44,7 +48,7 @@ describe TrackerApi::Resources::Story do
     end
 
     story.labels.wont_be_empty
-    story.labels.map(&:name).must_include new_label.name
+    story.labels.map(&:name).must_include new_label_name
   end
 
   it 'objects are equal based on id' do
