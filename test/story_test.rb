@@ -35,6 +35,18 @@ describe TrackerApi::Resources::Story do
     story.description.must_equal new_desc
   end
 
+  it 'can add new labels to an existing story' do
+    new_label = TrackerApi::Resources::Label.new(name: SecureRandom.hex(6))
+    story.labels << new_label
+
+    VCR.use_cassette('save story with new label', record: :new_episodes) do
+      story.save
+    end
+
+    story.labels.wont_be_empty
+    story.labels.map(&:name).must_include new_label.name
+  end
+
   it 'objects are equal based on id' do
     story_a = story
     story_b = VCR.use_cassette('get story') { project.story(story_id) }

@@ -53,6 +53,7 @@ story.activity                                                            # Get 
 
 story.name = 'Save the Ewoks'                                             # Update a single story attribute
 story.attributes = { name: 'Save the Ewoks', description: '...' }         # Update multiple story attributes
+story.labels << Label.new(name: 'Endor')                                  # Add a new label to an existing story
 story.save                                                                # Save changes made to a story
 
 epics = project.epics                                                     # Get all epics for a project
