@@ -7,7 +7,7 @@ module TrackerApi
         @client = client
       end
 
-      def get(project_id, story_id,  params={})
+      def get(project_id, story_id, params={})
         data = client.paginate("/projects/#{project_id}/stories/#{story_id}/tasks", params: params)
         raise TrackerApi::Errors::UnexpectedData, 'Array of tasks expected' unless data.is_a? Array
 

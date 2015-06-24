@@ -33,6 +33,25 @@ module TrackerApi
       attribute :updated_at, DateTime
       attribute :url, String
 
+
+      class UpdateRepresenter < Representable::Decorator
+        include Representable::JSON
+
+        property :follower_ids
+        property :name
+        property :description
+        property :story_type
+        property :current_state
+        property :estimate
+        property :accepted_at
+        property :deadline
+        property :requested_by_id
+        property :owner_ids
+        collection :labels, class: Resources::Label, decorator: Resources::Label::UpdateRepresenter, render_empty: true
+        property :integration_id
+        property :external_id
+      end
+
       # @return [String] Comma separated list of labels.
       def label_list
         @label_list ||= labels.collect(&:name).join(',')
@@ -80,9 +99,7 @@ module TrackerApi
       def save
         raise ArgumentError, 'Can not update a story with an unknown project_id.' if project_id.nil?
 
-        Endpoints::Story.new(client).update(self, just_changes)
-
-        changes_applied
+        Endpoints::Story.new(client).update(self, UpdateRepresenter.new(self))
       end
     end
   end

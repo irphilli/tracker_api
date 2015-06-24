@@ -32,4 +32,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'excon'
   spec.add_dependency 'equalizer'
   spec.add_dependency 'oj'
+  spec.add_dependency 'representable'
 end

@@ -6,6 +6,7 @@ require 'faraday'
 require 'faraday_middleware'
 require 'core_ext/object/blank'
 require 'equalizer'
+require 'representable/json'
 require 'oj'
 
 # stdlib
