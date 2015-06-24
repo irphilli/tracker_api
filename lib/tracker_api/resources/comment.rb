@@ -1,9 +1,8 @@
 module TrackerApi
   module Resources
     class Comment
-      include Virtus.model
+      include Resources::Base
 
-      attribute :id, Integer
       attribute :story_id, Integer
       attribute :epic_id, Integer
       attribute :text, String

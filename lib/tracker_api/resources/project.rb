@@ -1,7 +1,7 @@
 module TrackerApi
   module Resources
     class Project
-      include Virtus.model
+      include Resources::Base
 
       attribute :client
 
@@ -20,7 +20,6 @@ module TrackerApi
       attribute :epic_ids, Array[Integer]
       attribute :epics, Array[TrackerApi::Resources::Epic]
       attribute :has_google_domain, Boolean
-      attribute :id, Integer
       attribute :initial_velocity, Integer
       attribute :iteration_length, Integer
       attribute :kind, String

@@ -3,6 +3,8 @@ module TrackerApi
     class Iteration
       include Virtus.model
 
+      include Equalizer.new(:number, :project_id)
+
       attribute :client
 
       attribute :finish, DateTime

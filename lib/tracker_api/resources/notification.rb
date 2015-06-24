@@ -1,11 +1,10 @@
 module TrackerApi
   module Resources
     class Notification
-      include Virtus.model
+      include Resources::Base
 
       attribute :client
 
-      attribute :id, Integer
       attribute :message, String
       attribute :kind, String
       attribute :project, TrackerApi::Resources::Project

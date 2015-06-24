@@ -3,6 +3,8 @@ module TrackerApi
     class Activity
       include Virtus.model
 
+      include Equalizer.new(:guid)
+
       attribute :client
 
       attribute :kind, String
@@ -10,10 +12,10 @@ module TrackerApi
       attribute :project_version, Integer
       attribute :message, String
       attribute :highlight, String
-      attribute :changes, Array[TrackerApi::Resources::Change]
-      attribute :primary_resources, Array[TrackerApi::Resources::PrimaryResource]
-      attribute :project, TrackerApi::Resources::Project
-      attribute :performed_by, TrackerApi::Resources::Person
+      attribute :changes, Array[Resources::Change]
+      attribute :primary_resources, Array[Resources::PrimaryResource]
+      attribute :project, Resources::Project
+      attribute :performed_by, Resources::Person
       attribute :occurred_at, DateTime
 
       def project=(data)

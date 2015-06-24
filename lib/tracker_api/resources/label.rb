@@ -1,9 +1,8 @@
 module TrackerApi
   module Resources
     class Label
-      include Virtus.model
+      include Resources::Base
 
-      attribute :id, Integer
       attribute :created_at, DateTime
       attribute :kind, String
       attribute :name, String

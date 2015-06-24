@@ -1,9 +1,8 @@
 module TrackerApi
   module Resources
     class Me
-      include Virtus.model
+      include Resources::Base
 
-      attribute :id, Integer
       attribute :name, String
       attribute :initials, String
       attribute :username, String

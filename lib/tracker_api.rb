@@ -4,13 +4,16 @@ require 'tracker_api/version'
 require 'virtus'
 require 'faraday'
 require 'faraday_middleware'
-require 'active_support'
-require 'active_support/core_ext'
+require 'core_ext/object/blank'
+require 'equalizer'
+require 'oj'
 
 # stdlib
 require 'addressable/uri'
 require 'forwardable'
 require 'logger'
+
+Oj.default_options = {:mode => :compat }
 
 module TrackerApi
   autoload :Error, 'tracker_api/error'

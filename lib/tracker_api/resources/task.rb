@@ -1,9 +1,8 @@
 module TrackerApi
   module Resources
     class Task
-      include Virtus.model
+      include Resources::Base
 
-      attribute :id, Integer
       attribute :story_id, Integer
       attribute :description, String
       attribute :complete, Boolean

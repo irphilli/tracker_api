@@ -1,9 +1,8 @@
 module TrackerApi
   module Resources
     class ProjectMembership
-      include Virtus.model
+      include Resources::Base
 
-      attribute :id, Integer
       attribute :person_id, Integer
       attribute :project_id, Integer
       attribute :role, String

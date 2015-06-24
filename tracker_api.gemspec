@@ -30,7 +30,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'faraday', '~> 0.9.0'
   spec.add_dependency 'faraday_middleware'
   spec.add_dependency 'excon'
-  spec.add_dependency 'activesupport'
-  spec.add_dependency 'activemodel', '>= 4.0.0'
   spec.add_dependency 'equalizer'
+  spec.add_dependency 'oj'
 end

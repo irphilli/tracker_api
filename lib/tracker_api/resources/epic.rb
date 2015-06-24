@@ -1,9 +1,8 @@
 module TrackerApi
   module Resources
     class Epic
-      include Virtus.model
+      include Resources::Base
 
-      attribute :id, Integer
       attribute :created_at, DateTime
       attribute :description, String
       attribute :kind, String

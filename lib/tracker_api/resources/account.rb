@@ -1,9 +1,8 @@
 module TrackerApi
   module Resources
     class Account
-      include Virtus.model
+      include Resources::Base
 
-      attribute :id, Integer
       attribute :created_at, DateTime
       attribute :status, String
       attribute :kind, String
