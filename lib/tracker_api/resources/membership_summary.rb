@@ -1,7 +1,7 @@
 module TrackerApi
   module Resources
     class MembershipSummary
-      include Resources::Base
+      include Shared::HasId
 
       attribute :kind, String
       attribute :last_viewed_at, DateTime

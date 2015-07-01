@@ -1,7 +1,7 @@
 module TrackerApi
   module Resources
     class ProjectMembership
-      include Resources::Base
+      include Shared::HasId
 
       attribute :person_id, Integer
       attribute :project_id, Integer
@@ -9,7 +9,7 @@ module TrackerApi
       attribute :project_color, String
       attribute :wants_comment_notification_emails, Boolean
       attribute :kind, String
-      attribute :person, TrackerApi::Resources::Person
+      attribute :person, Person
     end
   end
 end

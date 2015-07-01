@@ -9,7 +9,7 @@ module TrackerApi
 
       def get(project_id, params={})
         data = client.paginate("/projects/#{project_id}/labels", params: params)
-        raise TrackerApi::Errors::UnexpectedData, 'Array of labels expected' unless data.is_a? Array
+        raise Errors::UnexpectedData, 'Array of labels expected' unless data.is_a? Array
 
         data.map do |label|
           Resources::Label.new({ project_id: project_id }.merge(label))

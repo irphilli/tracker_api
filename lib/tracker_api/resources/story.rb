@@ -1,13 +1,13 @@
 module TrackerApi
   module Resources
     class Story
-      include Resources::Base
+      include Shared::HasId
 
       attribute :client
 
       attribute :accepted_at, DateTime
       attribute :comment_ids, Array[Integer]
-      attribute :comments, Array[Resources::Comment]
+      attribute :comments, Array[Comment]
       attribute :created_at, DateTime
       attribute :current_state, String # (accepted, delivered, finished, started, rejected, planned, unstarted, unscheduled)
       attribute :deadline, DateTime
@@ -18,18 +18,18 @@ module TrackerApi
       attribute :integration_id, Integer
       attribute :kind, String
       attribute :label_ids, Array[Integer]
-      attribute :labels, Array[Resources::Label]
+      attribute :labels, Array[Label]
       attribute :name, String
       attribute :owned_by_id, Integer # deprecated!
       attribute :owner_ids, Array[Integer]
-      attribute :owners, Array[Resources::Person]
+      attribute :owners, Array[Person]
       attribute :planned_iteration_number, Integer
       attribute :project_id, Integer
       attribute :requested_by, Person
       attribute :requested_by_id, Integer
       attribute :story_type, String # (feature, bug, chore, release)
       attribute :task_ids, Array[Integer]
-      attribute :tasks, Array[Resources::Task]
+      attribute :tasks, Array[Task]
       attribute :updated_at, DateTime
       attribute :url, String
 
@@ -47,7 +47,7 @@ module TrackerApi
         property :deadline
         property :requested_by_id
         property :owner_ids
-        collection :labels, class: Resources::Label, decorator: Resources::Label::UpdateRepresenter, render_empty: true
+        collection :labels, class: Label, decorator: Label::UpdateRepresenter, render_empty: true
         property :integration_id
         property :external_id
       end

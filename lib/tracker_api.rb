@@ -44,7 +44,9 @@ module TrackerApi
   end
 
   module Resources
-    autoload :Base, 'tracker_api/resources/base'
+    module Shared
+      autoload :HasId, 'tracker_api/resources/shared/has_id'
+    end
     autoload :Activity, 'tracker_api/resources/activity'
     autoload :Account, 'tracker_api/resources/account'
     autoload :Change, 'tracker_api/resources/change'

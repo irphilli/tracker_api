@@ -1,11 +1,11 @@
 module TrackerApi
   module Resources
     class Project
-      include Resources::Base
+      include Shared::HasId
 
       attribute :client
 
-      attribute :account, TrackerApi::Resources::Account
+      attribute :account, Account
       attribute :account_id, Integer
       attribute :atom_enabled, Boolean
       attribute :bugs_and_chores_are_estimatable, Boolean
@@ -18,13 +18,13 @@ module TrackerApi
       attribute :enable_planned_mode, Boolean
       attribute :enable_tasks, Boolean
       attribute :epic_ids, Array[Integer]
-      attribute :epics, Array[TrackerApi::Resources::Epic]
+      attribute :epics, Array[Epic]
       attribute :has_google_domain, Boolean
       attribute :initial_velocity, Integer
       attribute :iteration_length, Integer
       attribute :kind, String
       attribute :label_ids, Array[Integer]
-      attribute :labels, Array[TrackerApi::Resources::Label]
+      attribute :labels, Array[Label]
       attribute :name, String
       attribute :number_of_done_iterations_to_show, Integer
       attribute :point_scale, String
@@ -33,7 +33,7 @@ module TrackerApi
       attribute :public, Boolean
       attribute :start_date, DateTime
       attribute :start_time, DateTime
-      attribute :time_zone, TrackerApi::Resources::TimeZone
+      attribute :time_zone, TimeZone
       attribute :updated_at, DateTime
       attribute :velocity_averaged_over, Integer
       attribute :version, Integer

@@ -9,7 +9,7 @@ module TrackerApi
 
       def get(project_id, params={})
         data = client.paginate("/projects/#{project_id}/iterations", params: params)
-        raise TrackerApi::Errors::UnexpectedData, 'Array of iterations expected' unless data.is_a? Array
+        raise Errors::UnexpectedData, 'Array of iterations expected' unless data.is_a? Array
 
         data.map do |iteration|
           Resources::Iteration.new({ client: client, project_id: project_id }.merge(iteration))

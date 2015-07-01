@@ -1,7 +1,7 @@
 module TrackerApi
   module Resources
     class Label
-      include Resources::Base
+      include Shared::HasId
 
       attribute :created_at, DateTime
       attribute :kind, String
