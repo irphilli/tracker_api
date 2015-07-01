@@ -15,6 +15,7 @@ module TrackerApi
       attribute :estimate, Float
       attribute :external_id, String
       attribute :follower_ids, Array[Integer]
+      attribute :followers, Array[Person]
       attribute :integration_id, Integer
       attribute :kind, String
       attribute :label_ids, Array[Integer]
