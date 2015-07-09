@@ -4,7 +4,11 @@ require 'tracker_api/version'
 require 'virtus'
 require 'faraday'
 require 'faraday_middleware'
-require 'core_ext/object/blank'
+if defined?(ActiveSupport)
+  require 'active_support/core_ext/object/blank'
+else
+  require 'core_ext/object/blank'
+end
 require 'equalizer'
 require 'representable/json'
 require 'oj'
