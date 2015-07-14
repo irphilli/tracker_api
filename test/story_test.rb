@@ -134,4 +134,16 @@ describe TrackerApi::Resources::Story do
       end
     end
   end
+
+  describe '.owners' do
+    it 'gets all owners of this story' do
+      VCR.use_cassette('get story owners', record: :new_episodes) do
+        owners = story.owners
+
+        owners.wont_be_empty
+        owner = owners.first
+        owner.must_be_instance_of TrackerApi::Resources::Person
+      end
+    end
+  end
 end
