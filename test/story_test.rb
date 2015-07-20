@@ -67,83 +67,112 @@ describe TrackerApi::Resources::Story do
     story_a.equal?(story_c).must_equal false
   end
 
-  describe '.tasks' do
-    it 'gets all tasks for this story with eager loading' do
-      VCR.use_cassette('get story with tasks', record: :new_episodes) do
-        tasks = project.story(story_id, fields: ':default,tasks').tasks
+  describe '.owners' do
+    it 'gets all owners for this story with eager loading' do
+      skip('Until this is resolved: https://pivotaltracker.zendesk.com/requests/35823')
 
-        tasks.wont_be_empty
-        task = tasks.first
-        task.must_be_instance_of TrackerApi::Resources::Task
+      story = VCR.use_cassette('get story with owners', record: :new_episodes) do
+        project.story(story_id, fields: ':default,owners')
       end
+
+      # this should not raise VCR::Errors::UnhandledHTTPRequestError since
+      # it should not be making another HTTP request.
+      owners = story.owners
+
+      owners.wont_be_empty
+      owner = owners.first
+      owner.must_be_instance_of TrackerApi::Resources::Person
     end
 
-    it 'gets all tasks for this story' do
-      VCR.use_cassette('get tasks', record: :new_episodes) do
-        story = project.story(story_id)
-        tasks = VCR.use_cassette('get tasks for story') { story.tasks }
+  it 'gets all owners for this story' do
+    VCR.use_cassette('get story', record: :new_episodes) do
+      story = project.story(story_id)
+      owners = VCR.use_cassette('get owners for story') { story.owners }
 
-        tasks.wont_be_empty
-        task = tasks.first
-        task.must_be_instance_of TrackerApi::Resources::Task
-      end
+      owners.wont_be_empty
+      owner = owners.first
+      owner.must_be_instance_of TrackerApi::Resources::Person
     end
+  end
+end
 
-    it 'gets all tasks even when the project_id is excluded from the story fields' do
-      VCR.use_cassette('get tasks when stories filtered', record: :new_episodes) do
-        stories = project.stories(with_state: 'unstarted', fields: 'name,story_type')
-        stories.each do |story|
-          tasks = story.tasks
-          unless tasks.empty?
-            task = tasks.first
-            task.must_be_instance_of TrackerApi::Resources::Task
-          end
+describe '.tasks' do
+  it 'gets all tasks for this story with eager loading' do
+    VCR.use_cassette('get story with tasks', record: :new_episodes) do
+      tasks = project.story(story_id, fields: ':default,tasks').tasks
+
+      tasks.wont_be_empty
+      task = tasks.first
+      task.must_be_instance_of TrackerApi::Resources::Task
+    end
+  end
+
+  it 'gets all tasks for this story' do
+    VCR.use_cassette('get tasks', record: :new_episodes) do
+      story = project.story(story_id)
+      tasks = VCR.use_cassette('get tasks for story') { story.tasks }
+
+      tasks.wont_be_empty
+      task = tasks.first
+      task.must_be_instance_of TrackerApi::Resources::Task
+    end
+  end
+
+  it 'gets all tasks even when the project_id is excluded from the story fields' do
+    VCR.use_cassette('get tasks when stories filtered', record: :new_episodes) do
+      stories = project.stories(with_state: 'unstarted', fields: 'name,story_type')
+      stories.each do |story|
+        tasks = story.tasks
+        unless tasks.empty?
+          task = tasks.first
+          task.must_be_instance_of TrackerApi::Resources::Task
         end
       end
     end
+  end
 
-    it 'can create task' do
-      VCR.use_cassette('create task') do
-        task = project.story(story_id).create_task(description: 'Test task')
+  it 'can create task' do
+    VCR.use_cassette('create task') do
+      task = project.story(story_id).create_task(description: 'Test task')
 
-        task.must_be_instance_of TrackerApi::Resources::Task
-        task.id.wont_be_nil
-        task.id.must_be :>, 0
-        task.description.must_equal 'Test task'
-      end
+      task.must_be_instance_of TrackerApi::Resources::Task
+      task.id.wont_be_nil
+      task.id.must_be :>, 0
+      task.description.must_equal 'Test task'
+    end
+  end
+end
+
+describe '.activity' do
+  before do
+    # create some activity
+    story.name = "#{story.name}+"
+
+    VCR.use_cassette('update story to create activity', record: :new_episodes) do
+      story.save
     end
   end
 
-  describe '.activity' do
-    before do
-      # create some activity
-      story.name = "#{story.name}+"
+  it 'gets all the activity for this story' do
+    VCR.use_cassette('get story activity', record: :new_episodes) do
+      activity = story.activity
 
-      VCR.use_cassette('update story to create activity', record: :new_episodes) do
-        story.save
-      end
-    end
-
-    it 'gets all the activity for this story' do
-      VCR.use_cassette('get story activity', record: :new_episodes) do
-        activity = story.activity
-
-        activity.wont_be_empty
-        event = activity.first
-        event.must_be_instance_of TrackerApi::Resources::Activity
-      end
+      activity.wont_be_empty
+      event = activity.first
+      event.must_be_instance_of TrackerApi::Resources::Activity
     end
   end
+end
 
-  describe '.owners' do
-    it 'gets all owners of this story' do
-      VCR.use_cassette('get story owners', record: :new_episodes) do
-        owners = story.owners
+describe '.owners' do
+  it 'gets all owners of this story' do
+    VCR.use_cassette('get story owners', record: :new_episodes) do
+      owners = story.owners
 
-        owners.wont_be_empty
-        owner = owners.first
-        owner.must_be_instance_of TrackerApi::Resources::Person
-      end
+      owners.wont_be_empty
+      owner = owners.first
+      owner.must_be_instance_of TrackerApi::Resources::Person
     end
   end
+end
 end

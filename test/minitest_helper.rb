@@ -30,3 +30,4 @@ PT_USER_3 = { username: 'trackerapi3', password: 'trackerapi3', token: '77f9b9a4
 PT_USERS  = [PT_USER_1, PT_USER_2, PT_USER_3]
 
 LOGGER = ::Logger.new(STDOUT)
+# LOGGER.level = ::Logger::DEBUG
