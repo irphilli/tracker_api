@@ -7,7 +7,7 @@ module TrackerApi
 
       attribute :accepted_at, DateTime
       attribute :comment_ids, Array[Integer]
-      attribute :comments, Array[Comment]
+      attribute :comments, Array[Comment], :default => []
       attribute :created_at, DateTime
       attribute :current_state, String # (accepted, delivered, finished, started, rejected, planned, unstarted, unscheduled)
       attribute :deadline, DateTime
@@ -19,19 +19,19 @@ module TrackerApi
       attribute :integration_id, Integer
       attribute :kind, String
       attribute :label_ids, Array[Integer]
-      attribute :labels, Array[Label]
+      attribute :labels, Array[Label], :default => []
       attribute :name, String
       attribute :owned_by_id, Integer # deprecated!
       attribute :owned_by, Person
       attribute :owner_ids, Array[Integer]
-      attribute :owners, Array[Person]
+      attribute :owners, Array[Person], :default => []
       attribute :planned_iteration_number, Integer
       attribute :project_id, Integer
       attribute :requested_by, Person
       attribute :requested_by_id, Integer
       attribute :story_type, String # (feature, bug, chore, release)
       attribute :task_ids, Array[Integer]
-      attribute :tasks, Array[Task]
+      attribute :tasks, Array[Task], :default => []
       attribute :updated_at, DateTime
       attribute :url, String
 
@@ -72,7 +72,7 @@ module TrackerApi
       # @param [Hash] params
       # @return [Array[Comment]]
       def comments(params = {})
-        if @comments && @comments.any?
+        if params.blank? && @comments.any?
           @comments
         else
           @comments = Endpoints::Comments.new(client).get(project_id, id, params)
@@ -84,7 +84,7 @@ module TrackerApi
       # @param [Hash] params
       # @return [Array[Task]]
       def tasks(params = {})
-        if @tasks && @tasks.any?
+        if params.blank? && @tasks.any?
           @tasks
         else
           @tasks = Endpoints::Tasks.new(client).get(project_id, id, params)
@@ -96,7 +96,7 @@ module TrackerApi
       # @param [Hash] params
       # @return [Array[Person]]
       def owners(params = {})
-        if @owners && @owners.any?
+        if params.blank? && @owners.any?
           @owners
         else
           @owners = Endpoints::StoryOwners.new(client).get(project_id, id, params)
