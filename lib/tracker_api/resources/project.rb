@@ -149,6 +149,22 @@ module TrackerApi
         Endpoints::Story.new(client).create(id, params)
       end
 
+      # Find a epic by id for the project.
+      #
+      # @param [Fixnum] epic_id id of epic to get
+      # @return [Epic] epic with given id
+      def epic(epic_id, params={})
+        Endpoints::Epic.new(client).get(id, epic_id, params)
+      end
+
+      # Create a new epic in the project.
+      #
+      # @param [Hash] params attributes to create the epic with
+      # @return [epic] newly created Epic
+      def create_epic(params)
+        Endpoints::Epic.new(client).create(id, params)
+      end
+
       # Add a new membership for the project.
       #
       # @param [Hash] params attributes to add a member; must have at least email or user_id
