@@ -20,7 +20,7 @@ module TrackerApi
     #
     # @example Creating a Client
     #   Client.new token: 'my-super-special-token'
-    def initialize(options={})
+    def initialize(options={}, &block)
       url                = options.fetch(:url, 'https://www.pivotaltracker.com')
       @url               = Addressable::URI.parse(url).to_s
       @api_version       = options.fetch(:api_version, '/services/v5')
@@ -30,6 +30,8 @@ module TrackerApi
       @auto_paginate     = options.fetch(:auto_paginate, true)
       @token             = options[:token]
       raise 'Missing required options: :token' unless @token
+
+      @faraday_block = block if block_given?
 
       @connection = Faraday.new({ url: @url }.merge(connection_options)) do |builder|
         # response
@@ -41,6 +43,7 @@ module TrackerApi
         builder.request :json
 
         builder.use TrackerApi::Logger, @logger
+        @faraday_block.call(builder) if @faraday_block
         builder.adapter adapter
       end
     end
