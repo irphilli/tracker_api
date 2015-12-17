@@ -176,4 +176,18 @@ describe TrackerApi::Resources::Story do
     end
   end
 
+  describe '.comments' do
+    it 'gets all comments of story with just project_id and story_id' do
+      VCR.use_cassette('get story comments', record: :new_episodes) do
+        story = TrackerApi::Resources::Story.new( client:     client,
+                                                  project_id: project_id,
+                                                  id:         story_id)
+
+        comments = story.comments
+        comment = comments.first
+        comment.must_be_instance_of TrackerApi::Resources::Comment
+      end
+    end
+  end
+
 end
