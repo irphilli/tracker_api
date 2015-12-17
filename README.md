@@ -56,6 +56,12 @@ story.attributes = { name: 'Save the Ewoks', description: '...' }         # Upda
 story.labels << TrackerApi::Resources::Label.new(name: 'Endor')           # Add a new label to an existing story
 story.save                                                                # Save changes made to a story
 
+story = TrackerApi::Resources::Story.new( client:     client,
+                                          project_id: 123456,
+                                          id:         847762630)          # Use the Story resource to get the story
+comments = story.comments                                                 # comments without first fetching the story.
+
+
 epics = project.epics                                                     # Get all epics for a project
 epic  = epics.first
 label = epic.label                                                        # Get an epic's label
