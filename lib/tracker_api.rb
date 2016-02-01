@@ -11,14 +11,15 @@ else
 end
 require 'equalizer'
 require 'representable/json'
-require 'oj'
+require 'multi_json'
 
 # stdlib
 require 'addressable/uri'
 require 'forwardable'
 require 'logger'
 
-Oj.default_options = {:mode => :compat }
+MultiJson.load_options = {:mode => :compat}
+MultiJson.dump_options = {:mode => :compat}
 
 module TrackerApi
   autoload :Error, 'tracker_api/error'
