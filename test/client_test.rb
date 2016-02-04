@@ -137,6 +137,19 @@ describe TrackerApi::Client do
     end
   end
 
+  describe '.epic' do
+    let(:pt_user) { PT_USER_1 }
+    let(:client) { TrackerApi::Client.new token: pt_user[:token] }
+
+    it 'retrieves an epic solely by epic id' do
+      VCR.use_cassette('client: get single epic by epic id', record: :new_episodes) do
+        epic = client.epic('1087314')
+
+        epic.must_be_instance_of TrackerApi::Resources::Epic
+      end
+    end
+  end
+
   describe '.notifictions' do
     let(:pt_user) { PT_USER_1 }
     let(:client) { TrackerApi::Client.new token: pt_user[:token] }
