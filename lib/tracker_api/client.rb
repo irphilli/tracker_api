@@ -143,6 +143,14 @@ module TrackerApi
       Endpoints::Story.new(self).get_story(story_id)
     end
 
+    # Get information about an epic without knowing what project the epic belongs to
+    #
+    # @param [String] epic_id
+    # @return [TrackerApi::Resources::Epic]
+    def epic(epic_id)
+      Endpoints::Epic.new(self).get_epic(epic_id)
+    end
+
     # Get notifications for the authenticated person
     #
     # @param [Hash] params

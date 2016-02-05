@@ -13,6 +13,12 @@ module TrackerApi
         Resources::Epic.new({ client: client, project_id: project_id }.merge(data))
       end
 
+      def get_epic(epic_id, params={})
+        data = client.get("/epics/#{epic_id}", params: params).body
+
+        Resources::Epic.new({ client: client }.merge(data))
+      end
+
       def create(project_id, params={})
         data = client.post("/projects/#{project_id}/epics", params: params).body
 
