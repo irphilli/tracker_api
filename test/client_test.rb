@@ -130,9 +130,10 @@ describe TrackerApi::Client do
 
     it 'retrieves a story solely by story id' do
       VCR.use_cassette('client: get single story by story id', record: :new_episodes) do
-        story = client.story('66728004')
+        story = client.story('66728004', fields: ':default,owned_by')
 
         story.must_be_instance_of TrackerApi::Resources::Story
+        story.owned_by.wont_be_nil
       end
     end
   end
@@ -143,9 +144,10 @@ describe TrackerApi::Client do
 
     it 'retrieves an epic solely by epic id' do
       VCR.use_cassette('client: get single epic by epic id', record: :new_episodes) do
-        epic = client.epic('1087314')
+        epic = client.epic('1087314', fields: ':default,label_id')
 
         epic.must_be_instance_of TrackerApi::Resources::Epic
+        epic.label_id.wont_be_nil
       end
     end
   end
