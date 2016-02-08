@@ -138,17 +138,19 @@ module TrackerApi
     # Get information about a client story without knowing what project the story belongs to
     #
     # @param [String] story_id
+    # @param [Hash] params
     # @return [TrackerApi::Resources::Story]
-    def story(story_id)
-      Endpoints::Story.new(self).get_story(story_id)
+    def story(story_id, params={})
+      Endpoints::Story.new(self).get_story(story_id, params)
     end
 
     # Get information about an epic without knowing what project the epic belongs to
     #
     # @param [String] epic_id
+    # @param [Hash] params
     # @return [TrackerApi::Resources::Epic]
-    def epic(epic_id)
-      Endpoints::Epic.new(self).get_epic(epic_id)
+    def epic(epic_id, params={})
+      Endpoints::Epic.new(self).get_epic(epic_id, params)
     end
 
     # Get notifications for the authenticated person
