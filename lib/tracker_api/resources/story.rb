@@ -110,10 +110,14 @@ module TrackerApi
       end
 
       # Save changes to an existing Story.
+      #
+      # @deprecated Please use {Endpoints::Story.update} directly instead.
       def save
+        warn "[DEPRECATION] `save` is deprecated.  Please use `Endpoints::Story.update` directly instead."
+
         raise ArgumentError, 'Can not update a story with an unknown project_id.' if project_id.nil?
 
-        Endpoints::Story.new(client).update(self, UpdateRepresenter.new(self))
+        Endpoints::Story.new(client).update_direct(self, UpdateRepresenter.new(self))
       end
     end
   end

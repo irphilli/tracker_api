@@ -10,29 +10,37 @@ describe TrackerApi::Resources::Story do
   let(:story) { VCR.use_cassette('get story') { project.story(story_id) } }
 
 
+  it '.save is deprecated' do
+    VCR.use_cassette('save story', record: :new_episodes) do
+      assert_output(nil, /\[DEPRECATION\]/) { story.save }
+    end
+  end
+
   it 'can update an existing story' do
-    new_name   = "#{story.name}+"
-    story.name = new_name
+    new_name = "#{story.name}+"
 
     VCR.use_cassette('save story', record: :new_episodes) do
-      story.save
-    end
+      updated_story = TrackerApi::Endpoints::Story.new(client).update(project_id,
+                                                                      story_id,
+                                                                      {name: new_name})
 
-    story.name.must_equal new_name
+      updated_story.name.must_equal new_name
+    end
   end
 
   it 'can update multiple attributes of an existing story at once' do
     new_name = "#{story.name}+"
     new_desc = "#{story.description}+"
 
-    story.attributes = { name: new_name, description: new_desc }
-
     VCR.use_cassette('save story with multiple changes', record: :new_episodes) do
-      story.save
-    end
+      updated_story = TrackerApi::Endpoints::Story.new(client).update(project_id,
+                                                                      story_id,
+                                                                      { name:         new_name,
+                                                                        description:  new_desc })
 
-    story.name.must_equal new_name
-    story.description.must_equal new_desc
+      updated_story.name.must_equal new_name
+      updated_story.description.must_equal new_desc
+    end
   end
 
   it 'can add new labels to an existing story' do
