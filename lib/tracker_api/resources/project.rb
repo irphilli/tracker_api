@@ -1,7 +1,7 @@
 module TrackerApi
   module Resources
     class Project
-      include Shared::HasId
+      include Shared::Base
 
       attribute :client
 
@@ -54,7 +54,7 @@ module TrackerApi
       # @param [Hash] params
       # @return [Array[Label]] labels of this project
       def labels(params = {})
-        if @labels && @labels.any?
+        if @labels && @labels.present?
           @labels
         else
           @labels = Endpoints::Labels.new(client).get(id, params)
@@ -66,10 +66,11 @@ module TrackerApi
       # @param [Hash] params
       # @return [Array[Epic]] epics associated with this project
       def epics(params={})
-        raise ArgumentError, 'Expected @epics to be an Array' unless @epics.is_a? Array
-        return @epics unless @epics.empty?
-
-        @epics = Endpoints::Epics.new(client).get(id, params)
+        if @epics && @epics.present?
+          @epics
+        else
+          @epics = Endpoints::Epics.new(client).get(id, params)
+        end
       end
 
       # Provides a list of all the iterations in the project.

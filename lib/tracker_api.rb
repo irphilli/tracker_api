@@ -1,17 +1,18 @@
 require 'tracker_api/version'
 
 # dependencies
-require 'virtus'
 require 'faraday'
 require 'faraday_middleware'
+
 if defined?(ActiveSupport)
   require 'active_support/core_ext/object/blank'
 else
   require 'core_ext/object/blank'
 end
 require 'equalizer'
-require 'representable/json'
+
 require 'multi_json'
+require 'representable/json'
 
 # stdlib
 require 'addressable/uri'
@@ -51,7 +52,7 @@ module TrackerApi
 
   module Resources
     module Shared
-      autoload :HasId, 'tracker_api/resources/shared/has_id'
+      autoload :Base, 'tracker_api/resources/shared/base'
     end
     autoload :Activity, 'tracker_api/resources/activity'
     autoload :Account, 'tracker_api/resources/account'

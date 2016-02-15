@@ -1,7 +1,7 @@
 module TrackerApi
   module Resources
     class Epic
-      include Shared::HasId
+      include Shared::Base
 
       attribute :client
 

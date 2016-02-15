@@ -1,7 +1,7 @@
 module TrackerApi
   module Resources
     class Notification
-      include Shared::HasId
+      include Shared::Base
 
       attribute :client
 

@@ -1,7 +1,7 @@
 module TrackerApi
   module Resources
     class Me
-      include Shared::HasId
+      include Shared::Base
 
       attribute :name, String
       attribute :initials, String

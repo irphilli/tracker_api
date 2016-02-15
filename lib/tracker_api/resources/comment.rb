@@ -1,7 +1,7 @@
 module TrackerApi
   module Resources
     class Comment
-      include Shared::HasId
+      include Shared::Base
 
       attribute :story_id, Integer
       attribute :epic_id, Integer
