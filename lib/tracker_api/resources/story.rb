@@ -39,7 +39,7 @@ module TrackerApi
       class UpdateRepresenter < Representable::Decorator
         include Representable::JSON
 
-        property :follower_ids
+        property :follower_ids, if: ->(input:, **) { !input.blank? }
         property :name
         property :description
         property :story_type
@@ -48,7 +48,7 @@ module TrackerApi
         property :accepted_at
         property :deadline
         property :requested_by_id
-        property :owner_ids
+        property :owner_ids, if: ->(input:, **) { !input.blank? }
         collection :labels, class: Label, decorator: Label::UpdateRepresenter, render_empty: true
         property :integration_id
         property :external_id
@@ -57,6 +57,20 @@ module TrackerApi
       # @return [String] Comma separated list of labels.
       def label_list
         @label_list ||= labels.collect(&:name).join(',')
+      end
+
+      # Adds a new label to the story.
+      #
+      # @param [Label|Hash|String] label
+      def add_label(label)
+        new_label = if label.kind_of?(String)
+          Label.new(name: label)
+        else
+          label
+        end
+
+        # Use attribute writer to get coercion and dirty tracking.
+        self.labels = @labels.dup.push(new_label)
       end
 
       # Provides a list of all the activity performed on the story.
@@ -113,7 +127,7 @@ module TrackerApi
       def save
         raise ArgumentError, 'Can not update a story with an unknown project_id.' if project_id.nil?
 
-        Endpoints::Story.new(client).update(self, UpdateRepresenter.new(self))
+        Endpoints::Story.new(client).update(self, UpdateRepresenter.new(Story.new(self.dirty_attributes)))
       end
     end
   end

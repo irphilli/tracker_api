@@ -19,6 +19,7 @@ describe TrackerApi::Resources::Story do
     end
 
     story.name.must_equal new_name
+    story.clean?.must_equal true
   end
 
   it 'can update multiple attributes of an existing story at once' do
@@ -36,12 +37,11 @@ describe TrackerApi::Resources::Story do
   end
 
   it 'can add new labels to an existing story' do
-    new_label_name = 'super-special-label'
+    new_label_name = "super-special-label"
 
     story.labels.map(&:name).wont_include new_label_name
 
-    new_label = TrackerApi::Resources::Label.new(name: new_label_name)
-    story.labels << new_label
+    story.add_label(new_label_name)
 
     VCR.use_cassette('save story with new label', record: :new_episodes) do
       story.save
@@ -49,6 +49,13 @@ describe TrackerApi::Resources::Story do
 
     story.labels.wont_be_empty
     story.labels.map(&:name).must_include new_label_name
+  end
+
+  it 'does not send unmodified fields when saving' do
+    story_with_one_change = TrackerApi::Resources::Story::UpdateRepresenter.new(TrackerApi::Resources::Story.new(name: "new_name"))
+    expected_json = MultiJson.dump({name: "new_name"})
+
+    expected_json.must_equal story_with_one_change.to_json
   end
 
   it 'objects are equal based on id' do
