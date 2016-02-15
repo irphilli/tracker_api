@@ -39,7 +39,7 @@ module TrackerApi
       class UpdateRepresenter < Representable::Decorator
         include Representable::JSON
 
-        property :follower_ids, if: ->(input:, **) { !input.blank? }
+        property :follower_ids, if: ->(options) { !options[:input].blank? }
         property :name
         property :description
         property :story_type
@@ -48,7 +48,7 @@ module TrackerApi
         property :accepted_at
         property :deadline
         property :requested_by_id
-        property :owner_ids, if: ->(input:, **) { !input.blank? }
+        property :owner_ids, if: ->(options) { !options[:input].blank? }
         collection :labels, class: Label, decorator: Label::UpdateRepresenter, render_empty: true
         property :integration_id
         property :external_id
