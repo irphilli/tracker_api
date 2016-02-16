@@ -1,6 +1,7 @@
 require_relative 'dirty_attribute/session'
 
 # @source: https://github.com/ahawkins/virtus-dirty_attribute
+# Changes from the original: https://gist.github.com/forest/40d3244acb00bb7a0322
 module Virtus
   # == Dirty Tracking
   #
