@@ -1,5 +1,12 @@
 require 'virtus'
-require 'virtus/attribute/nullify_blank'
+if Virtus::Attribute::NullifyBlank.method_defined?(:coerce)
+  require 'virtus/attribute/nullify_blank'
+else
+  raise """
+  WARNING: The above monkey patch can't be applied as expected.
+  See discussion here: https://github.com/dashofcode/tracker_api/commit/27599e7e2169776c32bbff8c972a31b930452879
+  """
+end
 require 'virtus/dirty_attribute'
 
 module TrackerApi
