@@ -5,12 +5,12 @@ module TrackerApi
 
       attribute :client
 
-      attribute :comment_ids, Array[Integer]
-      attribute :comments, Array[Comment]
+      attribute :comment_ids, Shared::Collection[Integer]
+      attribute :comments, Shared::Collection[Comment]
       attribute :created_at, DateTime
       attribute :description, String
-      attribute :follower_ids, Array[Integer]
-      attribute :followers, Array[Person]
+      attribute :follower_ids, Shared::Collection[Integer]
+      attribute :followers, Shared::Collection[Person]
       attribute :kind, String
       attribute :label, Label
       attribute :label_id, Integer

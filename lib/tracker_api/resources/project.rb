@@ -17,14 +17,14 @@ module TrackerApi
       attribute :enable_incoming_emails, Boolean
       attribute :enable_planned_mode, Boolean
       attribute :enable_tasks, Boolean
-      attribute :epic_ids, Array[Integer]
-      attribute :epics, Array[Epic]
+      attribute :epic_ids, Shared::Collection[Integer]
+      attribute :epics, Shared::Collection[Epic]
       attribute :has_google_domain, Boolean
       attribute :initial_velocity, Integer
       attribute :iteration_length, Integer
       attribute :kind, String
-      attribute :label_ids, Array[Integer]
-      attribute :labels, Array[Label]
+      attribute :label_ids, Shared::Collection[Integer]
+      attribute :labels, Shared::Collection[Label]
       attribute :name, String
       attribute :number_of_done_iterations_to_show, Integer
       attribute :point_scale, String

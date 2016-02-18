@@ -53,6 +53,7 @@ module TrackerApi
   module Resources
     module Shared
       autoload :Base, 'tracker_api/resources/shared/base'
+      autoload :Collection, 'tracker_api/resources/shared/collection'
     end
     autoload :Activity, 'tracker_api/resources/activity'
     autoload :Account, 'tracker_api/resources/account'
