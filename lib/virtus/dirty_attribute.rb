@@ -1,7 +1,20 @@
 require_relative 'dirty_attribute/session'
 
 # @source: https://github.com/ahawkins/virtus-dirty_attribute
-# Changes from the original: https://gist.github.com/forest/40d3244acb00bb7a0322
+#
+# The above gem works great for the majority of Virtus use cases, but is
+# not activly maintained.
+#
+# Here is a diff of the changes that have been made.
+# https://gist.github.com/forest/40d3244acb00bb7a0322
+#
+# We use instance_variable_get instead of the attribute getter
+# method to get the original value. This is because in TrackerApi we
+# often override the attribute getter to implement lazy loading of
+# associated data from the API (e.g. Project#epics). Making an API
+# request just get the original value is not what we want. Another thing
+# that must be done is being careful to mark the Resource as clean
+# when new data is loaded from the server (e.g. Endpoints::Epic#update).
 module Virtus
   # == Dirty Tracking
   #
