@@ -1,7 +1,7 @@
 module TrackerApi
   module Resources
     class PrimaryResource
-      include Shared::HasId
+      include Shared::Base
 
       attribute :kind, String
       attribute :name, String

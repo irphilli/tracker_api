@@ -1,7 +1,7 @@
 module TrackerApi
   module Resources
     class ProjectMembership
-      include Shared::HasId
+      include Shared::Base
 
       attribute :person_id, Integer
       attribute :project_id, Integer

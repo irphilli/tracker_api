@@ -11,8 +11,8 @@ module TrackerApi
       attribute :project_version, Integer
       attribute :message, String
       attribute :highlight, String
-      attribute :changes, Array[Change]
-      attribute :primary_resources, Array[PrimaryResource]
+      attribute :changes, Shared::Collection[Change]
+      attribute :primary_resources, Shared::Collection[PrimaryResource]
       attribute :project, Project
       attribute :performed_by, Person
       attribute :occurred_at, DateTime

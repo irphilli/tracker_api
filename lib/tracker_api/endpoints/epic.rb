@@ -31,6 +31,8 @@ module TrackerApi
         data = client.put("/projects/#{epic.project_id}/epics/#{epic.id}", params: params).body
 
         epic.attributes = data
+        epic.clean!
+        epic
       end
     end
   end

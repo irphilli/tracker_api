@@ -53,7 +53,7 @@ story.activity                                                            # Get 
 
 story.name = 'Save the Ewoks'                                             # Update a single story attribute
 story.attributes = { name: 'Save the Ewoks', description: '...' }         # Update multiple story attributes
-story.labels << TrackerApi::Resources::Label.new(name: 'Endor')           # Add a new label to an existing story
+story.add_label('Endor')                                                  # Add a new label to an existing story
 story.save                                                                # Save changes made to a story
 
 story = TrackerApi::Resources::Story.new( client:     client,

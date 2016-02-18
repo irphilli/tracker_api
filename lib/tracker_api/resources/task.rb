@@ -1,7 +1,7 @@
 module TrackerApi
   module Resources
     class Task
-      include Shared::HasId
+      include Shared::Base
 
       attribute :story_id, Integer
       attribute :description, String

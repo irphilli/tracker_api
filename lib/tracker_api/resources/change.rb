@@ -1,7 +1,7 @@
 module TrackerApi
   module Resources
     class Change
-      include Shared::HasId
+      include Shared::Base
 
       attribute :change_type, String
       attribute :kind, String

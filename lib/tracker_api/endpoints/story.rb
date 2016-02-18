@@ -31,6 +31,8 @@ module TrackerApi
         data = client.put("/projects/#{story.project_id}/stories/#{story.id}", params: params).body
 
         story.attributes = data
+        story.clean!
+        story
       end
     end
   end

@@ -1,7 +1,7 @@
 module TrackerApi
   module Resources
     class Account
-      include Shared::HasId
+      include Shared::Base
 
       attribute :created_at, DateTime
       attribute :status, String
