@@ -6,25 +6,25 @@ module TrackerApi
       attribute :client
 
       attribute :accepted_at, DateTime
-      attribute :comment_ids, Shared::Collection[Integer]
-      attribute :comments, Shared::Collection[Comment]
+      attribute :comment_ids
+      attribute :comments
       attribute :created_at, DateTime
       attribute :current_state, String # (accepted, delivered, finished, started, rejected, planned, unstarted, unscheduled)
       attribute :deadline, DateTime
       attribute :description, String
       attribute :estimate, Float
       attribute :external_id, String
-      attribute :follower_ids, Shared::Collection[Integer]
-      attribute :followers, Shared::Collection[Person]
+      attribute :follower_ids, Shared::Collection[Integer], required: false
+      attribute :followers
       attribute :integration_id, Integer
       attribute :kind, String
-      attribute :label_ids, Shared::Collection[Integer]
-      attribute :labels, Shared::Collection[Label]
+      attribute :label_ids
+      attribute :labels, Shared::Collection[Label], required: false
       attribute :name, String
       attribute :owned_by_id, Integer # deprecated!
       attribute :owned_by, Person
-      attribute :owner_ids, Shared::Collection[Integer]
-      attribute :owners, Shared::Collection[Person]
+      attribute :owner_ids, Shared::Collection[Integer], required: false
+      attribute :owners
       attribute :planned_iteration_number, Integer
       attribute :project_id, Integer
       attribute :requested_by, Person
@@ -49,7 +49,8 @@ module TrackerApi
         property :deadline
         property :requested_by_id
         property :owner_ids, if: ->(options) { !options[:input].blank? }
-        collection :labels, class: Label, decorator: Label::UpdateRepresenter, render_empty: true
+        collection :labels, class: Label, decorator: Label::UpdateRepresenter,
+          render_empty: true, if: ->(options) { !options[:input].nil? }
         property :integration_id
         property :external_id
       end
