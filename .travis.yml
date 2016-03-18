@@ -4,9 +4,7 @@ rvm:
   - "2.0.0"
   - "2.1.0"
   - "2.2.3"
-  # Faraday::ConnectionFailed: Could not generate DH keypair (Java::JavaLang::RuntimeException)
-  # http://bugs.java.com/bugdatabase/view_bug.do?bug_id=7044060
-  - "jruby"
+  # - "jruby"
   #  - rbx
   #  - "1.8.7"
 # uncomment this line if your project needs to run something other than `rake`:
