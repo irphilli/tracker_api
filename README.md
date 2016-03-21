@@ -59,8 +59,11 @@ story.save                                                                # Save
 story = TrackerApi::Resources::Story.new( client:     client,
                                           project_id: 123456,
                                           id:         847762630)          # Use the Story resource to get the story
-comments = story.comments                                                 # comments without first fetching the story.
+comments = story.comments                                                 #   comments without first fetching the story
 
+task = story.tasks.first                                                  # Get story tasks
+task.complete = true
+task.save                                                                 # Mark a task complete
 
 epics = project.epics                                                     # Get all epics for a project
 epic  = epics.first
@@ -85,6 +88,17 @@ story.comments(fields: ':default,person')                                 # Eage
 
 - Add missing resources and endpoints
 - Add create, update, delete for resources
+
+## Semantic Versioning
+http://semver.org/
+
+Given a version number MAJOR.MINOR.PATCH, increment the:
+
+1. MAJOR version when you make incompatible API changes,
+2. MINOR version when you add functionality in a backwards-compatible manner, and
+3. PATCH version when you make backwards-compatible bug fixes.
+
+Additional labels for pre-release and build metadata are available as extensions to the MAJOR.MINOR.PATCH format.
 
 ## Contributing
 
