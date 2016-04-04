@@ -84,6 +84,20 @@ client.project.stories(fields: ':default,comments(:default,person)')      # Eage
 story.comments(fields: ':default,person')                                 # Eagerly get comments and the person that made the comment for a story
 ```
 
+## Warning
+
+Direct mutation of an attribute value skips coercion and dirty tracking. Please use direct assignment or the specialized add_* methods to get expected behavior.
+https://github.com/solnic/virtus#important-note-about-member-coercions
+
+This will cause coercion and dirty tracking to be bypassed and the new label will not be saved.
+```ruby
+story = project.story(847762630)
+
+label = TrackerApi::Resources::Label.new(name: 'Special Snowflake')
+story.labels << label
+story.save
+```
+
 ## TODO
 
 - Add missing resources and endpoints

@@ -13,8 +13,8 @@ module TrackerApi
       attribute :planned, Boolean
       attribute :project_id, Integer
       attribute :start, DateTime
-      attribute :stories, Shared::Collection[Story]
-      attribute :story_ids, Shared::Collection[Integer]
+      attribute :stories, [Story]
+      attribute :story_ids, [Integer]
       attribute :team_strength, Float
 
       def stories=(data)

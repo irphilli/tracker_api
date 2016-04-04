@@ -6,32 +6,32 @@ module TrackerApi
       attribute :client
 
       attribute :accepted_at, DateTime
-      attribute :comment_ids, Shared::Collection[Integer]
-      attribute :comments, Shared::Collection[Comment]
+      attribute :comment_ids, [Integer]
+      attribute :comments, [Comment]
       attribute :created_at, DateTime
       attribute :current_state, String # (accepted, delivered, finished, started, rejected, planned, unstarted, unscheduled)
       attribute :deadline, DateTime
       attribute :description, String
       attribute :estimate, Float
       attribute :external_id, String
-      attribute :follower_ids, Shared::Collection[Integer]
-      attribute :followers, Shared::Collection[Person]
+      attribute :follower_ids, [Integer]
+      attribute :followers, [Person]
       attribute :integration_id, Integer
       attribute :kind, String
-      attribute :label_ids, Shared::Collection[Integer]
-      attribute :labels, Shared::Collection[Label]
+      attribute :label_ids, [Integer]
+      attribute :labels, [Label]
       attribute :name, String
       attribute :owned_by_id, Integer # deprecated!
       attribute :owned_by, Person
-      attribute :owner_ids, Shared::Collection[Integer]
-      attribute :owners, Shared::Collection[Person]
+      attribute :owner_ids, [Integer]
+      attribute :owners, [Person]
       attribute :planned_iteration_number, Integer
       attribute :project_id, Integer
       attribute :requested_by, Person
       attribute :requested_by_id, Integer
       attribute :story_type, String # (feature, bug, chore, release)
-      attribute :task_ids, Shared::Collection[Integer]
-      attribute :tasks, Shared::Collection[Task]
+      attribute :task_ids, [Integer]
+      attribute :tasks, [Task]
       attribute :updated_at, DateTime
       attribute :url, String
 

@@ -9,9 +9,9 @@ module TrackerApi
       attribute :time_zone, TimeZone
       attribute :api_token, String
       attribute :has_google_identity, Boolean
-      attribute :project_ids, Shared::Collection[Integer]
-      attribute :projects, Shared::Collection[MembershipSummary]
-      attribute :workspace_ids, Shared::Collection[Integer]
+      attribute :project_ids, [Integer]
+      attribute :projects, [MembershipSummary]
+      attribute :workspace_ids, [Integer]
       attribute :email, String
       attribute :receives_in_app_notifications, Boolean
       attribute :kind, String
