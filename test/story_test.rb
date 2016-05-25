@@ -76,8 +76,6 @@ describe TrackerApi::Resources::Story do
 
   describe '.owners' do
     it 'gets all owners for this story with eager loading' do
-      skip('Until this is resolved: https://pivotaltracker.zendesk.com/requests/35823')
-
       story = VCR.use_cassette('get story with owners', record: :new_episodes) do
         project.story(story_id, fields: ':default,owners')
       end
