@@ -128,6 +128,23 @@ module TrackerApi
       Endpoints::Project.new(self).get(id, params)
     end
 
+    # Get workspace
+    #
+    # @param [Hash] params
+    # @return [TrackerApi::Resources::Workspace]
+    def workspace(id, params={})
+      Endpoints::Workspace.new(self).get(id, params)
+    end
+
+    # Get workspaces
+    #
+    # @param [Hash] params
+    # @return [Array[TrackerApi::Resources::Workspace]]
+    def workspaces(params={})
+      Endpoints::Workspaces.new(self).get(params)
+    end
+
+
     # Get information about the authenticated user
     #
     # @return [TrackerApi::Resources::Me]

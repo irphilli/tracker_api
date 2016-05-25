@@ -61,6 +61,40 @@ describe TrackerApi::Client do
     end
   end
 
+  describe '.workspace' do
+    let(:pt_user) { PT_USER_1 }
+    let(:client) { TrackerApi::Client.new token: pt_user[:token] }
+
+    it 'gets a workspace by id' do
+      VCR.use_cassette('get workspace', record: :new_episodes) do
+        workspace = client.workspace(pt_user[:workspace_id])
+
+        workspace.must_be_instance_of TrackerApi::Resources::Workspace
+        workspace.id.must_equal pt_user[:workspace_id]
+        workspace.name.wont_be_empty
+      end
+    end
+  end
+
+
+  describe '.workspaces' do
+    let(:pt_user) { PT_USER_2 }
+    let(:client) { TrackerApi::Client.new token: pt_user[:token] }
+
+    it 'gets all workspaces' do
+      VCR.use_cassette('get all workspaces', record: :new_episodes) do
+        workspaces = client.workspaces(fields: ':default,projects(id,name)')
+
+        workspaces.wont_be_empty
+        workspace = workspaces.first
+        workspace.must_be_instance_of TrackerApi::Resources::Workspace
+        workspace.id.must_equal pt_user[:workspace_id]
+      end
+    end
+  end
+
+
+
   describe '.me' do
     let(:pt_user) { PT_USER_1 }
     let(:client) { TrackerApi::Client.new token: pt_user[:token] }
