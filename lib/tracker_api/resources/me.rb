@@ -12,6 +12,7 @@ module TrackerApi
       attribute :project_ids, [Integer]
       attribute :projects, [MembershipSummary]
       attribute :workspace_ids, [Integer]
+      attribute :workspaces, [Workspace]
       attribute :email, String
       attribute :receives_in_app_notifications, Boolean
       attribute :kind, String

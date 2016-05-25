@@ -68,6 +68,8 @@ task.save                                                                 # Mark
 epics = project.epics                                                     # Get all epics for a project
 epic  = epics.first
 label = epic.label                                                        # Get an epic's label
+
+workspaces = client.workspaces                                            # Get person's multi-project workspaces
 ```
 
 ## Eager Loading
