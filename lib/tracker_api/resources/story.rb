@@ -6,6 +6,8 @@ module TrackerApi
       attribute :client
 
       attribute :accepted_at, DateTime
+      attribute :after_id, Integer
+      attribute :before_id, Integer
       attribute :comment_ids, [Integer]
       attribute :comments, [Comment]
       attribute :created_at, DateTime
@@ -41,6 +43,8 @@ module TrackerApi
 
         property :follower_ids, if: ->(options) { !options[:input].blank? }
         property :name
+        property :after_id
+        property :before_id
         property :description
         property :story_type
         property :current_state
