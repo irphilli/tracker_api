@@ -56,6 +56,8 @@ story.attributes = { name: 'Save the Ewoks', description: '...' }         # Upda
 story.add_label('Endor')                                                  # Add a new label to an existing story
 story.save                                                                # Save changes made to a story
 
+story = client.story(117596687)                                           # Get a story with story ID only
+
 story = TrackerApi::Resources::Story.new( client:     client,
                                           project_id: 123456,
                                           id:         847762630)          # Use the Story resource to get the story
