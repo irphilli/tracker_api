@@ -9,7 +9,6 @@ describe TrackerApi::Resources::Story do
   let(:another_story_id) { '66728000' }
   let(:story) { VCR.use_cassette('get story') { project.story(story_id) } }
 
-
   it 'can update an existing story' do
     new_name   = "#{story.name}+"
     story.name = new_name
@@ -98,6 +97,22 @@ describe TrackerApi::Resources::Story do
         owner = owners.first
         owner.must_be_instance_of TrackerApi::Resources::Person
       end
+    end
+  end
+
+  describe "updating owners" do
+    it do
+      owner_ids = [VCR.use_cassette("get me", record: :new_episodes) { client.me.id }]
+
+      refute_equal story.owner_ids, owner_ids
+
+      story.owner_ids = owner_ids
+
+      VCR.use_cassette("save story with owner_ids changed", record: :new_episodes) do
+        story.save
+      end
+
+      story.owner_ids.must_equal owner_ids
     end
   end
 
@@ -194,5 +209,4 @@ describe TrackerApi::Resources::Story do
       end
     end
   end
-
 end
