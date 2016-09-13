@@ -128,6 +128,14 @@ module TrackerApi
       Endpoints::Project.new(self).get(id, params)
     end
 
+    # Create a new workspace.
+    #
+    # @param [Hash] params attributes to create the workspace with
+    # @return [TrackerApi::Resources::Workspace] newly created Workspace
+    def create_workspace(params)
+      Endpoints::Workspace.new(self).create(params)
+    end
+
     # Get workspace
     #
     # @param [Hash] params

@@ -12,6 +12,12 @@ module TrackerApi
 
         Resources::Workspace.new({ client: client }.merge(data))
       end
+
+      def create(params={})
+        data = client.post("/my/workspaces", params: params).body
+
+        Resources::Workspace.new({ client: client }.merge(data))
+      end
     end
   end
 end
