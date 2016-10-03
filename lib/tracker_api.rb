@@ -50,6 +50,8 @@ module TrackerApi
     autoload :Task, 'tracker_api/endpoints/task'
     autoload :Tasks, 'tracker_api/endpoints/tasks'
     autoload :Comments, 'tracker_api/endpoints/comments'
+    autoload :Webhook, 'tracker_api/endpoints/webhook'
+    autoload :Webhooks, 'tracker_api/endpoints/webhooks'
   end
 
   module Resources
@@ -75,5 +77,6 @@ module TrackerApi
     autoload :Task, 'tracker_api/resources/task'
     autoload :TimeZone, 'tracker_api/resources/time_zone'
     autoload :Comment, 'tracker_api/resources/comment'
+    autoload :Webhook, 'tracker_api/resources/webhook'
   end
 end
