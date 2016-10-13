@@ -17,7 +17,7 @@ It’s powered by [Faraday](https://github.com/lostisland/faraday) and [Virtus](
 
 Add this line to your application's Gemfile:
 ```ruby
-gem 'tracker_api', '~> 0.2.0'
+gem 'tracker_api'
 ```
 
 And then execute:
