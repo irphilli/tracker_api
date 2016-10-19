@@ -7,6 +7,7 @@ describe TrackerApi::Resources::Story do
   let(:project) { VCR.use_cassette('get project') { client.project(project_id) } }
   let(:story_id) { '66728004' }
   let(:another_story_id) { '66728000' }
+  let(:story_id_no_existing_labels) { '82330712' }
   let(:story) { VCR.use_cassette('get story') { project.story(story_id) } }
 
   it 'can update an existing story' do
@@ -43,6 +44,21 @@ describe TrackerApi::Resources::Story do
     story.add_label(new_label_name)
 
     VCR.use_cassette('save story with new label', record: :new_episodes) do
+      story.save
+    end
+
+    story.labels.wont_be_empty
+    story.labels.map(&:name).must_include new_label_name
+  end
+
+  it 'can add new labels to an existing story without existing labels' do
+    story = VCR.use_cassette('get story no existing labels') { project.story(story_id_no_existing_labels) }
+    story.labels.must_be_nil
+
+    new_label_name = "super-special-label"
+    story.add_label(new_label_name)
+
+    VCR.use_cassette('save previously no label story with new label', record: :new_episodes) do
       story.save
     end
 
