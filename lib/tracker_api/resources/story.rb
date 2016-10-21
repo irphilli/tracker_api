@@ -74,7 +74,7 @@ module TrackerApi
         end
 
         # Use attribute writer to get coercion and dirty tracking.
-        self.labels = @labels.dup.push(new_label)
+        self.labels = (labels ? labels.dup : []).push(new_label)
       end
 
       # Provides a list of all the activity performed on the story.
