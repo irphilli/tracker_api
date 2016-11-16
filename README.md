@@ -63,6 +63,11 @@ story = TrackerApi::Resources::Story.new( client:     client,
                                           id:         847762630)          # Use the Story resource to get the story
 comments = story.comments                                                 #   comments without first fetching the story
 
+comment = story.create_comment(text: "Use the force!")                    # Create a new comment on the story
+
+comment.text += " (please be careful)"
+comment.save                                                              # Update text of an existing comment
+
 task = story.tasks.first                                                  # Get story tasks
 task.complete = true
 task.save                                                                 # Mark a task complete
