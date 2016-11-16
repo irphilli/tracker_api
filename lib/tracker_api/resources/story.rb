@@ -127,6 +127,12 @@ module TrackerApi
         Endpoints::Task.new(client).create(project_id, id, params)
       end
 
+      # @param [Hash] params attributes to create the comment with
+      # @return [Comment] newly created Comment
+      def create_comment(params)
+        Endpoints::Comment.new(client).create(project_id, id, params)
+      end
+
       # Save changes to an existing Story.
       def save
         raise ArgumentError, 'Can not update a story with an unknown project_id.' if project_id.nil?

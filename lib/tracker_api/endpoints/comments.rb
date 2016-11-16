@@ -12,7 +12,9 @@ module TrackerApi
         raise Errors::UnexpectedData, 'Array of comments expected' unless data.is_a? Array
 
         data.map do |comment|
-          Resources::Comment.new({ story_id: story_id }.merge(comment))
+          Resources::Comment.new({ client: client,
+                                   project_id: project_id,
+                                   story_id: story_id }.merge(comment))
         end
       end
     end
