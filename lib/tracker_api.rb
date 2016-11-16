@@ -50,6 +50,7 @@ module TrackerApi
     autoload :Task, 'tracker_api/endpoints/task'
     autoload :Tasks, 'tracker_api/endpoints/tasks'
     autoload :Comments, 'tracker_api/endpoints/comments'
+    autoload :Comment, 'tracker_api/endpoints/comment'
   end
 
   module Resources

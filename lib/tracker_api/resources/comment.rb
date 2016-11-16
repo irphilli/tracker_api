@@ -28,7 +28,7 @@ module TrackerApi
       def save
         raise ArgumentError, 'Cannot update a comment with an unknown story_id.' if story_id.nil?
 
-        Endpoints::Comments.new(client).update(self, UpdateRepresenter.new(Comment.new(self.dirty_attributes)))
+        Endpoints::Comment.new(client).update(self, UpdateRepresenter.new(Comment.new(self.dirty_attributes)))
       end
     end
   end

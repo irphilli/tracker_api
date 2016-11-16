@@ -130,7 +130,7 @@ module TrackerApi
       # @param [Hash] params attributes to create the comment with
       # @return [Comment] newly created Comment
       def create_comment(params)
-        Endpoints::Comments.new(client).create(project_id, id, params)
+        Endpoints::Comment.new(client).create(project_id, id, params)
       end
 
       # Save changes to an existing Story.
