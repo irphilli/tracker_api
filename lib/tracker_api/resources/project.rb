@@ -38,6 +38,7 @@ module TrackerApi
       attribute :velocity_averaged_over, Integer
       attribute :version, Integer
       attribute :week_start_day, String
+      attribute :webhooks, [Webhook]
 
       # @return [String] comma separated list of labels
       def label_list
@@ -70,6 +71,18 @@ module TrackerApi
           @epics
         else
           @epics = Endpoints::Epics.new(client).get(id, params)
+        end
+      end
+
+      # Provides a list of all the webhooks in the project.
+      #
+      # @param [Hash] params
+      # @return [Array[Webhook]] epics associated with this project
+      def webhooks(params={})
+        if @webhooks && @webhooks.present?
+          @webhooks
+        else
+          @webhooks = Endpoints::Webhooks.new(client).get(id, params)
         end
       end
 
@@ -172,6 +185,29 @@ module TrackerApi
       # @return [ProjectMembership] member that was added to project
       def add_membership(params)
         Endpoints::Memberships.new(client).add(id, params)
+      end
+
+      # Find a webhook for the project.
+      #
+      # @param [Fixnum] webhook_id id of webhook to get
+      # @return [Webhook] webhook with given id
+      def webhook(webhook_id, params={})
+        Endpoints::Webhook.new(client).get(id, webhook_id, params)
+      end
+
+      # Create a new webhook for the project.
+      #
+      # @param [Hash] params attributes to add a webhook; must have webhook_url, webhook_version
+      # @return [Webhook] webhook that was added to project
+      def add_webhook(params)
+        Endpoints::Webhook.new(client).create(id, params)
+      end
+
+      # Delete webhook from the project.
+      #
+      # @return true of false depends on result of delition
+      def delete_webhook(webhook_id)
+        Endpoints::Webhook.new(client).delete_from_project(id, webhook_id)
       end
     end
   end
