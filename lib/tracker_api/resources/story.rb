@@ -34,6 +34,7 @@ module TrackerApi
       attribute :story_type, String # (feature, bug, chore, release)
       attribute :task_ids, [Integer]
       attribute :tasks, [Task]
+      attribute :transitions, [StoryTransition]
       attribute :updated_at, DateTime
       attribute :url, String
 
@@ -118,6 +119,18 @@ module TrackerApi
           @owners
         else
           @owners = Endpoints::StoryOwners.new(client).get(project_id, id, params)
+        end
+      end
+
+      # Provides a list of all the transitions of the story.
+      #
+      # @param [Hash] params
+      # @return [Array[StoryTransition]]
+      def story_transitions(params = {})
+        if params.blank? && @transitions.present?
+          @transitions
+        else
+          @transitions = Endpoints::StoryTransitions.new(client).get(project_id, id, params)
         end
       end
 
