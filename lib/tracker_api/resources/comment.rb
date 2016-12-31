@@ -10,6 +10,7 @@ module TrackerApi
       attribute :epic_id, Integer
       attribute :text, String
       attribute :person_id, Integer
+      attribute :person, Person
       attribute :created_at, DateTime
       attribute :updated_at, DateTime
       attribute :file_attachment_ids, [Integer]
