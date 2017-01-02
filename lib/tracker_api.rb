@@ -53,6 +53,7 @@ module TrackerApi
     autoload :Comment, 'tracker_api/endpoints/comment'
     autoload :Webhook, 'tracker_api/endpoints/webhook'
     autoload :Webhooks, 'tracker_api/endpoints/webhooks'
+    autoload :StoryTransitions, 'tracker_api/endpoints/story_transitions'
   end
 
   module Resources
@@ -79,5 +80,6 @@ module TrackerApi
     autoload :TimeZone, 'tracker_api/resources/time_zone'
     autoload :Comment, 'tracker_api/resources/comment'
     autoload :Webhook, 'tracker_api/resources/webhook'
+    autoload :StoryTransition, 'tracker_api/resources/story_transition'
   end
 end
