@@ -8,7 +8,9 @@ module TrackerApi
       end
 
       def get(project_id, params={})
-        data = client.paginate("/projects/#{project_id}/stories", params: params)
+        url = params[:ids] ? "/projects/#{project_id}/stories/bulk" : "/projects/#{project_id}/stories"
+        data = client.paginate(url, params: params)
+
         raise Errors::UnexpectedData, 'Array of stories expected' unless data.is_a? Array
 
         data.map do |story|
