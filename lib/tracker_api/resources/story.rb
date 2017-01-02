@@ -126,7 +126,7 @@ module TrackerApi
       #
       # @param [Hash] params
       # @return [Array[StoryTransition]]
-      def story_transitions(params = {})
+      def transitions(params = {})
         if params.blank? && @transitions.present?
           @transitions
         else
