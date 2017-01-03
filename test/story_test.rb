@@ -226,12 +226,12 @@ describe TrackerApi::Resources::Story do
     end
   end
 
-  describe '.story_transitions' do
+  describe '.transitions' do
     it 'gets all story transitions with just project_id and story_id' do
       VCR.use_cassette('get story transitions', record: :new_episodes) do
         story = TrackerApi::Resources::Story.new( client:     client,
                                                   project_id: project_id,
-                                                  id:         story_id)
+                                                  id:         another_story_id)
 
         transitions = story.transitions
         transition = transitions.first

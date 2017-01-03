@@ -50,7 +50,7 @@ project.create_story(name: 'Destroy death star')                          # Crea
 
 story = project.story(847762630)                                          # Find a story with the given ID
 story.activity                                                            # Get a list of all the activity performed on this story
-story.story_transitions                                                   # Get a list of all the story transitions on this story
+story.transitions                                                         # Get a list of all the story transitions on this story
 
 story.name = 'Save the Ewoks'                                             # Update a single story attribute
 story.attributes = { name: 'Save the Ewoks', description: '...' }         # Update multiple story attributes
