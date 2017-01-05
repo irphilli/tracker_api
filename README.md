@@ -104,7 +104,12 @@ This will cause coercion and dirty tracking to be bypassed and the new label wil
 story = project.story(847762630)
 
 label = TrackerApi::Resources::Label.new(name: 'Special Snowflake')
+# BAD
 story.labels << label
+story.save
+
+# GOOD
+story.labels = story.labels.dup.push(label)
 story.save
 ```
 
