@@ -4,6 +4,8 @@
 .config
 .yardoc
 .idea
+.vscode
+bin
 .DS_Store
 Gemfile.lock
 InstalledFiles

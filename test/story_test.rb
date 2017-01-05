@@ -1,9 +1,12 @@
 require_relative 'minitest_helper'
 
 describe TrackerApi::Resources::Story do
-  let(:pt_user) { PT_USER_1 }
-  let(:client) { TrackerApi::Client.new token: pt_user[:token] }
-  let(:project_id) { pt_user[:project_id] }
+  let(:pt_user_1) { PT_USER_1 }
+  let(:pt_user_1_id) { pt_user_1[:id] }
+  let(:pt_user_2) { PT_USER_2 }
+  let(:pt_user_2_id) { pt_user_2[:id] }
+  let(:client) { TrackerApi::Client.new token: pt_user_1[:token] }
+  let(:project_id) { pt_user_1[:project_id] }
   let(:project) { VCR.use_cassette('get project') { client.project(project_id) } }
   let(:story_id) { '66728004' }
   let(:another_story_id) { '66728000' }
@@ -116,19 +119,37 @@ describe TrackerApi::Resources::Story do
     end
   end
 
-  describe "updating owners" do
-    it do
-      owner_ids = [VCR.use_cassette("get me", record: :new_episodes) { client.me.id }]
+  describe '.owner_ids' do
+    it 'gets owner_ids for this story' do
+      VCR.use_cassette('get story', record: :new_episodes) do
+        story = project.story(story_id)
+        owner_ids = story.owner_ids
 
-      refute_equal story.owner_ids, owner_ids
-
-      story.owner_ids = owner_ids
-
-      VCR.use_cassette("save story with owner_ids changed", record: :new_episodes) do
-        story.save
+        owner_ids.wont_be_empty
+        owner_ids.first.must_be_instance_of Fixnum
       end
+    end
 
-      story.owner_ids.must_equal owner_ids
+    it 'update owners for a story' do
+      VCR.use_cassette('get story', record: :new_episodes) do
+        story = project.story(story_id)
+
+        # save with one owner
+        one_owner = [pt_user_1_id]
+        story.owner_ids = one_owner
+        VCR.use_cassette('save story with one owner') { story.save }
+
+        story.owner_ids.wont_be_empty
+        story.owner_ids.must_equal one_owner
+
+        # save with two owners
+        two_owners = [pt_user_1_id, pt_user_2_id]
+        story.owner_ids = two_owners
+        VCR.use_cassette('save story with two owners') { story.save }
+
+        story.owner_ids.wont_be_empty
+        story.owner_ids.must_equal two_owners
+      end
     end
   end
 
@@ -196,18 +217,6 @@ describe TrackerApi::Resources::Story do
         activity.wont_be_empty
         event = activity.first
         event.must_be_instance_of TrackerApi::Resources::Activity
-      end
-    end
-  end
-
-  describe '.owners' do
-    it 'gets all owners of this story' do
-      VCR.use_cassette('get story owners', record: :new_episodes) do
-        owners = story.owners
-
-        owners.wont_be_empty
-        owner = owners.first
-        owner.must_be_instance_of TrackerApi::Resources::Person
       end
     end
   end
