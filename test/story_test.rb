@@ -153,6 +153,39 @@ describe TrackerApi::Resources::Story do
     end
   end
 
+  describe '.add_owner' do
+    it 'add owner to a story' do
+      VCR.use_cassette('get story', record: :new_episodes) do
+        story = project.story(story_id)
+
+        # clear current owners
+        story.owner_ids = []
+
+        story.add_owner(TrackerApi::Resources::Person.new(id: 123))
+
+        story.owner_ids.wont_be_empty
+        story.owner_ids.must_equal [123]
+      end
+    end
+
+    it 'add owners by id to a story' do
+      VCR.use_cassette('get story', record: :new_episodes) do
+        story = project.story(story_id)
+
+        # clear current owners
+        story.owner_ids = []
+
+        story.add_owner(123)
+        story.add_owner(456)
+        # test dups are not added
+        story.add_owner(123)
+
+        story.owner_ids.wont_be_empty
+        story.owner_ids.must_equal [123, 456]
+      end
+    end
+  end
+
   describe '.tasks' do
     it 'gets all tasks for this story with eager loading' do
       VCR.use_cassette('get story with tasks', record: :new_episodes) do
