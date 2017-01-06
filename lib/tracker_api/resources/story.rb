@@ -75,7 +75,22 @@ module TrackerApi
         end
 
         # Use attribute writer to get coercion and dirty tracking.
-        self.labels = (labels ? labels.dup : []).push(new_label)
+        self.labels = (labels ? labels.dup : []).push(new_label).uniq
+      end
+
+      # Adds a new owner to the story.
+      #
+      # @param [Person|Fixnum] owner
+      def add_owner(owner)
+        owner_id = if owner.kind_of?(Fixnum)
+          owner_id = owner
+        else
+          raise ArgumentError, 'Valid Person expected.' unless owner.instance_of?(Resources::Person)
+          owner_id = owner.id
+        end
+
+        # Use attribute writer to get coercion and dirty tracking.
+        self.owner_ids = (owner_ids ? owner_ids.dup : []).push(owner_id).uniq
       end
 
       # Provides a list of all the activity performed on the story.
