@@ -5,6 +5,7 @@
 .yardoc
 .idea
 .vscode
+.rubocop.yml
 bin
 .DS_Store
 Gemfile.lock

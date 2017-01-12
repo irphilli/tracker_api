@@ -9,7 +9,6 @@ if defined?(ActiveSupport)
 else
   require 'core_ext/object/blank'
 end
-require 'equalizer'
 
 require 'multi_json'
 require 'representable/json'
@@ -59,7 +58,8 @@ module TrackerApi
   module Resources
     module Shared
       autoload :Base, 'tracker_api/resources/shared/base'
-      autoload :Collection, 'tracker_api/resources/shared/collection'
+      autoload :Types, 'tracker_api/resources/shared/types'
+      autoload :BaseDry, 'tracker_api/resources/shared/base_dry'
     end
     autoload :Activity, 'tracker_api/resources/activity'
     autoload :Account, 'tracker_api/resources/account'
