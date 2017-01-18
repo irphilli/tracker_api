@@ -11,6 +11,7 @@ else
 end
 
 require 'multi_json'
+require 'oj'
 require 'representable/json'
 
 # stdlib
@@ -18,8 +19,7 @@ require 'addressable/uri'
 require 'forwardable'
 require 'logger'
 
-MultiJson.load_options = {:mode => :compat}
-MultiJson.dump_options = {:mode => :compat}
+Oj.default_options = {:mode => :compat }
 
 module TrackerApi
   autoload :Error, 'tracker_api/error'
