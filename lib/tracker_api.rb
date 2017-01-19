@@ -58,9 +58,9 @@ module TrackerApi
   module Resources
     module Shared
       autoload :Base, 'tracker_api/resources/shared/base'
-      autoload :Types, 'tracker_api/resources/shared/types'
-      autoload :BaseDry, 'tracker_api/resources/shared/base_dry'
     end
+    autoload :Types, 'tracker_api/resources/types'
+    autoload :Resource, 'tracker_api/resources/resource'
     autoload :Activity, 'tracker_api/resources/activity'
     autoload :Account, 'tracker_api/resources/account'
     autoload :Change, 'tracker_api/resources/change'
