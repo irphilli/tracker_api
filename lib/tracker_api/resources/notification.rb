@@ -6,6 +6,7 @@ module TrackerApi
       attribute :client
 
       attribute :message, String
+      attribute :context, String
       attribute :kind, String
       attribute :project, Project
       attribute :story, Story
