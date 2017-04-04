@@ -100,7 +100,10 @@ module TrackerApi
       auto_paginate  = opts[:params].delete(:auto_paginate) { |k| @auto_paginate }
       @last_response = request :get, opts
       data           = @last_response.body
-      raise TrackerApi::Errors::UnexpectedData, 'Array expected' unless data.is_a? Array
+
+      if !data.is_a?(Array) && !data.is_a?(Hash)
+        raise TrackerApi::Errors::UnexpectedData, 'Array or Hash expected'
+      end
 
       if auto_paginate
         pager = Pagination.new @last_response.headers
@@ -113,7 +116,7 @@ module TrackerApi
           if block_given?
             yield(data, @last_response)
           else
-            data.concat(@last_response.body) if @last_response.body.is_a?(Array)
+            data.concat(@last_response.body) if @last_response.body.is_a?(Array) || @last_response.body.is_a?(Hash)
           end
         end
       end
