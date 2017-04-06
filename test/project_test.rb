@@ -178,4 +178,8 @@ describe TrackerApi::Resources::Project do
       end
     end
   end
+
+  # TODO: describe '.search' do
+  #
+  # end
 end
