@@ -101,9 +101,7 @@ module TrackerApi
       @last_response = request :get, opts
       data           = @last_response.body
 
-      if !data.is_a?(Array) && !data.is_a?(Hash)
-        raise TrackerApi::Errors::UnexpectedData, 'Array or Hash expected'
-      end
+      raise TrackerApi::Errors::UnexpectedData, 'Array expected' unless data.is_a? Array
 
       if auto_paginate
         pager = Pagination.new @last_response.headers
@@ -116,7 +114,7 @@ module TrackerApi
           if block_given?
             yield(data, @last_response)
           else
-            data.concat(@last_response.body) if @last_response.body.is_a?(Array) || @last_response.body.is_a?(Hash)
+            data.concat(@last_response.body) if @last_response.body.is_a?(Array)
           end
         end
       end
