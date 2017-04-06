@@ -3,7 +3,7 @@ module TrackerApi
     class StoriesSearchResult
       include Shared::Base
 
-      attribute :stories, Array
+      attribute :stories, Array[Resources::Story]
       attribute :total_hits, Integer
       attribute :total_hits_with_done, Integer
       attribute :total_points, Float
