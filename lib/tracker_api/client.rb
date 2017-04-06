@@ -100,7 +100,6 @@ module TrackerApi
       auto_paginate  = opts[:params].delete(:auto_paginate) { |k| @auto_paginate }
       @last_response = request :get, opts
       data           = @last_response.body
-
       raise TrackerApi::Errors::UnexpectedData, 'Array expected' unless data.is_a? Array
 
       if auto_paginate
