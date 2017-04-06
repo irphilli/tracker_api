@@ -28,7 +28,8 @@ end
 PT_USER_1 = { username: 'trackerapi1', password: 'trackerapi1', token: 'd55c3bc1f74346b843ca84ba340b29bf', project_id: 1027488, workspace_id: 375106, id: 1266314 }
 PT_USER_2 = { username: 'trackerapi2', password: 'trackerapi2', token: 'ab4c5895f57995bb7547986eacf91160', project_ids: [1027488, 1027492], workspace_id: 581707, id: 1266316 }
 PT_USER_3 = { username: 'trackerapi3', password: 'trackerapi3', token: '77f9b9a466c436e6456939208c84c973', project_id: 1027494 }
-PT_USERS  = [PT_USER_1, PT_USER_2, PT_USER_3]
+PT_USER_4 = { username: 'trackerapi4', password: 'trackerapi4', token: 'b764325e019df5c28896d1aa2fe27225', project_id: 1991595 }
+PT_USERS  = [PT_USER_1, PT_USER_2, PT_USER_3, PT_USER_4]
 
 LOGGER = ::Logger.new(STDOUT)
 # LOGGER.level = ::Logger::DEBUG

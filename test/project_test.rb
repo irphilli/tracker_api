@@ -179,7 +179,19 @@ describe TrackerApi::Resources::Project do
     end
   end
 
-  # TODO: describe '.search' do
-  #
-  # end
+  describe '.search' do
+    let(:pt_user) { PT_USER_4 }
+
+    it 'can search a project' do
+      VCR.use_cassette('search project') do
+        project = client.project(pt_user[:project_id])
+        search_container = project.search('label:"epic not completed"')
+
+        search_container.wont_be_nil
+        search_container.must_be_instance_of TrackerApi::Resources::SearchResultContainer
+        search_container.epics.must_be_instance_of TrackerApi::Resources::EpicsSearchResult
+        search_container.stories.must_be_instance_of TrackerApi::Resources::StoriesSearchResult
+      end
+    end
+  end
 end
