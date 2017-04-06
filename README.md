@@ -48,6 +48,8 @@ project.stories(with_state: :unscheduled, limit: 10)                      # Get 
 project.stories(filter: 'requester:OWK label:"jedi stuff"')               # Get all stories that match the given filters
 project.create_story(name: 'Destroy death star')                          # Create a story with the name 'Destroy death star'
 
+project.search('Destroy death star')                                      # Get a search result with all epics and stories relevant to the query
+
 story = project.story(847762630)                                          # Find a story with the given ID
 story.activity                                                            # Get a list of all the activity performed on this story
 story.transitions                                                         # Get a list of all the story transitions on this story
