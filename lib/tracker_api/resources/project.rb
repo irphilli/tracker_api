@@ -209,6 +209,16 @@ module TrackerApi
       def delete_webhook(webhook_id)
         Endpoints::Webhook.new(client).delete_from_project(id, webhook_id)
       end
+
+      # Search for a term in the given project. This can be an arbitrary term or a specific search query.
+      # See https://www.pivotaltracker.com/help/articles/advanced_search/
+      #
+      # @param [String] query A versatile search query
+      # @param [Hash] params
+      # @return [SearchResultsContainer] An object composed of Epic(s) [EpicsSearchResult] and Story(s) [StoriesSearchResults]
+      def search(query, params={})
+        Endpoints::Search.new(client).get(id, query, params)
+      end
     end
   end
 end
