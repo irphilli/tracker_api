@@ -203,6 +203,12 @@ module TrackerApi
       Endpoints::Activity.new(self).get(params)
     end
 
+    # Provides a list of all comments for a specific story
+    #
+    def comments(project_id, story_id)
+      Endpoints::Comments.new(self).get(project_id,story_id)
+    end
+
     private
 
     def parse_query_and_convenience_headers(path, options)
