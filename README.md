@@ -10,7 +10,7 @@ This gem allows you to easily use the [Pivotal Tracker v5 API](https://www.pivot
 
 It’s powered by [Faraday](https://github.com/lostisland/faraday) and [Virtus](https://github.com/solnic/virtus).
 
-##Demonstration
+## Demonstration
 [Dash of Agile](https://www.dashofagile.com) uses `tracker_api` to create agile dashboards from Pivotal Tracker projects.
 
 ## Installation
