@@ -61,7 +61,10 @@ module TrackerApi
 
       # @return [String] Comma separated list of labels.
       def label_list
-        @label_list ||= labels.collect(&:name).join(',')
+        @label_list ||= begin
+          return if labels.nil? 
+          labels.collect(&:name).join(',')
+        end
       end
 
       # Adds a new label to the story.
