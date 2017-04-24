@@ -92,6 +92,20 @@ describe TrackerApi::Resources::Project do
       end
     end
 
+    it 'can get iteration with non-default fields' do
+      VCR.use_cassette('get current iteration', record: :new_episodes) do
+        iterations = project.iterations(scope: :current, fields: ":default,velocity,points,accepted_points,effective_points")
+
+        iterations.wont_be_empty
+
+        current = iterations.first
+        current.velocity.must_equal 10.0
+        current.points.must_equal 10
+        current.accepted_points.must_equal 0
+        current.effective_points.must_equal 10.0
+      end
+    end
+
     it 'can get an iteration by number' do
       VCR.use_cassette('get iteration by number', record: :new_episodes) do
         iterations = project.iterations(number: 2)
