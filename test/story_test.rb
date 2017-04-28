@@ -9,6 +9,7 @@ describe TrackerApi::Resources::Story do
   let(:project_id) { pt_user_1[:project_id] }
   let(:project) { VCR.use_cassette('get project') { client.project(project_id) } }
   let(:story_id) { '66728004' }
+  let(:story_in_epic_id) { '66728030' }
   let(:another_story_id) { '66728000' }
   let(:story_id_no_existing_labels) { '82330712' }
   let(:story) { VCR.use_cassette('get story') { project.story(story_id) } }
@@ -67,6 +68,28 @@ describe TrackerApi::Resources::Story do
 
     story.labels.wont_be_empty
     story.labels.map(&:name).must_include new_label_name
+  end
+
+  it 'does not remove existing labels when updating story fields' do
+    story_in_epic = nil
+    VCR.use_cassette('get story in epic') do
+      story_in_epic = project.story(story_in_epic_id)
+    end
+
+    original_labels = story_in_epic.labels
+
+    VCR.use_cassette('create story comment', record: :new_episodes) do
+      story_in_epic.create_comment text: "This is a test comment."
+    end
+
+    story_in_epic.estimate = 2
+    story_in_epic.current_state = 'started'
+
+    VCR.use_cassette('save story in epic', record: :new_episodes) do
+      story_in_epic.save
+    end
+
+    story_in_epic.labels.must_equal original_labels
   end
 
   it 'does not send unmodified fields when saving' do
