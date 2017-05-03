@@ -77,6 +77,7 @@ describe TrackerApi::Resources::Story do
     end
 
     original_labels = story_in_epic.labels
+    original_label_list = story_in_epic.label_list
 
     VCR.use_cassette('create story comment', record: :new_episodes) do
       story_in_epic.create_comment text: "This is a test comment."
@@ -90,6 +91,7 @@ describe TrackerApi::Resources::Story do
     end
 
     story_in_epic.labels.must_equal original_labels
+    story_in_epic.label_list.must_equal original_label_list
   end
 
   it 'does not send unmodified fields when saving' do
