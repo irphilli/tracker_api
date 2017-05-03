@@ -100,9 +100,9 @@ describe TrackerApi::Resources::Project do
 
         current = iterations.first
         current.velocity.must_equal 10.0
-        current.points.must_equal 10
+        current.points.must_equal 9.0
         current.accepted_points.must_equal 0
-        current.effective_points.must_equal 10.0
+        current.effective_points.must_equal 9.0
       end
     end
 
