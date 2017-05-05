@@ -21,7 +21,7 @@ module TrackerApi
       attribute :integration_id, Integer
       attribute :kind, String
       attribute :label_ids, [Integer]
-      attribute :labels, [Label]
+      attribute :labels, [Label], default: nil
       attribute :name, String
       attribute :owned_by_id, Integer # deprecated!
       attribute :owned_by, Person
@@ -62,7 +62,7 @@ module TrackerApi
       # @return [String] Comma separated list of labels.
       def label_list
         @label_list ||= begin
-          return if labels.nil? 
+          return if labels.nil?
           labels.collect(&:name).join(',')
         end
       end
