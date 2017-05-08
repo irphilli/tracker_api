@@ -36,7 +36,7 @@ module TrackerApi
       @connection = Faraday.new({ url: @url }.merge(connection_options)) do |builder|
         # response
         builder.use Faraday::Response::RaiseError
-        builder.response :json
+        builder.use ParseJsonWithSymbols
 
         # request
         builder.request :multipart
@@ -283,6 +283,17 @@ module TrackerApi
       def next_page_params
         { limit: limit, offset: next_offset }
       end
+    end
+  end
+
+  require 'faraday_middleware/response_middleware'
+  class ParseJsonWithSymbols < FaradayMiddleware::ResponseMiddleware
+    dependency do
+      require 'Oj' unless defined?(Oj)
+    end
+
+    define_parser do |body|
+      Oj.load(body, symbol_keys: true) unless body.strip.empty?
     end
   end
 end

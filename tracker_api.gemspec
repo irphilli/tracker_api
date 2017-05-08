@@ -28,10 +28,13 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'addressable'
   spec.add_dependency 'virtus'
+  spec.add_dependency 'dry-struct'
+  spec.add_dependency 'dry-equalizer'
   spec.add_dependency 'faraday', '~> 0.9.0'
   spec.add_dependency 'faraday_middleware'
   spec.add_dependency 'excon'
-  spec.add_dependency 'equalizer'
+  # spec.add_dependency 'equalizer'
   spec.add_dependency 'representable'
   spec.add_dependency 'multi_json'
+  spec.add_dependency 'oj'
 end

@@ -9,9 +9,9 @@ if defined?(ActiveSupport)
 else
   require 'core_ext/object/blank'
 end
-require 'equalizer'
 
 require 'multi_json'
+require 'oj'
 require 'representable/json'
 
 # stdlib
@@ -19,8 +19,7 @@ require 'addressable/uri'
 require 'forwardable'
 require 'logger'
 
-MultiJson.load_options = {:mode => :compat}
-MultiJson.dump_options = {:mode => :compat}
+Oj.default_options = {:mode => :compat }
 
 module TrackerApi
   autoload :Error, 'tracker_api/error'
@@ -60,8 +59,9 @@ module TrackerApi
   module Resources
     module Shared
       autoload :Base, 'tracker_api/resources/shared/base'
-      autoload :Collection, 'tracker_api/resources/shared/collection'
     end
+    autoload :Types, 'tracker_api/resources/types'
+    autoload :Resource, 'tracker_api/resources/resource'
     autoload :Activity, 'tracker_api/resources/activity'
     autoload :Account, 'tracker_api/resources/account'
     autoload :Change, 'tracker_api/resources/change'
