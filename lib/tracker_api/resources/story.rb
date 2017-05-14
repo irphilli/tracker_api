@@ -96,6 +96,18 @@ module TrackerApi
         self.owner_ids = (owner_ids ? owner_ids.dup : []).push(owner_id).uniq
       end
 
+      # Assigns owner of story
+      # @param [Person|Integer] owner
+      def add_owner(person)
+        person_id = if person.kind_of?(Person)
+                     person.id
+                   else
+                     person
+                   end
+
+        Endpoints::StoryOwners.new(client).create(project_id, id, id: person_id)
+      end
+
       # Provides a list of all the activity performed on the story.
       #
       # @param [Hash] params
