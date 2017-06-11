@@ -108,11 +108,11 @@ module TrackerApi
       #
       # @param [Hash] params
       # @return [Array[Comment]]
-      def comments(params = {})
-        if params.blank? && @comments.present?
+      def comments(reload: false)
+        if !reload && @comments.present?
           @comments
         else
-          @comments = Endpoints::Comments.new(client).get(project_id, id, params)
+          @comments = Endpoints::Comments.new(client).get(project_id, id)
         end
       end
 
@@ -161,7 +161,10 @@ module TrackerApi
       # @param [Hash] params attributes to create the comment with
       # @return [Comment] newly created Comment
       def create_comment(params)
-        Endpoints::Comment.new(client).create(project_id, id, params)
+        files = params.delete(:files)
+        comment = Endpoints::Comment.new(client).create(project_id, id, params)
+        comment.create_attachments(files: files)
+        comment
       end
 
       # Save changes to an existing Story.

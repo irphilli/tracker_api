@@ -3,6 +3,8 @@ require 'tracker_api/version'
 # dependencies
 require 'faraday'
 require 'faraday_middleware'
+require 'pathname'
+require 'mimemagic'
 
 if defined?(ActiveSupport)
   require 'active_support/core_ext/object/blank'
@@ -26,6 +28,7 @@ module TrackerApi
   autoload :Error, 'tracker_api/error'
   autoload :Client, 'tracker_api/client'
   autoload :Logger, 'tracker_api/logger'
+  autoload :FileUtility, 'tracker_api/file_utility'
 
   module Errors
     class UnexpectedData < StandardError; end
@@ -55,6 +58,8 @@ module TrackerApi
     autoload :Webhook, 'tracker_api/endpoints/webhook'
     autoload :Webhooks, 'tracker_api/endpoints/webhooks'
     autoload :StoryTransitions, 'tracker_api/endpoints/story_transitions'
+    autoload :Attachment, 'tracker_api/endpoints/attachment'
+    autoload :Attachments, 'tracker_api/endpoints/attachments'
   end
 
   module Resources
@@ -85,5 +90,6 @@ module TrackerApi
     autoload :Comment, 'tracker_api/resources/comment'
     autoload :Webhook, 'tracker_api/resources/webhook'
     autoload :StoryTransition, 'tracker_api/resources/story_transition'
+    autoload :FileAttachment, 'tracker_api/resources/file_attachment'
   end
 end
