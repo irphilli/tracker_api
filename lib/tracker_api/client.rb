@@ -251,7 +251,7 @@ module TrackerApi
       case e.response[:status]
       when 400..499 then raise TrackerApi::Errors::ClientError.new(e)
       when 500..599 then raise TrackerApi::Errors::ServerError.new(e)
-      else raise TrackerApi::Error.new(e)
+      else raise "Expected 4xx or 5xx HTTP status code"
       end
     end
 
