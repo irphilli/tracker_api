@@ -95,6 +95,10 @@ client.project(project_id).stories(fields: ':default,tasks')              # Eage
 story.comments(fields: ':default,person')                                 # Eagerly get comments and the person that made the comment for a story
 ```
 
+## Error Handling
+`TrackerApi::Errors::ClientError` is raised for 4xx HTTP status codes  
+`TrackerApi::Errors::ServerError` is raised for 5xx HTTP status codes
+
 ## Warning
 
 Direct mutation of an attribute value skips coercion and dirty tracking. Please use direct assignment or the specialized add_* methods to get expected behavior.
@@ -118,6 +122,7 @@ story.save
 
 - Add missing resources and endpoints
 - Add create, update, delete for resources
+- Error handling for [error responses](https://www.pivotaltracker.com/help/api#Error_Responses)
 
 ## Semantic Versioning
 http://semver.org/
