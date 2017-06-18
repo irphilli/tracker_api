@@ -1,0 +1,32 @@
+require_relative 'minitest_helper'
+
+describe TrackerApi::Error do
+  let(:pt_user) { PT_USER_1 }
+  let(:client) { TrackerApi::Client.new token: pt_user[:token] }
+  let(:options) { { url: nil, headers: nil } }
+
+  it 'raises ClientError for 4xx HTTP status codes' do
+    (400..499).each do |status_code|
+      mock_faraday_error(status_code)
+      assert_raises TrackerApi::Errors::ClientError do
+        client.send(:request, :get, options)
+      end
+    end
+  end
+
+  it 'raises ServerError for 5xx HTTP status codes' do
+    (500..599).each do |status_code|
+      mock_faraday_error(status_code)
+      assert_raises TrackerApi::Errors::ServerError do
+        client.send(:request, :get, options)
+      end
+    end
+  end
+
+  # Simulate the error Faraday will raise with a specific HTTP status code so
+  # we can test our rescuing of those errors
+  def mock_faraday_error(status_code)
+    ::Faraday::Connection.any_instance.stubs(:get).
+      raises(::Faraday::Error::ClientError.new(nil, { status: status_code}))
+  end
+end
