@@ -22,6 +22,15 @@ describe TrackerApi::Error do
       end
     end
   end
+  
+  it 'raises RuntimeError for HTTP status codes < 400 and > 500' do
+    [399, 600].each do |status_code|
+      mock_faraday_error(status_code)
+      assert_raises RuntimeError, "Expected 4xx or 5xx HTTP status code" do
+        client.send(:request, :get, options)
+      end
+    end
+  end
 
   # Simulate the error Faraday will raise with a specific HTTP status code so
   # we can test our rescuing of those errors
