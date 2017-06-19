@@ -163,7 +163,7 @@ module TrackerApi
       def create_comment(params)
         files = params.delete(:files)
         comment = Endpoints::Comment.new(client).create(project_id, id, params)
-        comment.create_attachments(files: files)
+        comment.create_attachments(files: files) if files.present?
         comment
       end
 

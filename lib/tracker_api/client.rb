@@ -48,40 +48,15 @@ module TrackerApi
       end
     end
 
-    # Make a HTTP GET request
+    # HTTP requests methods
     #
     # @param path [String] The path, relative to api endpoint
     # @param options [Hash] Query and header params for request
     # @return [Faraday::Response]
-    def get(path, options = {})
-      request(:get, parse_query_and_convenience_headers(path, options))
-    end
-
-    # Make a HTTP POST request
-    #
-    # @param path [String] The path, relative to api endpoint
-    # @param options [Hash] Query and header params for request
-    # @return [Faraday::Response]
-    def post(path, options = {})
-      request(:post, parse_query_and_convenience_headers(path, options))
-    end
-
-    # Make a HTTP PUT request
-    #
-    # @param path [String] The path, relative to api endpoint
-    # @param options [Hash] Query and header params for request
-    # @return [Faraday::Response]
-    def put(path, options = {})
-      request(:put, parse_query_and_convenience_headers(path, options))
-    end
-
-    # Make a HTTP DELETE request
-    #
-    # @param path [String] The path, relative to api endpoint
-    # @param options [Hash] Query and header params for request
-    # @return [Faraday::Response]
-    def delete(path, options = {})
-      request(:delete, parse_query_and_convenience_headers(path, options))
+    %i{get post patch put delete}.each do |verb|
+      define_method verb do |path, options = {}|
+        request(verb, parse_query_and_convenience_headers(path, options))
+      end
     end
 
     # Make one or more HTTP GET requests, optionally fetching
