@@ -29,6 +29,8 @@ module TrackerApi
 
   module Errors
     class UnexpectedData < StandardError; end
+    class ClientError < Error; end
+    class ServerError < Error; end
   end
 
   module Endpoints
