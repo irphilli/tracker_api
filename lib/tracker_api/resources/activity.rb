@@ -1,7 +1,7 @@
 module TrackerApi
   module Resources
     class Activity
-      include Virtus.model
+      include Shared::Base
       include Equalizer.new(:guid)
 
       attribute :client
