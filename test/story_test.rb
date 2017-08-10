@@ -79,10 +79,6 @@ describe TrackerApi::Resources::Story do
     original_labels = story_in_epic.labels
     original_label_list = story_in_epic.label_list
 
-    VCR.use_cassette('create story comment', record: :new_episodes) do
-      story_in_epic.create_comment text: "This is a test comment."
-    end
-
     story_in_epic.estimate = 2
     story_in_epic.current_state = 'started'
 
