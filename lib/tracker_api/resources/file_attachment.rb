@@ -31,10 +31,6 @@ module TrackerApi
       #   file_data = Endpoints::Attachment.new(comment.client).download(download_url)
       #   File.open(filename, 'wb') { |fp| fp.write(file_data) }
       # end
-
-      def to_upload_hash
-        self.to_hash.reject{ |k,v| k == :comment }
-      end
     end
   end
 end

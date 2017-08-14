@@ -1,5 +1,5 @@
 module TrackerApi
-	class FileUtility
+  class FileUtility
     class << self
       def get_file_upload(file)
         mime_type = MimeMagic.by_path(file)

@@ -12,7 +12,8 @@ module TrackerApi
         Resources::FileAttachment.new({ comment: comment }.merge(data))
       end
 
-      # This orphans the file, deletes source, but appears in the comments
+      # TODO : Discuss before implementing this as it orphans the file.
+      # It deletes source, but the file name appears in the comments
       # def delete(comment, file_attachment_id)
       #   client.delete("/projects/#{comment.project_id}/stories/#{comment.story_id}/comments/#{comment.id}/file_attachments/#{file_attachment_id}").body
       # end
