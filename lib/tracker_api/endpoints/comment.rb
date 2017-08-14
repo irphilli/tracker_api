@@ -15,12 +15,19 @@ module TrackerApi
       def update(comment, params={})
         raise ArgumentError, 'Valid comment required to update.' unless comment.instance_of?(Resources::Comment)
 
-        data = client.put("/projects/#{comment.project_id}/stories/#{comment.story_id}/comments/#{comment.id}",
-                          params: params).body
+        path = "/projects/#{comment.project_id}/stories/#{comment.story_id}/comments/#{comment.id}"
+        path += "?fields=:default,file_attachments" if params.represented.file_attachment_ids_to_add.present? || params.represented.file_attachment_ids_to_remove.present?
+        data = client.put(path, params: params).body
 
         comment.attributes = data
         comment.clean!
         comment
+      end
+
+      def delete(comment)
+        raise ArgumentError, 'Valid comment required to update.' unless comment.instance_of?(Resources::Comment)
+
+        client.delete("/projects/#{comment.project_id}/stories/#{comment.story_id}/comments/#{comment.id}").body
       end
     end
   end

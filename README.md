@@ -68,9 +68,20 @@ comments = story.comments                                                 #   co
 
 comment = story.create_comment(text: "Use the force!")                    # Create a new comment on the story
 
+comment = story.create_comment(text: "Use the force again !",             # Create a new comment on the story with
+                                files: ['path/to/an/existing/file'])      #     file attachments
+
 comment.text += " (please be careful)"
 comment.save                                                              # Update text of an existing comment
+comment.delete                                                            # Delete an existing comment
 
+comment.create_attachments(files: ['path/to/an/existing/file'])           # Add attachments to existing comment
+comment.delete_attachments                                                # Delete all attachments from a comment
+
+attachments = comment.attachments                                         # Get attachments associated with a comment
+attachments.first.delete                                                  # Delete a specific attachment
+
+comment.attachments(reload: true)                                         # Re-load the attachments after modification
 task = story.tasks.first                                                  # Get story tasks
 task.complete = true
 task.save                                                                 # Mark a task complete

@@ -34,6 +34,15 @@ module TrackerApi
 
         Endpoints::Epic.new(client).update(self, UpdateRepresenter.new(self))
       end
+
+      # @param [Hash] params attributes to create the comment with
+      # @return [Comment] newly created Comment
+      def create_comment(params)
+        files = params.delete(:files)
+        comment = Endpoints::Comment.new(client).create(project_id, id, params)
+        comment.create_attachments(files: files) if files.present?
+        comment
+      end
     end
   end
 end
