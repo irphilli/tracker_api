@@ -21,7 +21,7 @@ module TrackerApi
       attribute :integration_id, Integer
       attribute :kind, String
       attribute :label_ids, [Integer]
-      attribute :labels, [Label], default: nil
+      attribute :labels, [Label]
       attribute :name, String
       attribute :owned_by_id, Integer # deprecated!
       attribute :owned_by, Person
@@ -54,7 +54,20 @@ module TrackerApi
         property :deadline
         property :requested_by_id
         property :owner_ids, if: ->(_) { !owner_ids.blank? }
-        collection :labels, class: Label, decorator: Label::UpdateRepresenter, render_empty: true
+
+        # Use render_empty: false to address: https://github.com/dashofcode/tracker_api/issues/110
+        # - The default value of the labels attribute in Resources::Story is an empty array.
+        # - If the value of labels is not change (i.e. not dirty) then when a new Story
+        #   is created from the dirty attributes in the save method the labels attributes becomes
+        #   an empty array again. render_empty: false keeps this from rendering in the json passed
+        #   in the API PUT request. It is is empty then the labels will be cleared.
+        # - The next issue is that there is no way to delete all the labels from a Story with
+        #   the current implementation.
+        #
+        # NOTE: There are two solutions: 1) remove dirty tracking 2) rewrite without virtus
+        # SEE: https://github.com/dashofcode/tracker_api/pull/98
+        collection :labels, class: Label, decorator: Label::UpdateRepresenter, render_empty: false
+
         property :integration_id
         property :external_id
       end
@@ -170,6 +183,7 @@ module TrackerApi
       # Save changes to an existing Story.
       def save
         raise ArgumentError, 'Can not update a story with an unknown project_id.' if project_id.nil?
+        return self unless dirty?
 
         Endpoints::Story.new(client).update(self, UpdateRepresenter.new(Story.new(self.dirty_attributes)))
       end
