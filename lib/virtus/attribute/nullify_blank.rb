@@ -14,7 +14,7 @@ module Virtus
         if !value_coerced?(output) && input.blank?
           nil
         # Added to nullify anything that is blank not just strings.
-        elsif output.blank?
+        elsif output.blank? && output != false
           nil
         else
           output
