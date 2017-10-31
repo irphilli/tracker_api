@@ -190,7 +190,8 @@ module TrackerApi
       opts[:params] = options[:params] || {}
       opts[:token]  = options[:token] || @token
       headers       = { 'User-Agent'     => USER_AGENT,
-                        'X-TrackerToken' => opts.fetch(:token) }.merge(options.fetch(:headers, {}))
+                        'X-TrackerToken' => opts.fetch(:token),
+                        'Accept' => 'application/json' }.merge(options.fetch(:headers, {}))
 
       CONVENIENCE_HEADERS.each do |h|
         if header = options[h]
