@@ -36,7 +36,7 @@ module TrackerApi
       @connection = Faraday.new({ url: @url }.merge(connection_options)) do |builder|
         # response
         builder.use Faraday::Response::RaiseError
-        builder.response :json
+        builder.response :json, content_type: /\bjson/ # e.g., 'application/json; charset=utf-8'
 
         # request
         builder.request :multipart
@@ -190,7 +190,8 @@ module TrackerApi
       opts[:params] = options[:params] || {}
       opts[:token]  = options[:token] || @token
       headers       = { 'User-Agent'     => USER_AGENT,
-                        'X-TrackerToken' => opts.fetch(:token) }.merge(options.fetch(:headers, {}))
+                        'X-TrackerToken' => opts.fetch(:token),
+                        'Accept' => 'application/json' }.merge(options.fetch(:headers, {}))
 
       CONVENIENCE_HEADERS.each do |h|
         if header = options[h]
