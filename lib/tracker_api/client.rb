@@ -36,7 +36,7 @@ module TrackerApi
       @connection = Faraday.new({ url: @url }.merge(connection_options)) do |builder|
         # response
         builder.use Faraday::Response::RaiseError
-        builder.response :json
+        builder.response :json, content_type: /\bjson/ # e.g., 'application/json; charset=utf-8'
 
         # request
         builder.request :multipart
