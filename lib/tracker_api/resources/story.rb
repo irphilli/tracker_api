@@ -129,6 +129,18 @@ module TrackerApi
         end
       end
 
+      # Provides a list of all the comments on the story.
+      #
+      # @param [Hash] params
+      # @return [Array[Comment]]
+      def blockers(reload: false)
+        if !reload && @blockers.present?
+          @blockers
+        else
+          @blockers = Endpoints::Blockers.new(client).get(project_id, id)
+        end
+      end
+
       # Provides a list of all the tasks on the story.
       #
       # @param [Hash] params
@@ -178,6 +190,12 @@ module TrackerApi
         comment = Endpoints::Comment.new(client).create(project_id, id, params)
         comment.create_attachments(files: files) if files.present?
         comment
+      end
+
+      # @param [Hash] params attributes to create the comment with
+      # @return [Comment] newly created Comment
+      def create_blocker(params)
+        Endpoints::Blocker.new(client).create(project_id, id, params)
       end
 
       # Save changes to an existing Story.
