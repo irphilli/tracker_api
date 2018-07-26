@@ -62,6 +62,8 @@ module TrackerApi
     autoload :StoryTransitions, 'tracker_api/endpoints/story_transitions'
     autoload :Attachment, 'tracker_api/endpoints/attachment'
     autoload :Attachments, 'tracker_api/endpoints/attachments'
+    autoload :Releases, 'tracker_api/endpoints/releases'
+    autoload :Release, 'tracker_api/endpoints/release'
   end
 
   module Resources
@@ -93,5 +95,6 @@ module TrackerApi
     autoload :Webhook, 'tracker_api/resources/webhook'
     autoload :StoryTransition, 'tracker_api/resources/story_transition'
     autoload :FileAttachment, 'tracker_api/resources/file_attachment'
+    autoload :Release, 'tracker_api/resources/release'
   end
 end

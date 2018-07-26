@@ -131,6 +131,19 @@ module TrackerApi
         Endpoints::Stories.new(client).get(id, params)
       end
 
+      # Provides a list of all the releases in the project.
+      #
+      # @param [Hash] params
+      # @option params [String] :with_state A release's current_state which all returned releases must match.
+      #   Valid enumeration values: accepted, delivered, finished, started, rejected, unstarted, unscheduled
+      # @option params [Integer] :offset With the first release in your priority list as 0,
+      #   the index of the first release you want returned.
+      # @option params [Integer] :limit The number of releases you want returned.
+      # @return [Array[Release]] releases associated with this project
+      def releases(params={})
+        Endpoints::Releases.new(client).get(id, params)
+      end
+
       # Provides a list of all the memberships in the project.
       #
       # @param [Hash] params
