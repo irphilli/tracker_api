@@ -209,4 +209,16 @@ describe TrackerApi::Resources::Project do
       end
     end
   end
+
+  describe '.releases' do
+    it 'gets all of the releases for the project' do
+      VCR.use_cassette('get releases', record: :new_episodes) do
+        releases = project.releases
+
+        releases.wont_be_empty
+        releases.size.must_equal 3
+        releases.first.must_be_instance_of TrackerApi::Resources::Release
+      end
+    end
+  end
 end
