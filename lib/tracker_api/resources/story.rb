@@ -96,9 +96,9 @@ module TrackerApi
 
       # Adds a new owner to the story.
       #
-      # @param [Person|Integer] owner
+      # @param [Person|Fixnum] owner
       def add_owner(owner)
-        owner_id = if owner.kind_of?(Integer)
+        owner_id = if owner.kind_of?(Fixnum)
           owner_id = owner
         else
           raise ArgumentError, 'Valid Person expected.' unless owner.instance_of?(Resources::Person)

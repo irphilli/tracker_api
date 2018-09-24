@@ -6,7 +6,7 @@ Coveralls.wear!
 
 require 'minitest/byebug' if ENV['DEBUG']
 require 'minitest/autorun'
-require 'mocha/minitest'
+require 'mocha/mini_test'
 require 'awesome_print'
 require 'multi_json'
 require 'vcr'
