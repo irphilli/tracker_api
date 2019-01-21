@@ -54,6 +54,7 @@ module TrackerApi
         property :deadline
         property :requested_by_id
         property :owner_ids, if: ->(_) { !owner_ids.blank? }
+        property :project_id
 
         # Use render_empty: false to address: https://github.com/dashofcode/tracker_api/issues/110
         # - The default value of the labels attribute in Resources::Story is an empty array.
@@ -162,6 +163,17 @@ module TrackerApi
           @transitions
         else
           @transitions = Endpoints::StoryTransitions.new(client).get(project_id, id, params)
+        end
+      end
+
+      # Returns the story's original ("undirtied") project_id
+      #
+      # @return Integer
+      def project_id
+        if dirty_attributes.key?(:project_id)
+          original_attributes[:project_id]
+        else
+          @project_id
         end
       end
 
