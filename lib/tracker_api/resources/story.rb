@@ -199,6 +199,12 @@ module TrackerApi
 
         Endpoints::Story.new(client).update(self, UpdateRepresenter.new(Story.new(self.dirty_attributes)))
       end
+
+      def delete
+        raise ArgumentError, 'Cannot delete a story with an unknown project_id.' if project_id.nil?
+
+        Endpoints::Story.new(client).delete(self)
+      end
     end
   end
 end
