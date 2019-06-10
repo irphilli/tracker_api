@@ -34,6 +34,12 @@ module TrackerApi
         story.clean!
         story
       end
+
+      def delete
+        raise ArgumentError, 'Valid story required to update.' unless story.instance_of?(Resources::Story)
+
+        client.delete("/projects/#{story.project_id}/stories/#{story.id}").body
+      end
     end
   end
 end
