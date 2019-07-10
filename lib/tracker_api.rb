@@ -96,5 +96,7 @@ module TrackerApi
     autoload :StoryTransition, 'tracker_api/resources/story_transition'
     autoload :FileAttachment, 'tracker_api/resources/file_attachment'
     autoload :Release, 'tracker_api/resources/release'
+    autoload :CycleTimeDetails, 'tracker_api/resources/cycle_time_details'
+    autoload :DailyHistoryContainer, 'tracker_api/resources/daily_history_container'
   end
 end
