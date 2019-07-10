@@ -40,6 +40,7 @@ module TrackerApi
     autoload :Activity, 'tracker_api/endpoints/activity'
     autoload :Epic, 'tracker_api/endpoints/epic'
     autoload :Epics, 'tracker_api/endpoints/epics'
+    autoload :Iteration, 'tracker_api/endpoints/iteration'
     autoload :Iterations, 'tracker_api/endpoints/iterations'
     autoload :Labels, 'tracker_api/endpoints/labels'
     autoload :Me, 'tracker_api/endpoints/me'
