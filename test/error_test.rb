@@ -22,7 +22,7 @@ describe TrackerApi::Error do
       end
     end
   end
-  
+
   it 'raises RuntimeError for HTTP status codes < 400 and > 500' do
     [399, 600].each do |status_code|
       mock_faraday_error(status_code)
