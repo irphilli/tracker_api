@@ -20,8 +20,8 @@ describe TrackerApi::Resources::Task do
       task.save
     end
 
-    task.description.must_equal new_description
-    task.complete.must_equal true
-    task.clean?.must_equal true
+    _(task.description).must_equal new_description
+    _(task.complete).must_equal true
+    _(task.clean?).must_equal true
   end
 end
