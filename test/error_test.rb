@@ -36,6 +36,6 @@ describe TrackerApi::Error do
   # we can test our rescuing of those errors
   def mock_faraday_error(status_code)
     ::Faraday::Connection.any_instance.stubs(:get).
-      raises(::Faraday::Error::ClientError.new(nil, { status: status_code}))
+      raises(::Faraday::ClientError.new(nil, { status: status_code}))
   end
 end

@@ -5,9 +5,9 @@ module TrackerApi
     def initialize(wrapped_exception)
       @wrapped_exception = wrapped_exception
       @response          = wrapped_exception.response
-      message            = if wrapped_exception.is_a?(Faraday::Error::ParsingError)
+      message            = if wrapped_exception.is_a?(Faraday::ParsingError)
                              wrapped_exception.message
-                           elsif wrapped_exception.is_a?(Faraday::Error::ClientError)
+                           elsif wrapped_exception.is_a?(Faraday::ClientError)
                              wrapped_exception.response.inspect
                            else
                              wrapped_exception.instance_variable_get(:@wrapped_exception).inspect

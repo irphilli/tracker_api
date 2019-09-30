@@ -223,7 +223,7 @@ module TrackerApi
         req.body = body
       end
       response
-    rescue Faraday::Error::ClientError => e
+    rescue Faraday::ClientError => e
       status_code = e.response[:status]
       case status_code
       when 400..499 then raise TrackerApi::Errors::ClientError.new(e)
