@@ -35,7 +35,13 @@ describe TrackerApi::Error do
   # Simulate the error Faraday will raise with a specific HTTP status code so
   # we can test our rescuing of those errors
   def mock_faraday_error(status_code)
+    mocked_error_class = if (500..599).include?(status_code)
+      Faraday::ServerError
+    else
+      Faraday::ClientError
+    end
+
     ::Faraday::Connection.any_instance.stubs(:get).
-      raises(::Faraday::ClientError.new(nil, { status: status_code}))
+      raises(mocked_error_class.new(nil, { status: status_code}))
   end
 end
