@@ -12,13 +12,13 @@ describe TrackerApi::Resources::Workspace do
         workspace = client.workspace(pt_user[:workspace_id], fields: ':default,projects(id,name)')
         projects = workspace.projects
 
-        projects.wont_be_empty
+        _(projects).wont_be_empty
 
-        projects.size.must_equal 2
-        projects.first.must_be_instance_of TrackerApi::Resources::Project
+        _(projects.size).must_equal 2
+        _(projects.first).must_be_instance_of TrackerApi::Resources::Project
 
-        pt_user[:project_ids].must_include projects.first.id
-        pt_user[:project_ids].must_include projects.last.id
+        _(pt_user[:project_ids]).must_include projects.first.id
+        _(pt_user[:project_ids]).must_include projects.last.id
       end
     end
 

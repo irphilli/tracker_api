@@ -11,9 +11,9 @@ describe TrackerApi::Resources::FileAttachment do
   it 'can be deleted' do
     VCR.use_cassette('delete an attachment', record: :new_episodes) do
       comment_with_attachments = story.create_comment(text: "test comment", files: [File.expand_path('../Gemfile', File.dirname(__FILE__))])
-      comment_with_attachments.attachments(reload: true).size.must_equal 1
+      _(comment_with_attachments.attachments(reload: true).size).must_equal 1
       comment_with_attachments.attachments.first.delete
-      comment_with_attachments.attachments(reload: true).size.must_equal 0
+      _(comment_with_attachments.attachments(reload: true).size).must_equal 0
     end
   end
 end
