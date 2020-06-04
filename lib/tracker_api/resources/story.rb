@@ -8,6 +8,7 @@ module TrackerApi
       attribute :accepted_at, DateTime
       attribute :after_id, Integer
       attribute :before_id, Integer
+      attribute :blockers, [Blocker]
       attribute :comment_ids, [Integer]
       attribute :comments, [Comment]
       attribute :created_at, DateTime
@@ -117,6 +118,10 @@ module TrackerApi
       # @return [Array[Activity]]
       def activity(params = {})
         Endpoints::Activity.new(client).get_story(project_id, id, params)
+      end
+
+      def blockers(params = {})
+        Endpoints::Blockers.new(client).get(project_id, id, params)
       end
 
       # Provides a list of all the comments on the story.

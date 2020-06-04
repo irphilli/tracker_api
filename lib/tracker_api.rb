@@ -38,8 +38,10 @@ module TrackerApi
 
   module Endpoints
     autoload :Activity, 'tracker_api/endpoints/activity'
+    autoload :Blockers, 'tracker_api/endpoints/blockers'
     autoload :Epic, 'tracker_api/endpoints/epic'
     autoload :Epics, 'tracker_api/endpoints/epics'
+    autoload :Iteration, 'tracker_api/endpoints/iteration'
     autoload :Iterations, 'tracker_api/endpoints/iterations'
     autoload :Labels, 'tracker_api/endpoints/labels'
     autoload :Me, 'tracker_api/endpoints/me'
@@ -74,6 +76,7 @@ module TrackerApi
     end
     autoload :Activity, 'tracker_api/resources/activity'
     autoload :Account, 'tracker_api/resources/account'
+    autoload :Blocker, 'tracker_api/resources/blocker'
     autoload :Change, 'tracker_api/resources/change'
     autoload :Epic, 'tracker_api/resources/epic'
     autoload :EpicsSearchResult, 'tracker_api/resources/epics_search_result'
@@ -97,6 +100,8 @@ module TrackerApi
     autoload :StoryTransition, 'tracker_api/resources/story_transition'
     autoload :FileAttachment, 'tracker_api/resources/file_attachment'
     autoload :Release, 'tracker_api/resources/release'
+    autoload :CycleTimeDetails, 'tracker_api/resources/cycle_time_details'
+    autoload :DailyHistoryContainer, 'tracker_api/resources/daily_history_container'
     autoload :Review, 'tracker_api/resources/review'
     autoload :ReviewType, 'tracker_api/resources/review_type'
   end
