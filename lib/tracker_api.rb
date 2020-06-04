@@ -64,6 +64,7 @@ module TrackerApi
     autoload :Attachments, 'tracker_api/endpoints/attachments'
     autoload :Releases, 'tracker_api/endpoints/releases'
     autoload :Release, 'tracker_api/endpoints/release'
+    autoload :Reviews, 'tracker_api/endpoints/reviews'
   end
 
   module Resources
@@ -96,5 +97,7 @@ module TrackerApi
     autoload :StoryTransition, 'tracker_api/resources/story_transition'
     autoload :FileAttachment, 'tracker_api/resources/file_attachment'
     autoload :Release, 'tracker_api/resources/release'
+    autoload :Review, 'tracker_api/resources/review'
+    autoload :ReviewType, 'tracker_api/resources/review_type'
   end
 end

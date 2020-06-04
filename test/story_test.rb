@@ -302,4 +302,21 @@ describe TrackerApi::Resources::Story do
       end
     end
   end
+
+  describe '.reviews' do
+    it 'gets all reviews (and review_types field by default) for the story' do
+      VCR.use_cassette('get story reviews', record: :new_episodes) do
+        story = TrackerApi::Resources::Story.new( client:     client,
+                                                  project_id: project_id,
+                                                  id:         story_id)
+
+        reviews = story.reviews
+        review = reviews.first
+        _(review).must_be_instance_of TrackerApi::Resources::Review
+        _(review.review_type).must_be_instance_of TrackerApi::Resources::ReviewType
+        _(review.review_type.name).must_equal 'Test (QA)'
+        _(review.status).must_equal 'unstarted'
+      end
+    end
+  end
 end

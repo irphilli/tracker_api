@@ -31,6 +31,7 @@ module TrackerApi
       attribute :project_id, Integer
       attribute :requested_by, Person
       attribute :requested_by_id, Integer
+      attribute :reviews, [Review]
       attribute :story_type, String # (feature, bug, chore, release)
       attribute :task_ids, [Integer]
       attribute :tasks, [Task]
@@ -198,6 +199,14 @@ module TrackerApi
         return self unless dirty?
 
         Endpoints::Story.new(client).update(self, UpdateRepresenter.new(Story.new(self.dirty_attributes)))
+      end
+
+      def reviews(params = {})
+          if params.blank? && @reviews.present?
+            @reviews
+          else
+            @reviews = Endpoints::Reviews.new(client).get(project_id, id, params)
+          end
       end
     end
   end
