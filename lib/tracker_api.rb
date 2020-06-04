@@ -66,6 +66,7 @@ module TrackerApi
     autoload :Attachments, 'tracker_api/endpoints/attachments'
     autoload :Releases, 'tracker_api/endpoints/releases'
     autoload :Release, 'tracker_api/endpoints/release'
+    autoload :Reviews, 'tracker_api/endpoints/reviews'
   end
 
   module Resources
@@ -101,5 +102,7 @@ module TrackerApi
     autoload :Release, 'tracker_api/resources/release'
     autoload :CycleTimeDetails, 'tracker_api/resources/cycle_time_details'
     autoload :DailyHistoryContainer, 'tracker_api/resources/daily_history_container'
+    autoload :Review, 'tracker_api/resources/review'
+    autoload :ReviewType, 'tracker_api/resources/review_type'
   end
 end

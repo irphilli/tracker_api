@@ -22,7 +22,7 @@ describe TrackerApi::Error do
       end
     end
   end
-  
+
   it 'raises RuntimeError for HTTP status codes < 400 and > 500' do
     [399, 600].each do |status_code|
       mock_faraday_error(status_code)
@@ -35,7 +35,13 @@ describe TrackerApi::Error do
   # Simulate the error Faraday will raise with a specific HTTP status code so
   # we can test our rescuing of those errors
   def mock_faraday_error(status_code)
+    mocked_error_class = if (500..599).include?(status_code) && Faraday::VERSION.to_f >= 16.0
+      Faraday::ServerError
+    else
+      Faraday::ClientError
+    end
+
     ::Faraday::Connection.any_instance.stubs(:get).
-      raises(::Faraday::Error::ClientError.new(nil, { status: status_code}))
+      raises(mocked_error_class.new(nil, { status: status_code}))
   end
 end

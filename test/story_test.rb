@@ -22,8 +22,8 @@ describe TrackerApi::Resources::Story do
       story.save
     end
 
-    story.name.must_equal new_name
-    story.clean?.must_equal true
+    _(story.name).must_equal new_name
+    _(story.clean?).must_equal true
   end
 
   it 'can update multiple attributes of an existing story at once' do
@@ -36,14 +36,14 @@ describe TrackerApi::Resources::Story do
       story.save
     end
 
-    story.name.must_equal new_name
-    story.description.must_equal new_desc
+    _(story.name).must_equal new_name
+    _(story.description).must_equal new_desc
   end
 
   it 'can add new labels to an existing story' do
     new_label_name = "super-special-label"
 
-    story.labels.map(&:name).wont_include new_label_name
+    _(story.labels.map(&:name)).wont_include new_label_name
 
     story.add_label(new_label_name)
 
@@ -51,13 +51,13 @@ describe TrackerApi::Resources::Story do
       story.save
     end
 
-    story.labels.wont_be_empty
-    story.labels.map(&:name).must_include new_label_name
+    _(story.labels).wont_be_empty
+    _(story.labels.map(&:name)).must_include new_label_name
   end
 
   it 'can add new labels to an existing story without existing labels' do
     story = VCR.use_cassette('get story no existing labels') { project.story(story_id_no_existing_labels) }
-    story.labels.must_be_nil
+    _(story.labels).must_be_nil
 
     new_label_name = "super-special-label"
     story.add_label(new_label_name)
@@ -66,8 +66,8 @@ describe TrackerApi::Resources::Story do
       story.save
     end
 
-    story.labels.wont_be_empty
-    story.labels.map(&:name).must_include new_label_name
+    _(story.labels).wont_be_empty
+    _(story.labels.map(&:name)).must_include new_label_name
   end
 
   it 'does not remove existing labels when updating story fields' do
@@ -86,15 +86,15 @@ describe TrackerApi::Resources::Story do
       story_in_epic.save
     end
 
-    story_in_epic.labels.must_equal original_labels
-    story_in_epic.label_list.must_equal original_label_list
+    _(story_in_epic.labels).must_equal original_labels
+    _(story_in_epic.label_list).must_equal original_label_list
   end
 
   it 'does not send unmodified fields when saving' do
     story_with_one_change = TrackerApi::Resources::Story::UpdateRepresenter.new(TrackerApi::Resources::Story.new(name: "new_name"))
     expected_json = MultiJson.dump({name: "new_name"})
 
-    expected_json.must_equal story_with_one_change.to_json
+    _(expected_json).must_equal story_with_one_change.to_json
   end
 
   it 'objects are equal based on id' do
@@ -102,15 +102,15 @@ describe TrackerApi::Resources::Story do
     story_b = VCR.use_cassette('get story') { project.story(story_id) }
     story_c = VCR.use_cassette('get another story') { project.story(another_story_id) }
 
-    story_a.must_equal story_b
-    story_a.hash.must_equal story_b.hash
-    story_a.eql?(story_b).must_equal true
-    story_a.equal?(story_b).must_equal false
+    _(story_a).must_equal story_b
+    _(story_a.hash).must_equal story_b.hash
+    _(story_a.eql?(story_b)).must_equal true
+    _(story_a.equal?(story_b)).must_equal false
 
-    story_a.wont_equal story_c
-    story_a.hash.wont_equal story_c.hash
-    story_a.eql?(story_c).must_equal false
-    story_a.equal?(story_c).must_equal false
+    _(story_a).wont_equal story_c
+    _(story_a.hash).wont_equal story_c.hash
+    _(story_a.eql?(story_c)).must_equal false
+    _(story_a.equal?(story_c)).must_equal false
   end
 
   describe '.owners' do
@@ -123,9 +123,9 @@ describe TrackerApi::Resources::Story do
       # it should not be making another HTTP request.
       owners = story.owners
 
-      owners.wont_be_empty
+      _(owners).wont_be_empty
       owner = owners.first
-      owner.must_be_instance_of TrackerApi::Resources::Person
+      _(owner).must_be_instance_of TrackerApi::Resources::Person
     end
 
     it 'gets all owners for this story' do
@@ -133,9 +133,9 @@ describe TrackerApi::Resources::Story do
         story = project.story(story_id)
         owners = VCR.use_cassette('get owners for story') { story.owners }
 
-        owners.wont_be_empty
+        _(owners).wont_be_empty
         owner = owners.first
-        owner.must_be_instance_of TrackerApi::Resources::Person
+        _(owner).must_be_instance_of TrackerApi::Resources::Person
       end
     end
   end
@@ -146,8 +146,8 @@ describe TrackerApi::Resources::Story do
         story = project.story(story_id)
         owner_ids = story.owner_ids
 
-        owner_ids.wont_be_empty
-        owner_ids.first.must_be_instance_of Fixnum
+        _(owner_ids).wont_be_empty
+        _(owner_ids.first).must_be_instance_of Fixnum
       end
     end
 
@@ -160,16 +160,16 @@ describe TrackerApi::Resources::Story do
         story.owner_ids = one_owner
         VCR.use_cassette('save story with one owner') { story.save }
 
-        story.owner_ids.wont_be_empty
-        story.owner_ids.must_equal one_owner
+        _(story.owner_ids).wont_be_empty
+        _(story.owner_ids).must_equal one_owner
 
         # save with two owners
         two_owners = [pt_user_1_id, pt_user_2_id]
         story.owner_ids = two_owners
         VCR.use_cassette('save story with two owners') { story.save }
 
-        story.owner_ids.wont_be_empty
-        story.owner_ids.must_equal two_owners
+        _(story.owner_ids).wont_be_empty
+        _(story.owner_ids).must_equal two_owners
       end
     end
   end
@@ -184,8 +184,8 @@ describe TrackerApi::Resources::Story do
 
         story.add_owner(TrackerApi::Resources::Person.new(id: 123))
 
-        story.owner_ids.wont_be_empty
-        story.owner_ids.must_equal [123]
+        _(story.owner_ids).wont_be_empty
+        _(story.owner_ids).must_equal [123]
       end
     end
 
@@ -201,8 +201,8 @@ describe TrackerApi::Resources::Story do
         # test dups are not added
         story.add_owner(123)
 
-        story.owner_ids.wont_be_empty
-        story.owner_ids.must_equal [123, 456]
+        _(story.owner_ids).wont_be_empty
+        _(story.owner_ids).must_equal [123, 456]
       end
     end
   end
@@ -212,9 +212,9 @@ describe TrackerApi::Resources::Story do
       VCR.use_cassette('get story with tasks', record: :new_episodes) do
         tasks = project.story(story_id, fields: ':default,tasks').tasks
 
-        tasks.wont_be_empty
+        _(tasks).wont_be_empty
         task = tasks.first
-        task.must_be_instance_of TrackerApi::Resources::Task
+        _(task).must_be_instance_of TrackerApi::Resources::Task
       end
     end
 
@@ -223,9 +223,9 @@ describe TrackerApi::Resources::Story do
         story = project.story(story_id)
         tasks = VCR.use_cassette('get tasks for story') { story.tasks }
 
-        tasks.wont_be_empty
+        _(tasks).wont_be_empty
         task = tasks.first
-        task.must_be_instance_of TrackerApi::Resources::Task
+        _(task).must_be_instance_of TrackerApi::Resources::Task
       end
     end
 
@@ -236,7 +236,7 @@ describe TrackerApi::Resources::Story do
           tasks = story.tasks
           unless tasks.empty?
             task = tasks.first
-            task.must_be_instance_of TrackerApi::Resources::Task
+            _(task).must_be_instance_of TrackerApi::Resources::Task
           end
         end
       end
@@ -246,10 +246,10 @@ describe TrackerApi::Resources::Story do
       VCR.use_cassette('create task') do
         task = project.story(story_id).create_task(description: 'Test task')
 
-        task.must_be_instance_of TrackerApi::Resources::Task
-        task.id.wont_be_nil
-        task.id.must_be :>, 0
-        task.description.must_equal 'Test task'
+        _(task).must_be_instance_of TrackerApi::Resources::Task
+        _(task.id).wont_be_nil
+        _(task.id).must_be :>, 0
+        _(task.description).must_equal 'Test task'
       end
     end
   end
@@ -268,9 +268,9 @@ describe TrackerApi::Resources::Story do
       VCR.use_cassette('get story activity', record: :new_episodes) do
         activity = story.activity
 
-        activity.wont_be_empty
+        _(activity).wont_be_empty
         event = activity.first
-        event.must_be_instance_of TrackerApi::Resources::Activity
+        _(event).must_be_instance_of TrackerApi::Resources::Activity
       end
     end
   end
@@ -284,7 +284,7 @@ describe TrackerApi::Resources::Story do
 
         comments = story.comments
         comment = comments.first
-        comment.must_be_instance_of TrackerApi::Resources::Comment
+        _(comment).must_be_instance_of TrackerApi::Resources::Comment
       end
     end
   end
@@ -298,7 +298,24 @@ describe TrackerApi::Resources::Story do
 
         transitions = story.transitions
         transition = transitions.first
-        transition.must_be_instance_of TrackerApi::Resources::StoryTransition
+        _(transition).must_be_instance_of TrackerApi::Resources::StoryTransition
+      end
+    end
+  end
+
+  describe '.reviews' do
+    it 'gets all reviews (and review_types field by default) for the story' do
+      VCR.use_cassette('get story reviews', record: :new_episodes) do
+        story = TrackerApi::Resources::Story.new( client:     client,
+                                                  project_id: project_id,
+                                                  id:         story_id)
+
+        reviews = story.reviews
+        review = reviews.first
+        _(review).must_be_instance_of TrackerApi::Resources::Review
+        _(review.review_type).must_be_instance_of TrackerApi::Resources::ReviewType
+        _(review.review_type.name).must_equal 'Test (QA)'
+        _(review.status).must_equal 'unstarted'
       end
     end
   end

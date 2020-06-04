@@ -2,7 +2,7 @@ require_relative 'minitest_helper'
 
 describe TrackerApi do
   it 'has a version' do
-    ::TrackerApi::VERSION.wont_be_nil
+    _(::TrackerApi::VERSION).wont_be_nil
   end
 end
 
@@ -13,10 +13,10 @@ describe TrackerApi::Client do
                                     token:       '12345',
                                     logger:      LOGGER)
 
-    client.url.must_equal 'http://test.com'
-    client.api_version.must_equal '/foo-bar/1'
-    client.token.must_equal '12345'
-    client.logger.must_equal LOGGER
+    _(client.url).must_equal 'http://test.com'
+    _(client.api_version).must_equal '/foo-bar/1'
+    _(client.token).must_equal '12345'
+    _(client.logger).must_equal LOGGER
   end
 
   describe '.projects' do
@@ -27,18 +27,18 @@ describe TrackerApi::Client do
       VCR.use_cassette('get all projects', record: :new_episodes) do
         projects = client.projects(fields: ':default,account,current_velocity,labels(name),epics(:default,label(name))')
 
-        projects.wont_be_empty
+        _(projects).wont_be_empty
         project = projects.first
-        project.must_be_instance_of TrackerApi::Resources::Project
-        project.id.must_equal pt_user[:project_id]
+        _(project).must_be_instance_of TrackerApi::Resources::Project
+        _(project.id).must_equal pt_user[:project_id]
 
-        project.account.must_be_instance_of TrackerApi::Resources::Account
+        _(project.account).must_be_instance_of TrackerApi::Resources::Account
 
-        project.labels.wont_be_empty
-        project.labels.first.must_be_instance_of TrackerApi::Resources::Label
+        _(project.labels).wont_be_empty
+        _(project.labels.first).must_be_instance_of TrackerApi::Resources::Label
 
-        project.epics.wont_be_empty
-        project.epics.first.must_be_instance_of TrackerApi::Resources::Epic
+        _(project.epics).wont_be_empty
+        _(project.epics.first).must_be_instance_of TrackerApi::Resources::Epic
       end
     end
   end
@@ -52,11 +52,11 @@ describe TrackerApi::Client do
       VCR.use_cassette('get project', record: :new_episodes) do
         project = client.project(project_id)
 
-        project.must_be_instance_of TrackerApi::Resources::Project
-        project.id.must_equal project_id
+        _(project).must_be_instance_of TrackerApi::Resources::Project
+        _(project.id).must_equal project_id
 
-        project.account.must_be_nil
-        project.account_id.wont_be_nil
+        _(project.account).must_be_nil
+        _(project.account_id).wont_be_nil
       end
     end
   end
@@ -69,9 +69,9 @@ describe TrackerApi::Client do
       VCR.use_cassette('get workspace', record: :new_episodes) do
         workspace = client.workspace(pt_user[:workspace_id])
 
-        workspace.must_be_instance_of TrackerApi::Resources::Workspace
-        workspace.id.must_equal pt_user[:workspace_id]
-        workspace.name.wont_be_empty
+        _(workspace).must_be_instance_of TrackerApi::Resources::Workspace
+        _(workspace.id).must_equal pt_user[:workspace_id]
+        _(workspace.name).wont_be_empty
       end
     end
   end
@@ -85,10 +85,10 @@ describe TrackerApi::Client do
       VCR.use_cassette('get all workspaces', record: :new_episodes) do
         workspaces = client.workspaces(fields: ':default,projects(id,name)')
 
-        workspaces.wont_be_empty
+        _(workspaces).wont_be_empty
         workspace = workspaces.first
-        workspace.must_be_instance_of TrackerApi::Resources::Workspace
-        workspace.id.must_equal pt_user[:workspace_id]
+        _(workspace).must_be_instance_of TrackerApi::Resources::Workspace
+        _(workspace.id).must_equal pt_user[:workspace_id]
       end
     end
   end
@@ -105,10 +105,10 @@ describe TrackerApi::Client do
       VCR.use_cassette('get me', record: :new_episodes) do
         me = client.me
 
-        me.must_be_instance_of TrackerApi::Resources::Me
-        me.username.must_equal username
+        _(me).must_be_instance_of TrackerApi::Resources::Me
+        _(me.username).must_equal username
 
-        me.projects.map(&:project_id).must_include project_id
+        _(me.projects.map(&:project_id)).must_include project_id
       end
     end
   end
@@ -124,14 +124,14 @@ describe TrackerApi::Client do
 
         # skip pagination with a hugh limit
         unpaged_stories = project.stories(limit: 300)
-        unpaged_stories.wont_be_empty
-        unpaged_stories.length.must_be :>, 7
+        _(unpaged_stories).wont_be_empty
+        _(unpaged_stories.length).must_be :>, 7
 
         # force pagination with a small limit
         paged_stories = project.stories(limit: 7)
-        paged_stories.wont_be_empty
-        paged_stories.length.must_equal unpaged_stories.length
-        paged_stories.map(&:id).sort.uniq.must_equal unpaged_stories.map(&:id).sort.uniq
+        _(paged_stories).wont_be_empty
+        _(paged_stories.length).must_equal unpaged_stories.length
+        _(paged_stories.map(&:id).sort.uniq).must_equal unpaged_stories.map(&:id).sort.uniq
       end
     end
 
@@ -141,8 +141,8 @@ describe TrackerApi::Client do
 
         # force no pagination
         stories = project.stories(limit: 7, auto_paginate: false)
-        stories.wont_be_empty
-        stories.length.must_equal 7
+        _(stories).wont_be_empty
+        _(stories.length).must_equal 7
       end
     end
 
@@ -152,8 +152,8 @@ describe TrackerApi::Client do
 
         done_iterations = project.iterations(scope: :done, offset: -12, limit: 5)
 
-        done_iterations.wont_be_empty
-        done_iterations.length.must_be :<=, 12
+        _(done_iterations).wont_be_empty
+        _(done_iterations.length).must_be :<=, 12
       end
     end
   end
@@ -166,8 +166,8 @@ describe TrackerApi::Client do
       VCR.use_cassette('client: get single story by story id', record: :new_episodes) do
         story = client.story('66728004', fields: ':default,owned_by')
 
-        story.must_be_instance_of TrackerApi::Resources::Story
-        story.owned_by.wont_be_nil
+        _(story).must_be_instance_of TrackerApi::Resources::Story
+        _(story.owned_by).wont_be_nil
       end
     end
   end
@@ -180,8 +180,8 @@ describe TrackerApi::Client do
       VCR.use_cassette('client: get single epic by epic id', record: :new_episodes) do
         epic = client.epic('1087314', fields: ':default,label_id')
 
-        epic.must_be_instance_of TrackerApi::Resources::Epic
-        epic.label_id.wont_be_nil
+        _(epic).must_be_instance_of TrackerApi::Resources::Epic
+        _(epic.label_id).wont_be_nil
       end
     end
   end
@@ -194,13 +194,13 @@ describe TrackerApi::Client do
       VCR.use_cassette('get all notifications', record: :new_episodes) do
         notifications = client.notifications
 
-        notifications.wont_be_empty
+        _(notifications).wont_be_empty
         notification = notifications.first
-        notification.must_be_instance_of TrackerApi::Resources::Notification
+        _(notification).must_be_instance_of TrackerApi::Resources::Notification
 
-        notification.project.id.must_equal pt_user[:project_id]
-        notification.story.must_be_instance_of TrackerApi::Resources::Story
-        notification.performer.must_be_instance_of TrackerApi::Resources::Person
+        _(notification.project.id).must_equal pt_user[:project_id]
+        _(notification.story).must_be_instance_of TrackerApi::Resources::Story
+        _(notification.performer).must_be_instance_of TrackerApi::Resources::Person
       end
     end
   end
@@ -213,19 +213,19 @@ describe TrackerApi::Client do
       VCR.use_cassette('get my activities', record: :new_episodes) do
         activities = client.activity(fields: ':default')
 
-        activities.wont_be_empty
+        _(activities).wont_be_empty
         activity = activities.first
-        activity.must_be_instance_of TrackerApi::Resources::Activity
+        _(activity).must_be_instance_of TrackerApi::Resources::Activity
 
-        activity.changes.wont_be_empty
-        activity.changes.first.must_be_instance_of TrackerApi::Resources::Change
+        _(activity.changes).wont_be_empty
+        _(activity.changes.first).must_be_instance_of TrackerApi::Resources::Change
 
-        activity.primary_resources.wont_be_empty
-        activity.primary_resources.first.must_be_instance_of TrackerApi::Resources::PrimaryResource
+        _(activity.primary_resources).wont_be_empty
+        _(activity.primary_resources.first).must_be_instance_of TrackerApi::Resources::PrimaryResource
 
-        activity.project.must_be_instance_of TrackerApi::Resources::Project
+        _(activity.project).must_be_instance_of TrackerApi::Resources::Project
 
-        activity.performed_by.must_be_instance_of TrackerApi::Resources::Person
+        _(activity.performed_by).must_be_instance_of TrackerApi::Resources::Person
       end
     end
   end
