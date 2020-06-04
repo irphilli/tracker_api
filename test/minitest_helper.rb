@@ -8,7 +8,7 @@ require 'minitest/byebug' if ENV['DEBUG']
 require 'minitest/autorun'
 
 require 'mocha'
-Mocha::VERSION.to_f >= 1.9 ? require('mocha/minitest') : require('mocha/mini_test')
+require('mocha/minitest')
 
 require 'awesome_print'
 require 'multi_json'
