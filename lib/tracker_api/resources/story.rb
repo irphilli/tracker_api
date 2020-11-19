@@ -30,6 +30,7 @@ module TrackerApi
       attribute :owners, [Person]
       attribute :planned_iteration_number, Integer
       attribute :project_id, Integer
+      attribute :pull_requests, [PullRequest]
       attribute :requested_by, Person
       attribute :requested_by_id, Integer
       attribute :reviews, [Review]

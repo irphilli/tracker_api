@@ -90,6 +90,7 @@ module TrackerApi
     autoload :PrimaryResource, 'tracker_api/resources/primary_resource'
     autoload :Project, 'tracker_api/resources/project'
     autoload :ProjectMembership, 'tracker_api/resources/project_membership'
+    autoload :PullRequest, 'tracker_api/resources/pull_request'
     autoload :Workspace, 'tracker_api/resources/workspace'
     autoload :SearchResultContainer, 'tracker_api/resources/search_result_container'
     autoload :StoriesSearchResult, 'tracker_api/resources/stories_search_result'
