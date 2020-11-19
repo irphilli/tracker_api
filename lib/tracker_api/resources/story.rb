@@ -30,6 +30,7 @@ module TrackerApi
       attribute :owners, [Person]
       attribute :planned_iteration_number, Integer
       attribute :project_id, Integer
+      attribute :pull_request_ids, [Integer]
       attribute :requested_by, Person
       attribute :requested_by_id, Integer
       attribute :reviews, [Review]
@@ -57,6 +58,7 @@ module TrackerApi
         property :requested_by_id
         property :owner_ids, if: ->(_) { !owner_ids.blank? }
         property :project_id
+        property :pull_request_ids, if: ->(_) { !pull_request_ids.blank? }
 
         # Use render_empty: false to address: https://github.com/dashofcode/tracker_api/issues/110
         # - The default value of the labels attribute in Resources::Story is an empty array.
