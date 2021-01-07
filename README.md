@@ -86,6 +86,10 @@ task = story.tasks.first                                                  # Get 
 task.complete = true
 task.save                                                                 # Mark a task complete
 
+review = story.reviews.first                                              # Mark a review as complete
+review.status = 'pass'
+review.save
+
 epics = project.epics                                                     # Get all epics for a project
 epic  = epics.first
 label = epic.label                                                        # Get an epic's label
