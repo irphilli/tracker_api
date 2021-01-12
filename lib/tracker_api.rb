@@ -66,6 +66,7 @@ module TrackerApi
     autoload :Attachments, 'tracker_api/endpoints/attachments'
     autoload :Releases, 'tracker_api/endpoints/releases'
     autoload :Release, 'tracker_api/endpoints/release'
+    autoload :Review, 'tracker_api/endpoints/review'
     autoload :Reviews, 'tracker_api/endpoints/reviews'
   end
 
