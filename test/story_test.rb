@@ -147,7 +147,7 @@ describe TrackerApi::Resources::Story do
         owner_ids = story.owner_ids
 
         _(owner_ids).wont_be_empty
-        _(owner_ids.first).must_be_instance_of Fixnum
+        _(owner_ids.first).must_be_instance_of Integer
       end
     end
 

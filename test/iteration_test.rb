@@ -12,9 +12,9 @@ describe TrackerApi::Resources::Iteration do
       VCR.use_cassette('get cycle time details', record: :new_episodes) do
         cycle_time_details = iteration.cycle_time_details
 
-        cycle_time_details.wont_be_empty
+        _(cycle_time_details).wont_be_empty
         cycle_time_detail = cycle_time_details.first
-        cycle_time_detail.must_be_instance_of TrackerApi::Resources::CycleTimeDetails
+        _(cycle_time_detail).must_be_instance_of TrackerApi::Resources::CycleTimeDetails
       end
     end
   end
@@ -24,7 +24,7 @@ describe TrackerApi::Resources::Iteration do
       VCR.use_cassette('get daily history container', record: :new_episodes) do
         daily_history_container = iteration.get_history
 
-        daily_history_container.must_be_instance_of TrackerApi::Resources::DailyHistoryContainer
+        _(daily_history_container).must_be_instance_of TrackerApi::Resources::DailyHistoryContainer
       end
     end
   end

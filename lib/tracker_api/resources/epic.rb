@@ -25,6 +25,7 @@ module TrackerApi
 
         property :name
         property :description
+        property :comments
         property :label, class: Label, decorator: Label::UpdateRepresenter, render_empty: true
       end
 
@@ -35,11 +36,20 @@ module TrackerApi
         Endpoints::Epic.new(client).update(self, UpdateRepresenter.new(self))
       end
 
+      # Provides a list of all the comments on the epic.
+      def comments(reload: false)
+        if !reload && @comments.present?
+          @comments
+        else
+          @comments = Endpoints::Comments.new(client).get(project_id, epic_id: id)
+        end
+      end
+
       # @param [Hash] params attributes to create the comment with
       # @return [Comment] newly created Comment
       def create_comment(params)
         files = params.delete(:files)
-        comment = Endpoints::Comment.new(client).create(project_id, id, params)
+        comment = Endpoints::Comment.new(client).create(project_id, epic_id: id, params: params)
         comment.create_attachments(files: files) if files.present?
         comment
       end
