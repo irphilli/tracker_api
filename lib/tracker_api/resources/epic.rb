@@ -25,7 +25,6 @@ module TrackerApi
 
         property :name
         property :description
-        property :comments
         property :label, class: Label, decorator: Label::UpdateRepresenter, render_empty: true
       end
 
