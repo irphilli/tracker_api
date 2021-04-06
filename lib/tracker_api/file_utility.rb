@@ -2,7 +2,7 @@ module TrackerApi
   class FileUtility
     class << self
       def get_file_upload(file)
-        mime_type = MimeMagic.by_path(file)
+        mime_type = MiniMime.lookup_by_filename(file)
         { :file => Faraday::UploadIO.new(file, mime_type) }
       end
 

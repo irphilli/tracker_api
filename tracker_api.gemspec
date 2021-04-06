@@ -34,5 +34,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'equalizer'
   spec.add_dependency 'representable'
   spec.add_dependency 'multi_json'
-  spec.add_dependency 'mimemagic'
+  spec.add_dependency 'mini_mime'
 end
