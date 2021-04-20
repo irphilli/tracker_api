@@ -1,10 +1,9 @@
 # TrackerApi
 
 [![Gem Version](https://badge.fury.io/rb/tracker_api.png)](http://badge.fury.io/rb/tracker_api)
-[![Build Status](https://travis-ci.org/dashofcode/tracker_api.png?branch=master)](https://travis-ci.org/dashofcode/tracker_api)
+[![Build Status](https://github.com/ProductPlan/tracker_api/actions/workflows/ruby-tests.yml/badge.svg?branch=master)](https://github.com/ProductPlan/tracker_api/actions)
 [![Code Climate](https://codeclimate.com/github/dashofcode/tracker_api.png)](https://codeclimate.com/github/dashofcode/tracker_api)
 [![Coverage Status](https://coveralls.io/repos/dashofcode/tracker_api/badge.png?branch=master)](https://coveralls.io/r/dashofcode/tracker_api?branch=master)
-[![Dependency Status](https://gemnasium.com/dashofcode/tracker_api.png)](https://gemnasium.com/dashofcode/tracker_api)
 
 This gem allows you to easily use the [Pivotal Tracker v5 API](https://www.pivotaltracker.com/help/api/rest/v5).
 
