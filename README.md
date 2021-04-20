@@ -2,8 +2,8 @@
 
 [![Gem Version](https://badge.fury.io/rb/tracker_api.png)](http://badge.fury.io/rb/tracker_api)
 [![Build Status](https://github.com/ProductPlan/tracker_api/actions/workflows/ruby-tests.yml/badge.svg?branch=master)](https://github.com/ProductPlan/tracker_api/actions)
-[![Code Climate](https://codeclimate.com/github/dashofcode/tracker_api.png)](https://codeclimate.com/github/dashofcode/tracker_api)
-[![Coverage Status](https://coveralls.io/repos/github/ProductPlan/tracker_api/badge.svg?branch=master)](https://coveralls.io/github/ProductPlan/tracker_api?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/c4602f519cd748d53492/maintainability)](https://codeclimate.com/github/ProductPlan/tracker_api/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/c4602f519cd748d53492/test_coverage)](https://codeclimate.com/github/ProductPlan/tracker_api/test_coverage)
 
 This gem allows you to easily use the [Pivotal Tracker v5 API](https://www.pivotaltracker.com/help/api/rest/v5).
 
