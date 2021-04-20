@@ -101,7 +101,7 @@ module TrackerApi
       #
       # @param [Person|Fixnum] owner
       def add_owner(owner)
-        owner_id = if owner.kind_of?(Fixnum)
+        owner_id = if owner.kind_of?(Integer)
           owner_id = owner
         else
           raise ArgumentError, 'Valid Person expected.' unless owner.instance_of?(Resources::Person)
@@ -132,7 +132,7 @@ module TrackerApi
         if !reload && @comments.present?
           @comments
         else
-          @comments = Endpoints::Comments.new(client).get(project_id, id)
+          @comments = Endpoints::Comments.new(client).get(project_id, story_id: id)
         end
       end
 
@@ -193,7 +193,7 @@ module TrackerApi
       # @return [Comment] newly created Comment
       def create_comment(params)
         files = params.delete(:files)
-        comment = Endpoints::Comment.new(client).create(project_id, id, params)
+        comment = Endpoints::Comment.new(client).create(project_id, story_id: id, params: params)
         comment.create_attachments(files: files) if files.present?
         comment
       end

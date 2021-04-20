@@ -32,13 +32,13 @@ module TrackerApi
       end
 
       def save
-        raise ArgumentError, 'Cannot update a comment with an unknown story_id.' if story_id.nil?
+        raise ArgumentError, 'Cannot update a comment with an unknown story_id or epic_id.' if story_id.nil? && epic_id.nil?
 
         Endpoints::Comment.new(client).update(self, UpdateRepresenter.new(Comment.new(self.dirty_attributes)))
       end
 
       def delete
-        raise ArgumentError, 'Cannot delete a comment with an unknown story_id.' if story_id.nil?
+        raise ArgumentError, 'Cannot delete a comment with an unknown story_id or epic_id.' if story_id.nil? && epic_id.nil?
 
         Endpoints::Comment.new(client).delete(self)
       end

@@ -19,7 +19,9 @@ module TrackerApi
       # end
 
       def get(comment)
-        data = client.get("/projects/#{comment.project_id}/stories/#{comment.story_id}/comments/#{comment.id}?fields=file_attachments").body["file_attachments"]
+        comment_target_slug = !comment.story_id.nil? ? "stories/#{comment.story_id}" : "epics/#{comment.epic_id}"
+
+        data = client.get("/projects/#{comment.project_id}/#{comment_target_slug}/comments/#{comment.id}?fields=file_attachments").body["file_attachments"]
         raise Errors::UnexpectedData, 'Array of file attachments expected' unless data.is_a? Array
 
         data.map do |file_attachment|
