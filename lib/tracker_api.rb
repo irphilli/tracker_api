@@ -4,7 +4,7 @@ require 'tracker_api/version'
 require 'faraday'
 require 'faraday_middleware'
 require 'pathname'
-require 'mimemagic'
+require 'mini_mime'
 
 if defined?(ActiveSupport)
   require 'active_support/core_ext/object/blank'
