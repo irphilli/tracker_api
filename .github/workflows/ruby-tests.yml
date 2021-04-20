@@ -25,20 +25,10 @@ jobs:
       run: bundle install
     - name: Run tests
       run: bundle exec rake test
-    - name: Coveralls Parallel
-      uses: coverallsapp/github-action@master
+    - name: Upload Coverage
+      uses: paambaati/codeclimate-action@v2.7.5
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       with:
-        github-token: ${{ secrets.github_token }}
-        path-to-lcov: coverage/lcov/tracker_api.lcov
-        flag-name: run-${{ matrix.ruby-version }}
-        parallel: true
-
-  finish:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-    - name: Coveralls Finished
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.github_token }}
-        parallel-finished: true
+        coverageLocations: ${{github.workspace}}/coverage/.resultset.json:simplecov
+      if: matrix.ruby-version == '2.7'
