@@ -1,6 +1,6 @@
 # TrackerApi
 
-[![Gem Version](https://badge.fury.io/rb/tracker_api.png)](http://badge.fury.io/rb/tracker_api)
+[![Gem Version](https://badge.fury.io/rb/tracker_api.svg)](http://badge.fury.io/rb/tracker_api)
 [![Build Status](https://github.com/ProductPlan/tracker_api/actions/workflows/ruby-tests.yml/badge.svg?branch=master)](https://github.com/ProductPlan/tracker_api/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/c4602f519cd748d53492/maintainability)](https://codeclimate.com/github/ProductPlan/tracker_api/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/c4602f519cd748d53492/test_coverage)](https://codeclimate.com/github/ProductPlan/tracker_api/test_coverage)
