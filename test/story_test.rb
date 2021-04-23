@@ -319,4 +319,16 @@ describe TrackerApi::Resources::Story do
       end
     end
   end
+
+  describe '.pull_requests' do
+    it 'gets all pull requests for the story' do
+      pull_requests = VCR.use_cassette('get story with pull requests', record: :new_episodes) do
+        project.story(story_id, fields: ':default,pull_requests').pull_requests
+      end
+
+      _(pull_requests).wont_be_empty
+      pull_request = pull_requests.first
+      _(pull_request).must_be_instance_of TrackerApi::Resources::PullRequest
+    end
+  end
 end
