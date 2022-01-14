@@ -4,4 +4,4 @@ source 'https://rubygems.org'
 gemspec
 
 # pinned until code climate figures out the new output format https://github.com/codeclimate/test-reporter/issues/418
-gem 'simplecov', '< 0.18', require: false, group: :test
+gem 'simplecov', '<= 0.21.2', require: false, group: :test
