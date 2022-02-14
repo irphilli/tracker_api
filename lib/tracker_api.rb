@@ -2,7 +2,8 @@ require 'tracker_api/version'
 
 # dependencies
 require 'faraday'
-require 'faraday_middleware'
+require 'faraday/excon'
+require 'faraday/multipart'
 require 'pathname'
 require 'mini_mime'
 
