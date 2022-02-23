@@ -9,6 +9,12 @@ This gem allows you to easily use the [Pivotal Tracker v5 API](https://www.pivot
 
 It’s powered by [Faraday](https://github.com/lostisland/faraday) and [Virtus](https://github.com/solnic/virtus).
 
+## Compatibility
+
+This gem is tested against the following officially supported Ruby versions:
+ - Minimum Ruby Version: 2.6.x
+ - Latest Ruby Supported: 3.1.x
+
 ## Installation
 
 Add this line to your application's Gemfile:
