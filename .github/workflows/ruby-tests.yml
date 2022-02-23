@@ -10,6 +10,8 @@ jobs:
   test:
 
     runs-on: ubuntu-latest
+    env:
+      CC_TEST_REPORTER_ID: 2a6849be8214739deef0090b810b945ce9a550a4d8279d242cb03242d1ad53c5
 
     strategy:
       matrix:
@@ -26,9 +28,5 @@ jobs:
     - name: Run tests
       run: bundle exec rake test
     - name: Upload Coverage
-      uses: paambaati/codeclimate-action@v2.7.5
-      env:
-        CC_TEST_REPORTER_ID: 2a6849be8214739deef0090b810b945ce9a550a4d8279d242cb03242d1ad53c5
-      with:
-        coverageLocations: ${{github.workspace}}/coverage/.resultset.json:simplecov
+      uses: paambaati/codeclimate-action@v3.0.0
       if: matrix.ruby-version == '3.1'
