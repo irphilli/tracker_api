@@ -24,6 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'mocha'
   spec.add_development_dependency 'awesome_print'
   spec.add_development_dependency 'vcr'
+  spec.add_development_dependency 'simplecov'
   # spec.add_development_dependency 'minitest-byebug'
 
   spec.add_dependency 'addressable'
