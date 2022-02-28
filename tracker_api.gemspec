@@ -29,9 +29,8 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'addressable'
   spec.add_dependency 'virtus'
-  spec.add_dependency 'faraday'
-  spec.add_dependency 'faraday_middleware'
-  spec.add_dependency 'excon'
+  spec.add_dependency 'faraday', ['>= 1.10', '< 3.0']
+  spec.add_dependency 'faraday-multipart'
   spec.add_dependency 'equalizer'
   spec.add_dependency 'representable'
   spec.add_dependency 'multi_json'
