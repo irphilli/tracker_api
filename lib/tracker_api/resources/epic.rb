@@ -18,6 +18,7 @@ module TrackerApi
       attribute :project_id, Integer
       attribute :updated_at, DateTime
       attribute :completed_at, DateTime
+      attribute :projected_completion, DateTime
       attribute :url, String
 
       class UpdateRepresenter < Representable::Decorator
