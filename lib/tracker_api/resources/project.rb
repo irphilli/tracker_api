@@ -33,6 +33,7 @@ module TrackerApi
       attribute :public, Boolean
       attribute :start_date, DateTime
       attribute :start_time, DateTime
+      attribute :status, String
       attribute :time_zone, TimeZone
       attribute :updated_at, DateTime
       attribute :velocity_averaged_over, Integer
