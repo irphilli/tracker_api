@@ -12,8 +12,8 @@ It’s powered by [Faraday](https://github.com/lostisland/faraday) and [Virtus](
 ## Compatibility
 
 This gem is tested against the following officially supported Ruby versions:
- - Minimum Ruby Version: 2.6.x
- - Latest Ruby Supported: 3.1.x
+ - Minimum Ruby Version: 2.7.x
+ - Latest Ruby Supported: 3.2.x
 
 ## Installation
 

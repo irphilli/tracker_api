@@ -21,10 +21,10 @@ jobs:
           - faraday-1
           - faraday-2
         ruby-version:
+          - "3.2"
           - "3.1"
           - "3.0"
           - "2.7"
-          - "2.6"
           - jruby
           - truffleruby
 
@@ -36,11 +36,11 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
     - name: Set environment
       run: echo "COVERAGE=true" >> "$GITHUB_ENV"
-      if: matrix.ruby-version == '3.1' && matrix.gemfile == 'faraday-2'
+      if: matrix.ruby-version == '3.2' && matrix.gemfile == 'faraday-2'
     - name: Install dependencies
       run: bundle install
     - name: Run tests
       run: bundle exec rake test
     - name: Upload Coverage
       uses: paambaati/codeclimate-action@v3.2.0
-      if: matrix.ruby-version == '3.1' && matrix.gemfile == 'faraday-2'
+      if: matrix.ruby-version == '3.2' && matrix.gemfile == 'faraday-2'
