@@ -34,6 +34,9 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby-version }}
+    - name: Set environment
+      run: echo "COVERAGE=true" >> "$GITHUB_ENV"
+      if: matrix.ruby-version == '3.1' && matrix.gemfile == 'faraday-2'
     - name: Install dependencies
       run: bundle install
     - name: Run tests

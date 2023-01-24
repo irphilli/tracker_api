@@ -1,8 +1,10 @@
 #Bundler.require(:test)
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
-require 'simplecov'
-SimpleCov.start
+if ENV['COVERAGE'] == 'true'
+  require 'simplecov'
+  SimpleCov.start
+end
 
 require 'minitest/byebug' if ENV['DEBUG']
 require 'minitest/autorun'
