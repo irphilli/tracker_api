@@ -6,11 +6,11 @@ require 'tracker_api/version'
 Gem::Specification.new do |spec|
   spec.name        = 'tracker_api'
   spec.version     = TrackerApi::VERSION
-  spec.authors     = ['ProductPlan']
-  spec.email       = ['development@productplan.com']
+  spec.authors     = ['Phil Phillips', 'Forest Carlisle', 'ProductPlan']
+  spec.email       = ['irving.phillips@gmail.com']
   spec.summary     = %q{API client for the Pivotal Tracker v5 API}
   spec.description = %q{This gem allows you to easily use the Pivotal Tracker v5 API.}
-  spec.homepage    = 'https://github.com/ProductPlan/tracker_api'
+  spec.homepage    = 'https://github.com/irphilli/tracker_api'
   spec.license     = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
