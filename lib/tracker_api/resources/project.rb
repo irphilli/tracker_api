@@ -63,6 +63,10 @@ module TrackerApi
         end
       end
 
+      def label(label_id, params = {})
+        Endpoints::Labels.new(client).get_label(id,label_id, params)
+      end
+
       # Provides a list of all the epics in the project.
       #
       # @param [Hash] params
