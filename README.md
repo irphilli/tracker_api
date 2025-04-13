@@ -1,3 +1,5 @@
+⚠   **NOTICE**: With Pivotal Tracker [announcing end-of-life](https://www.pivotaltracker.com/blog/2024-09-18-end-of-life), support for this gem is discontinued as well.
+
 # TrackerApi
 
 [![Gem Version](https://badge.fury.io/rb/tracker_api.svg)](http://badge.fury.io/rb/tracker_api)
