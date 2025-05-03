@@ -1,0 +1,115 @@
+{
+    "http_interactions":
+    [
+        {
+            "request":
+            {
+                "method": "get",
+                "uri": "https://www.pivotaltracker.com/services/v5/projects/1027488/label/5431",
+                "body":
+                {
+                    "encoding": "US-ASCII",
+                    "string": ""
+                },
+                "headers":
+                {
+                    "User-Agent":
+                    [
+                        "Ruby/2.2.3 (x86_64-darwin15; ruby) TrackerApi/0.2.12 Faraday/0.9.2"
+                    ],
+                    "X-TrackerToken":
+                    [
+                        "d55c3bc1f74346b843ca84ba340b29bf"
+                    ]
+                }
+            },
+            "response":
+            {
+                "status":
+                {
+                    "code": 200,
+                    "message": null
+                },
+                "headers":
+                {
+                    "Content-Type":
+                    [
+                        "application/json; charset=utf-8"
+                    ],
+                    "Status":
+                    [
+                        "200 OK"
+                    ],
+                    "Cache-Control":
+                    [
+                        "max-age=0, private, must-revalidate"
+                    ],
+                    "Date":
+                    [
+                        "Sat, 13 Feb 2016 23:35:55 GMT"
+                    ],
+                    "X-Tracker-Project-Version":
+                    [
+                        "112"
+                    ],
+                    "X-Request-Id":
+                    [
+                        "47d462e385f9e42fa2121b900e118f50"
+                    ],
+                    "X-UA-Compatible":
+                    [
+                        "IE=Edge,chrome=1"
+                    ],
+                    "ETag":
+                    [
+                        "\"09b7b80839393f41a467e3262507852b\""
+                    ],
+                    "X-Runtime":
+                    [
+                        "0.045784"
+                    ],
+                    "X-Rack-Cache":
+                    [
+                        "miss"
+                    ],
+                    "X-Powered-By":
+                    [
+                        "Phusion Passenger Enterprise"
+                    ],
+                    "Server":
+                    [
+                        "nginx + Phusion Passenger"
+                    ],
+                    "Access-Control-Allow-Origin":
+                    [
+                        "*"
+                    ],
+                    "Access-Control-Allow-Credentials":
+                    [
+                        "false"
+                    ],
+                    "Access-Control-Allow-Methods":
+                    [
+                        "GET, POST, PUT, DELETE, OPTIONS"
+                    ],
+                    "Access-Control-Allow-Headers":
+                    [
+                        "X-TrackerToken,DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,X-Tracker-Warn-Unless-Project-Version-Is"
+                    ],
+                    "X-Tracker-Client-Pinger-Interval":
+                    [
+                        "12"
+                    ]
+                },
+                "body":
+                {
+                    "encoding": "UTF-8",
+                    "string": "{\"kind\":\"label\",\"id\":7849080,\"project_id\":1027488,\"name\":\"admin\",\"created_at\":\"2014-03-02T07:11:04Z\",\"updated_at\":\"2014-03-02T07:11:04Z\"}"
+                },
+                "http_version": null
+            },
+            "recorded_at": "Sat, 13 Feb 2016 23:35:55 GMT"
+        }
+    ],
+    "recorded_with": "VCR 2.9.3"
+}
